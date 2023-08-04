@@ -1,1 +1,4 @@
-<p>navigation-pane works!</p>
+<div *ngFor="let child of fileSystemService.fs.getChildrenNodes('/__folder__')">
+    <app-navigation-folder *ngIf="child.type == '__folder__'" [node]="child"/>
+</div>
+<hr>

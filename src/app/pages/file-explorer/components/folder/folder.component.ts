@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IFolderNode } from '../../interfaces/node.interface';
 
 @Component({
   selector: 'app-folder',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./folder.component.scss']
 })
 export class FolderComponent {
-
+  @Input() node!: IFolderNode;
 }

@@ -1,6 +1,6 @@
 <div *ngFor="let node of currentContent">
     <div *ngIf="node.type == '__folder__'; else file">
-        <a [routerLink]="node.path"><h5>{{node.name}}</h5></a>
+        <app-folder [node]="node"/>
     </div>
     <ng-template #file>
         <div *ngIf="node.type == '__file__'" >

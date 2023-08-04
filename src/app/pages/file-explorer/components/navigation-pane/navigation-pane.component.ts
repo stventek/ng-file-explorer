@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FilesystemService } from '../../services/filesystem/filesystem.service';
 
 @Component({
   selector: 'app-navigation-pane',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./navigation-pane.component.scss']
 })
 export class NavigationPaneComponent {
-
+  constructor(public fileSystemService: FilesystemService){}
 }

@@ -7,6 +7,7 @@ import { FilesystemService } from './services/filesystem/filesystem.service';
 import { RouterModule } from '@angular/router';
 import { FileComponent } from './components/file/file.component';
 import { FolderComponent } from './components/folder/folder.component';
+import { NavigationFolderComponent } from './components/navigation-folder/navigation-folder.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FolderComponent } from './components/folder/folder.component';
     ContentPaneComponent,
     FileComponent,
     FolderComponent,
+    NavigationFolderComponent,
   ],
   imports: [
     CommonModule,

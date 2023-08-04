@@ -48,7 +48,7 @@ export const dummyFileSystem : any = {
     parentID: '1382b6993e9f270cb1c29833be3f5750',
     parentPath: '/',
     path: '/videos',
-    children: []
+    children: ['8de9fd91f15ccda8a164bca4ab1be844']
   },
   '5f2b4d35489a8617e574060b19b7cad9': {
     type: '__folder__',
@@ -138,6 +138,16 @@ export const dummyFileSystem : any = {
     parentID: '2d03459789f153918dfc0be413fe9987',
     parentPath: '/docs/work',
     path: '/docs/work/f.ts'
+  },
+  '8de9fd91f15ccda8a164bca4ab1be844': {
+    type: '__file__',
+    name: 'test.mp4',
+    creatorName: 'Shubham Singh',
+    size: 235,
+    date: '2019-04-29',
+    parentID: 'a55cfa9e1bf87138edd25c4b1553104d',
+    parentPath: '/videos',
+    path: '/videos/test.mp4'
   }
 };
 

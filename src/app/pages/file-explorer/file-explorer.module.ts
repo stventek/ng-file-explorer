@@ -8,6 +8,9 @@ import { RouterModule } from '@angular/router';
 import { FileComponent } from './components/file/file.component';
 import { FolderComponent } from './components/folder/folder.component';
 import { NavigationFolderComponent } from './components/navigation-folder/navigation-folder.component';
+import { SearchComponent } from './components/search/search.component';
+import { FormsModule } from '@angular/forms';
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [
@@ -17,10 +20,13 @@ import { NavigationFolderComponent } from './components/navigation-folder/naviga
     FileComponent,
     FolderComponent,
     NavigationFolderComponent,
+    SearchComponent,
+    NavigationBarComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
     FileExplorerComponent

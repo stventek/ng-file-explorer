@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
+import { CurrentContent } from '../../interfaces/current-content.interface';
 
 @Component({
   selector: 'app-content-pane',
@@ -7,5 +8,5 @@ import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
   styleUrls: ['./content-pane.component.scss']
 })
 export class ContentPaneComponent {
-  @Input() currentContent!: (IFolderNode | IFileNode)[];
+  @Input() currentContent!: CurrentContent;
 }

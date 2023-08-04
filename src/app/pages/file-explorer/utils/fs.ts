@@ -5,8 +5,8 @@ import { IFileNode, IFolderNode } from "../interfaces/node.interface";
 export class FileSystemHelper {
     constructor(private graph: FSData) {}
   
-    searchBFS(keyword: string) {
-      const root = md5("/__folder__");
+    searchBFS(keyword: string, rootPath: string) {
+      const root = md5(rootPath);
       const result: Array<IFileNode | IFolderNode> = [];
       const queue = [root];
       const visited = new Set();
@@ -14,7 +14,6 @@ export class FileSystemHelper {
       while (queue.length > 0) {
         const current = queue.shift()!;
         const currentNode = this.graph[current];
-        console.log(current);
         if (currentNode.name.includes(keyword)) {
           result.push(currentNode);
         }
@@ -74,7 +73,7 @@ export class FileSystemHelper {
           return this.graph[id];
         })
       }else{
-        return []
+        throw Error('Not such node')
       }
     }
   }

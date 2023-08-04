@@ -1,4 +1,4 @@
-<div *ngFor="let node of currentContent">
+<div *ngFor="let node of currentContent.nodes">
     <div *ngIf="node.type == '__folder__'; else file">
         <app-folder [node]="node"/>
     </div>

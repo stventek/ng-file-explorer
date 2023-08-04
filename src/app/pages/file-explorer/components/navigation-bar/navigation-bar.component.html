@@ -1,0 +1,11 @@
+<nav>
+    <ng-container *ngIf="navigationItems.length > 1; else up">
+        <a [routerLink]="navigationItems[navigationItems.length - 2].path" style="margin-right: 10px;">UP</a>
+    </ng-container>
+    <ng-template #up>
+        <span>UP</span>
+    </ng-template>
+    <ng-container *ngFor="let item of navigationItems">
+        <a [routerLink]="item.path" style="margin-right: 10px;">{{item.text}}</a>
+    </ng-container>
+</nav>

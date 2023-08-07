@@ -1,6 +1,15 @@
-<a [routerLink]="node.path" (click)="toggleShowChildren()"><h5>{{node.name}}</h5></a>
-<div *ngIf="showChildren">
-    <div *ngFor="let child of fileSystemService.fs.getChildrenNodes(node.path + '__folder__')">
-        <app-navigation-folder *ngIf="child.type == '__folder__'" [node]="child"/>
-    </div>
-</div>
+<summary [routerLink]="node.path">
+    {{node.name}}
+</summary>
+<ul>
+    <ng-container *ngFor="let child of childsFolders">
+        <li *ngIf="child.type == '__folder__'">
+            <ng-container *ngIf="fileSystemService.fs.getChildrenFolders(this.child.path + '__folder__') as childNodes">
+                <details *ngIf="childNodes.length > 0; else noChildFoldersTemplate" app-navigation-folder [node]="child" [childsFolders]="childNodes"></details>
+            </ng-container>
+            <ng-template #noChildFoldersTemplate>
+                    <a [routerLink]="child.path">{{child.name}}</a>
+            </ng-template>
+        </li>
+    </ng-container>
+</ul>

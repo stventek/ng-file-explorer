@@ -65,13 +65,32 @@ export class FileSystemHelper {
       delete this.graph[nodeId];
     }
 
-    getChildrenNodes(path: string){
+    getChildrenNodes(path: string, fileType?: '__folder__' | '__file__'){
       const parent = this.graph[md5(path)] as IFolderNode;
       if(parent){
         let childs = Array.from(parent.children);
-        return childs.map(id => {
-          return this.graph[id];
-        })
+        return childs.reduce<(IFolderNode | IFileNode)[]>((result, id) => {
+          const child = this.graph[id];
+          if(fileType) {
+            if(child.type == fileType) result.push(child);
+          }
+          else result.push(child);
+          return result;
+        }, [])
+      }else{
+        throw Error('Not such node')
+      }
+    }
+
+    getChildrenFolders(path: string){
+      const parent = this.graph[md5(path)] as IFolderNode;
+      if(parent){
+        let childs = Array.from(parent.children);
+        return childs.reduce<(IFolderNode)[]>((result, id) => {
+          const child = this.graph[id];
+          if(child.type == '__folder__') result.push(child);
+          return result;
+        }, [])
       }else{
         throw Error('Not such node')
       }

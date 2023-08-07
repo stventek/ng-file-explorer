@@ -1,4 +1,12 @@
-<div *ngFor="let child of fileSystemService.fs.getChildrenNodes('/__folder__')">
-    <app-navigation-folder *ngIf="child.type == '__folder__'" [node]="child"/>
-</div>
-<hr>
+<ul class="menu menu-xs bg-base-200 rounded-lg max-w-lg w-full">
+    <ng-container *ngFor="let child of fileSystemService.fs.getChildrenNodes('/__folder__')">
+        <li *ngIf="child.type == '__folder__'">
+           <ng-container *ngIf="fileSystemService.fs.getChildrenFolders(this.child.path + '__folder__') as childNodes">
+                <details *ngIf="childNodes.length > 0; else noChildFoldersTemplate" app-navigation-folder [node]="child" [childsFolders]="childNodes"></details>
+           </ng-container>
+           <ng-template #noChildFoldersTemplate>
+                <a [routerLink]="child.path">{{child.name}}</a>
+           </ng-template>
+        </li>
+    </ng-container>
+</ul>

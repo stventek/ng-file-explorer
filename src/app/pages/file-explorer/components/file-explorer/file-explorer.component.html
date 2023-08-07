@@ -1,6 +1,8 @@
 <app-navigation-bar/>
-<app-search/>
-<app-navigation-pane/>
-<div *ngIf="$currentContent | async as currentContent">
-    <app-content-pane [currentContent]="currentContent" />
+<div class="flex">
+    <app-navigation-pane class="w-40"/>
+    <div class="flex-1" *ngIf="$currentContent | async as currentContent">
+        <app-search/>
+        <app-content-pane [currentContent]="currentContent" />
+    </div>
 </div>

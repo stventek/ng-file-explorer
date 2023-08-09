@@ -3,6 +3,7 @@ import { FilesystemService } from '../../services/filesystem/filesystem.service'
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { Observable } from 'rxjs';
 import { NavigationItem } from '../../interfaces/navigation-item.interface';
+import { faCircleUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -12,7 +13,8 @@ import { NavigationItem } from '../../interfaces/navigation-item.interface';
 export class NavigationBarComponent implements OnInit {
   $currentContent!: Observable<CurrentContent | null>; 
   navigationItems: NavigationItem[] = [];
-
+  faCircleUp = faCircleUp;
+  
   constructor(private fileSystemService: FilesystemService){
     this.$currentContent = fileSystemService.$currentContent;
   }

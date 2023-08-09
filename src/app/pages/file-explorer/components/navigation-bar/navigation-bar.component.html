@@ -2,10 +2,12 @@
     <ul>
         <li>
             <ng-container *ngIf="navigationItems.length > 1; else up">
-                <a [routerLink]="navigationItems[navigationItems.length - 2].path">UP</a>
+                <a [routerLink]="navigationItems[navigationItems.length - 2].path">
+                    <fa-icon [icon]="faCircleUp" class=""></fa-icon>
+                </a>
             </ng-container>
             <ng-template #up>
-                <span>UP</span>
+                <fa-icon [icon]="faCircleUp" class="text-neutral-content"></fa-icon>
             </ng-template>
         </li>
         <ng-container *ngFor="let item of navigationItems">

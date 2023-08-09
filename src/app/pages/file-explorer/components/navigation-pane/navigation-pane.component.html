@@ -5,7 +5,10 @@
                 <details *ngIf="childNodes.length > 0; else noChildFoldersTemplate" app-navigation-folder [node]="child" [childsFolders]="childNodes"></details>
            </ng-container>
            <ng-template #noChildFoldersTemplate>
-                <a [routerLink]="child.path">{{child.name}}</a>
+                <a [routerLink]="child.path">
+                    <fa-icon [icon]="faFolder"></fa-icon>
+                    {{child.name}}
+                </a>
            </ng-template>
         </li>
     </ng-container>

@@ -12,6 +12,7 @@ import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NavigationBarMainComponent } from './components/navigation-bar-main/navigation-bar-main.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FolderComponent,
     NavigationFolderComponent,
     SearchComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    NavigationBarMainComponent
   ],
   imports: [
     CommonModule,

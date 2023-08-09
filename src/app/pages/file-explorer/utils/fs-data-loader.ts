@@ -2,13 +2,13 @@ import { FSData } from "../interfaces/fs-data.interface";
 import { dummyFileSystem } from "./dummy-data";
 import { FileNode, FolderNode } from "./node";
 
-function injectData() {
+function injectData(dummyData: any) {
     const fsData: FSData = {};
-    Object.keys(dummyFileSystem).forEach((key) => {
-      if (dummyFileSystem[key].type === "__folder__") {
-        fsData[key] = new FolderNode(dummyFileSystem[key]);
-      } else if (dummyFileSystem[key].type === "__file__") {
-        fsData[key] = new FileNode(dummyFileSystem[key]);
+    Object.keys(dummyData).forEach((key) => {
+      if (dummyData[key].type === "__folder__") {
+        fsData[key] = new FolderNode(dummyData[key]);
+      } else if (dummyData[key].type === "__file__") {
+        fsData[key] = new FileNode(dummyData[key]);
       } else {
         throw new Error("Invalid node type");
       }
@@ -16,6 +16,11 @@ function injectData() {
     return fsData;
   }
   
-  const fsData = injectData();
-  export default fsData;
-  
+//const fsData = injectData(dummyFileSystem);
+const data = localStorage.getItem("dummyFS");
+let fsData: FSData = {};
+if(data) {
+  let parsedJson = JSON.parse(data);
+  fsData = injectData(parsedJson);
+}
+export default fsData;

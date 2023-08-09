@@ -32,10 +32,10 @@ export class NavigationBarComponent implements OnInit {
     let currentPath = '';
     for (let i = 0; i < segments.length; i++) {
       currentPath += `/${segments[i]}`;
-      result.push({ path: currentPath, text: `/${segments[i]}` });
+      result.push({ path: currentPath, text: `${segments[i]}` });
     }
   
-    result.unshift({ path: '/', text: '/root' });
+    result.unshift({ path: '/', text: 'root' });
   
     return result;
   }

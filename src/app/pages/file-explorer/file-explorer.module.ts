@@ -11,6 +11,7 @@ import { NavigationFolderComponent } from './components/navigation-folder/naviga
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
   imports: [
     CommonModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ],
   exports: [
     FileExplorerComponent

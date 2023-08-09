@@ -1,10 +1,12 @@
-<div *ngFor="let node of currentContent.nodes">
-    <div *ngIf="node.type == '__folder__'; else file">
-        <app-folder [node]="node"/>
-    </div>
-    <ng-template #file>
-        <div *ngIf="node.type == '__file__'" >
-            <app-file [node]="node"/>
+<div class="flex gap-6 m-6 flex-wrap ">
+    <ng-container *ngFor="let node of currentContent.nodes">
+        <div *ngIf="node.type == '__folder__'; else file">
+            <app-folder [node]="node"/>
         </div>
-    </ng-template>
+        <ng-template #file>
+            <div *ngIf="node.type == '__file__'" >
+                <app-file [node]="node"/>
+            </div>
+        </ng-template>
+    </ng-container>
 </div>

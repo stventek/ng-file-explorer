@@ -1,8 +1,10 @@
-<app-navigation-bar/>
-<div class="flex">
-    <app-navigation-pane class="w-40"/>
-    <div class="flex-1" *ngIf="$currentContent | async as currentContent">
-        <app-search/>
-        <app-content-pane [currentContent]="currentContent" />
+<div class="flex h-screen items-start">
+    <app-navigation-pane class="w-52 bg-base-200 h-full"/>
+    <div class="flex-1 flex flex-wrap" *ngIf="$currentContent | async as currentContent">
+        <div class="flex justify-center	items-center w-full p-3 border-2 border-base-300 gap-3">
+            <app-navigation-bar class="flex-1 w-full overflow-x-auto"/>
+            <app-search class=""/>
+        </div>
+        <app-content-pane class="" [currentContent]="currentContent" />
     </div>
 </div>

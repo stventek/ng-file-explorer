@@ -1,5 +1,5 @@
 import { FSData } from "../interfaces/fs-data.interface";
-import { dummyFileSystem } from "./dummy-data";
+import { dummyData, dummyFileSystem } from "./dummy-data";
 import { FileNode, FolderNode } from "./node";
 
 function injectData(dummyData: any) {
@@ -21,6 +21,9 @@ const data = localStorage.getItem("dummyFS");
 let fsData: FSData = {};
 if(data) {
   let parsedJson = JSON.parse(data);
+  fsData = injectData(parsedJson);
+}else{
+  let parsedJson = JSON.parse(dummyData);
   fsData = injectData(parsedJson);
 }
 export default fsData;

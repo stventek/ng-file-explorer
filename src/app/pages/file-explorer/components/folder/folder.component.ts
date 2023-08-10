@@ -10,4 +10,18 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons';
 export class FolderComponent {
   @Input() node!: IFolderNode;
   faFolder = faFolder;
+  isContextMenuOpen = false;
+  x = 0;
+  y = 0;
+  
+  openContextMenu(event: MouseEvent){
+    event.preventDefault();
+    this.x = event.x;
+    this.y = event.y;
+    this.isContextMenuOpen = true;
+  }
+
+  onClickedOutside(e: any){
+    this.isContextMenuOpen = false;
+  }
 }

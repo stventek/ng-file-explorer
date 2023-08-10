@@ -15,6 +15,9 @@ export class FileComponent {
   faFilePdf = faFilePdf;
   faFileVideo = faFileVideo;
   faFileAudio = faFileAudio;
+  isContextMenuOpen = false;
+  x = 0;
+  y = 0;
 
   getIcon(){
     const extension = this.node.name.split('.').pop()!;
@@ -42,5 +45,16 @@ export class FileComponent {
       "opus",
     ].includes(extension)) return this.faFileAudio;
     return faFile;
+  }
+
+  openContextMenu(event: MouseEvent){
+    event.preventDefault();
+    this.x = event.x;
+    this.y = event.y;
+    this.isContextMenuOpen = true;
+  }
+
+  onClickedOutside(e: any){
+    this.isContextMenuOpen = false;
   }
 }

@@ -13,6 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavigationBarMainComponent } from './components/navigation-bar-main/navigation-bar-main.component';
+import { FileContextMenuComponent } from './components/file-context-menu/file-context-menu.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FolderContextMenuComponent } from './components/folder-context-menu/folder-context-menu.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,16 @@ import { NavigationBarMainComponent } from './components/navigation-bar-main/nav
     NavigationFolderComponent,
     SearchComponent,
     NavigationBarComponent,
-    NavigationBarMainComponent
+    NavigationBarMainComponent,
+    FileContextMenuComponent,
+    FolderContextMenuComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule
   ],
   exports: [
     FileExplorerComponent

@@ -1,4 +1,5 @@
-<a [routerLink]="node.path" class="focus:bg-neutral focus:text-neutral-content p-1 flex items-center justify-center flex-col w-24">
+<a [routerLink]="node.path" class="focus:bg-neutral focus:text-neutral-content p-1 flex items-center justify-center flex-col w-24" (contextmenu)="openContextMenu($event)" >
+    <app-folder-context-menu *ngIf="isContextMenuOpen" ngClass="fixed text-base-content" [style.top.px]="y" [style.left.px]="x" appClickedOutside (clickedOutside)="onClickedOutside($event)"/>
     <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
-    <p class="text-center line-clamp-2 hover:line-clamp-none">{{node.name}}</p>
+    <p class="text-center line-clamp-2 hover:line-clamp-none select-none">{{node.name}}</p>
 </a>

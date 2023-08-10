@@ -2,18 +2,20 @@
   <input id="my-drawer" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content">
     <!-- Page content here -->
-    <app-navigation-bar-main />
-    <div class="flex h-screen items-start">
-      <app-navigation-pane class="w-52 bg-base-200 h-full hidden md:block" />
-      <div
-        class="flex-1 flex flex-wrap w-full"
-        *ngIf="$currentContent | async as currentContent">
+    <div class="h-screen flex flex-col">
+      <app-navigation-bar-main />
+      <div class="flex flex-1 items-start">
+        <app-navigation-pane class="w-52 bg-base-200 h-full hidden md:block" />
         <div
-          class="flex justify-center items-center w-full gap-3 py-3 px-5 bg-primary flex-wrap">
-          <app-navigation-bar class="flex-1 w-full overflow-x-auto" />
-          <app-search class="w-full sm:w-auto" />
+          class="flex-1 flex flex-wrap w-full"
+          *ngIf="$currentContent | async as currentContent">
+          <div
+            class="flex justify-center items-center w-full gap-3 py-3 px-5 bg-primary flex-wrap">
+            <app-navigation-bar class="flex-1 w-full overflow-x-auto" />
+            <app-search class="w-full sm:w-auto" />
+          </div>
+          <app-content-pane class="" [currentContent]="currentContent" />
         </div>
-        <app-content-pane class="" [currentContent]="currentContent" />
       </div>
     </div>
   </div>

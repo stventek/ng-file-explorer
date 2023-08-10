@@ -1,4 +1,4 @@
-<a [routerLink]="node.path" class="focus:bg-neutral focus:text-neutral-content p-1 flex items-center justify-center flex-col w-20">
+<a [routerLink]="node.path" class="focus:bg-neutral focus:text-neutral-content p-1 flex items-center justify-center flex-col w-24">
     <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
-    <p class="text-center">{{node.name}}</p>
+    <p class="text-center line-clamp-2 hover:line-clamp-none">{{node.name}}</p>
 </a>

@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { IFileNode } from '../../interfaces/node.interface';
-import { faImage, faFile, faFileLines, faFilePdf, faFileVideo, faFileAudio } from '@fortawesome/free-solid-svg-icons';
+import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
+import { getIcon } from '../../utils/icon-utils';
 
 @Component({
   selector: 'app-file',
@@ -9,49 +10,23 @@ import { faImage, faFile, faFileLines, faFilePdf, faFileVideo, faFileAudio } fro
 })
 export class FileComponent {
   @Input() node!: IFileNode;
-  faImage = faImage;
-  faFile = faFile;
-  faFileLines = faFileLines;
-  faFilePdf = faFilePdf;
-  faFileVideo = faFileVideo;
-  faFileAudio = faFileAudio;
+  @ViewChild('fileContextMenu', { static: true }) contextMenuRef!: ElementRef;
+
   isContextMenuOpen = false;
-  x = 0;
-  y = 0;
+  contextMenuStyles: any;
+
+  constructor(private cdr: ChangeDetectorRef){}
 
   getIcon(){
-    const extension = this.node.name.split('.').pop()!;
-    if(['png', 'jpg', 'jpeg', 'webp'].includes(extension)) return this.faImage;
-    if('pdf' === extension) return this.faFilePdf;
-    if('txt' === extension) return this.faFileLines;
-    if([
-      "mp4",
-      "mov",
-      "avi",
-      "mkv",
-      "wmv",
-      "flv",
-      "webm",
-      "m4v",
-    ].includes(extension)) return this.faFileVideo;
-    if([
-      "mp3",
-      "wav",
-      "ogg",
-      "flac",
-      "aac",
-      "wma",
-      "m4a",
-      "opus",
-    ].includes(extension)) return this.faFileAudio;
-    return faFile;
+    return getIcon(this.node.name);
   }
 
   openContextMenu(event: MouseEvent){
     event.preventDefault();
-    this.x = event.x;
-    this.y = event.y;
     this.isContextMenuOpen = true;
+    //update template
+    this.cdr.detectChanges();
+    this.contextMenuStyles = calculateContextMenuPosition(event, this.contextMenuRef);
   }
 
   onClickedOutside(e: any){

@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { IFolderNode } from '../../interfaces/node.interface';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-folder',
@@ -9,19 +11,26 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons';
 })
 export class FolderComponent {
   @Input() node!: IFolderNode;
+  @ViewChild('folderContextMenu', { static: true }) contextMenuRef!: ElementRef;
   faFolder = faFolder;
   isContextMenuOpen = false;
-  x = 0;
-  y = 0;
+  contextMenuStyles: any;
   
+  constructor(private cdr: ChangeDetectorRef, private router: Router){}
+
   openContextMenu(event: MouseEvent){
     event.preventDefault();
-    this.x = event.x;
-    this.y = event.y;
     this.isContextMenuOpen = true;
+    //update template
+    this.cdr.detectChanges();
+    this.contextMenuStyles = calculateContextMenuPosition(event, this.contextMenuRef);
   }
 
   onClickedOutside(e: any){
     this.isContextMenuOpen = false;
+  }
+
+  openFolder(){
+    this.router.navigate([this.node.path]);
   }
 }

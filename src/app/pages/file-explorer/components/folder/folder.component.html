@@ -1,6 +1,12 @@
-<div appClickedOutside (clickedOutside)="onClickedOutside($event)">
-    <app-folder-context-menu *ngIf="isContextMenuOpen" ngClass="fixed text-base-content" [style.top.px]="y" [style.left.px]="x"/>
-    <a [routerLink]="node.path" class="group focus:bg-neutral focus:text-neutral-content text-center select-none flex items-center justify-center flex-col w-24 p-1" (contextmenu)="openContextMenu($event)" >
+<div appClickedOutside (clickedOutside)="onClickedOutside($event)" class="focus-within:text-neutral-content  focus-within:bg-neutral">
+    <div #folderContextMenu class="fixed text-base-content" [ngStyle]="contextMenuStyles">
+        <app-folder-context-menu *ngIf="isContextMenuOpen"/>
+    </div>
+    <a tabindex="0" (dblclick)="openFolder()" class="hidden sm:block group text-center select-none flex items-center justify-center flex-col w-24 p-1" (contextmenu)="openContextMenu($event)" >
+        <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
+        <p class="line-clamp-2 group-focus:line-clamp-none">{{node.name}}</p>
+    </a>
+    <a [routerLink]="node.path" class="cursor-default sm:hidden group text-center select-none flex items-center justify-center flex-col w-24 p-1" (contextmenu)="openContextMenu($event)" >
         <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
         <p class="line-clamp-2 group-focus:line-clamp-none">{{node.name}}</p>
     </a>

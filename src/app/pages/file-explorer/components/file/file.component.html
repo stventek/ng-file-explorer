@@ -1,5 +1,7 @@
-<div tabindex="0" class="flex items-center justify-center flex-col w-24 focus:bg-neutral focus:text-neutral-content p-1" (contextmenu)="openContextMenu($event)">
-    <app-file-context-menu *ngIf="isContextMenuOpen" ngClass="fixed text-base-content" [style.top.px]="y" [style.left.px]="x" appClickedOutside (clickedOutside)="onClickedOutside($event)"/>
-    <fa-icon [icon]="getIcon()" class="text-4xl"></fa-icon>
-    <p class="text-center line-clamp-2 hover:line-clamp-none select-none">{{node.name}}</p>
+<div appClickedOutside (clickedOutside)="onClickedOutside($event)">
+    <app-file-context-menu *ngIf="isContextMenuOpen" ngClass="fixed text-base-content" [style.top.px]="y" [style.left.px]="x"/>
+    <div tabindex="0" class="flex items-center justify-center flex-col w-24 p-1 group focus:bg-neutral focus:text-neutral-content text-center select-none" (contextmenu)="openContextMenu($event)">
+        <fa-icon [icon]="getIcon()" class="text-4xl"></fa-icon>
+        <p class="line-clamp-2 group-focus:line-clamp-none">{{node.name}}</p>
+    </div>
 </div>

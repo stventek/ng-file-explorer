@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { IFolderNode } from '../../interfaces/node.interface';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class FolderComponent {
   @Input() node!: IFolderNode;
   @ViewChild('folderContextMenu', { static: true }) contextMenuRef!: ElementRef;
+  @Output() focused = new EventEmitter<IFolderNode>();
+
   faFolder = faFolder;
   isContextMenuOpen = false;
   contextMenuStyles: any;
@@ -32,5 +34,9 @@ export class FolderComponent {
 
   openFolder(){
     this.router.navigate([this.node.path]);
+  }
+
+  emitSelectedFolder(node: IFolderNode){
+    this.focused.emit(node);
   }
 }

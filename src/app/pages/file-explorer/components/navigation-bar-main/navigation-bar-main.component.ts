@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faFolderPlus, faSort } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faSort } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navigation-bar-main',
@@ -8,5 +8,5 @@ import { faFolderPlus, faSort } from '@fortawesome/free-solid-svg-icons';
 })
 export class NavigationBarMainComponent {
   faSort = faSort;
-  faFolderPlus = faFolderPlus;
+  faCirclePlus = faCirclePlus;
 }

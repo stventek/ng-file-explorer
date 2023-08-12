@@ -1,8 +1,8 @@
-<div appClickedOutside (clickedOutside)="onClickedOutside($event)" class="focus-within:text-neutral-content focus-within:bg-neutral">
+<div class="group focus:text-neutral-content focus:bg-neutral" tabindex="0" (focus)="emitSelectedFile(node)" (focusout)="onClickedOutside($event)">
     <div #fileContextMenu class="fixed text-base-content" [ngStyle]="contextMenuStyles">
         <app-file-context-menu *ngIf="isContextMenuOpen"/>
     </div>
-    <div tabindex="0" class="flex items-center justify-center flex-col w-24 p-1 group text-center select-none" (contextmenu)="openContextMenu($event)">
+    <div class="flex items-center justify-center flex-col w-24 p-1 text-center select-none" (contextmenu)="openContextMenu($event)">
         <fa-icon [icon]="getIcon()" class="text-4xl"></fa-icon>
         <p class="line-clamp-2 group-focus:line-clamp-none">{{node.name}}</p>
     </div>

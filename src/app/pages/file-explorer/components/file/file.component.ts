@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { IFileNode } from '../../interfaces/node.interface';
 import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
 import { getIcon } from '../../utils/icon-utils';
@@ -11,7 +11,8 @@ import { getIcon } from '../../utils/icon-utils';
 export class FileComponent {
   @Input() node!: IFileNode;
   @ViewChild('fileContextMenu', { static: true }) contextMenuRef!: ElementRef;
-
+  @Output() focused = new EventEmitter<IFileNode>();
+  
   isContextMenuOpen = false;
   contextMenuStyles: any;
 
@@ -31,5 +32,9 @@ export class FileComponent {
 
   onClickedOutside(e: any){
     this.isContextMenuOpen = false;
+  }
+
+  emitSelectedFile(node: IFileNode){
+    this.focused.emit(node);
   }
 }

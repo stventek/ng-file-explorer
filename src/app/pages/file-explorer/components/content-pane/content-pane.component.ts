@@ -9,4 +9,10 @@ import { CurrentContent } from '../../interfaces/current-content.interface';
 })
 export class ContentPaneComponent {
   @Input() currentContent!: CurrentContent;
+  selectedNode: (IFolderNode | IFileNode) | undefined;
+
+  setSeletedNode(node: (IFolderNode | IFileNode)){
+    console.log(node);
+    this.selectedNode = node;
+  }
 }

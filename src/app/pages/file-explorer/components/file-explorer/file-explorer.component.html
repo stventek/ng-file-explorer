@@ -4,17 +4,17 @@
     <!-- Page content here -->
     <div class="h-screen flex flex-col">
       <app-navigation-bar-main />
-      <div class="flex flex-1 items-start">
+      <div class="flex flex-1 items-start overflow-hidden">
         <app-navigation-pane class="w-52 bg-base-200 h-full hidden md:block" />
         <div
-          class="flex-1 flex flex-wrap w-full"
+          class="flex-1 flex flex-col w-full h-full overflow-hidden"
           *ngIf="$currentContent | async as currentContent">
           <div
             class="flex justify-center items-center w-full gap-3 py-3 px-5 bg-primary flex-wrap">
             <app-navigation-bar class="flex-1 w-full overflow-x-auto" />
             <app-search class="w-full sm:w-auto" />
           </div>
-          <app-content-pane class="" [currentContent]="currentContent" />
+          <app-content-pane class="flex-1 overflow-hidden" [currentContent]="currentContent" />
         </div>
       </div>
     </div>

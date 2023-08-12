@@ -1,12 +1,16 @@
-<div class="flex gap-3 m-6 flex-wrap ">
-    <ng-container *ngFor="let node of currentContent.nodes">
-        <div *ngIf="node.type == '__folder__'; else file">
-            <app-folder [node]="node"/>
-        </div>
-        <ng-template #file>
-            <div *ngIf="node.type == '__file__'" >
-                <app-file [node]="node"/>
+<div class="flex h-full overflow-hidden">
+    <div class="flex gap-3 flex-wrap flex-1 items-start content-start overflow-y-auto p-3">
+        <ng-container *ngFor="let node of currentContent.nodes">
+            <div *ngIf="node.type == '__folder__'; else file">
+                <app-folder [node]="node" (focused)="setSeletedNode($event)"/>
             </div>
-        </ng-template>
-    </ng-container>
+            <ng-template #file>
+                <div *ngIf="node.type == '__file__'" >
+                    <app-file [node]="node" (focused)="setSeletedNode($event)"/>
+                </div>
+            </ng-template>
+        </ng-container>
+    </div>
+
+    <!-- <app-node-properties class="m-3"/> -->
 </div>

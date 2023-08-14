@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IFileNode } from '../../interfaces/node.interface';
+import { getIcon } from '../../utils/icon-utils';
 
 @Component({
   selector: 'app-file-properties',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./file-properties.component.scss']
 })
 export class FilePropertiesComponent {
+  @Input() file: IFileNode | undefined;
+  @Output() showProperties = new EventEmitter<boolean>();
 
+  handleCloseProperties(){
+    this.showProperties.emit(false);
+  }
+
+  getIcon(){
+    return getIcon(this.file!.name);
+  }
 }

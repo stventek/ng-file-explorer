@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-folder-context-menu',
@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class FolderContextMenuComponent {
 
+  @Output() showProperties = new EventEmitter<boolean>();
+
+  handleOpenProperties(){
+    this.showProperties.emit(true);
+  }
 }

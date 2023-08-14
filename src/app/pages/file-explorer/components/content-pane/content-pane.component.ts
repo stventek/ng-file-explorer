@@ -10,9 +10,34 @@ import { CurrentContent } from '../../interfaces/current-content.interface';
 export class ContentPaneComponent {
   @Input() currentContent!: CurrentContent;
   selectedNode: (IFolderNode | IFileNode) | undefined;
+  openProperties = true;
+  fileFocus = false;
+  folderFoucs = false;
+  propertiesFocus = false;
 
   setSeletedNode(node: (IFolderNode | IFileNode)){
-    console.log(node);
+    if(node.type == '__file__') this.fileFocus = true;
+    else this.folderFoucs = true;
+    this.propertiesFocus = true;
     this.selectedNode = node;
+  }
+
+  unSeletedNode(node: (IFolderNode | IFileNode)){
+    if(node.type == '__file__') this.fileFocus = false;
+    else this.folderFoucs = false;
+    if(!this.folderFoucs && !this.fileFocus && !this.propertiesFocus) this.selectedNode = undefined;
+  }
+
+  handleShowProperties(val: boolean){
+    this.openProperties = val;
+  }
+
+  setPropertiesFocus(){
+    this.propertiesFocus = true;
+  }
+
+  removePropertiesFocus(){
+    this.propertiesFocus = false;
+    if(!this.folderFoucs && !this.fileFocus && !this.propertiesFocus) this.selectedNode = undefined;
   }
 }

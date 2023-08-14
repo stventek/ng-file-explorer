@@ -13,6 +13,7 @@ export class FolderComponent {
   @Input() node!: IFolderNode;
   @ViewChild('folderContextMenu', { static: true }) contextMenuRef!: ElementRef;
   @Output() focused = new EventEmitter<IFolderNode>();
+  @Output() showProperties = new EventEmitter<boolean>();
 
   faFolder = faFolder;
   isContextMenuOpen = false;
@@ -38,5 +39,10 @@ export class FolderComponent {
 
   emitSelectedFolder(node: IFolderNode){
     this.focused.emit(node);
+  }
+
+  handleOpenProperties(){
+    this.isContextMenuOpen = false;
+    this.showProperties.emit(true);
   }
 }

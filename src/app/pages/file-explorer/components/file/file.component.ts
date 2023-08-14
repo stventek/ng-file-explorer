@@ -12,6 +12,7 @@ export class FileComponent {
   @Input() node!: IFileNode;
   @ViewChild('fileContextMenu', { static: true }) contextMenuRef!: ElementRef;
   @Output() focused = new EventEmitter<IFileNode>();
+  @Output() showProperties = new EventEmitter<boolean>();
   
   isContextMenuOpen = false;
   contextMenuStyles: any;
@@ -36,5 +37,10 @@ export class FileComponent {
 
   emitSelectedFile(node: IFileNode){
     this.focused.emit(node);
+  }
+
+  handleOpenProperties(){
+    this.isContextMenuOpen = false;
+    this.showProperties.emit(true);
   }
 }

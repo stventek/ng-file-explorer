@@ -2,15 +2,20 @@
     <div class="flex gap-3 flex-wrap flex-1 items-start content-start overflow-y-auto p-3">
         <ng-container *ngFor="let node of currentContent.nodes">
             <div *ngIf="node.type == '__folder__'; else file">
-                <app-folder [node]="node" (focused)="setSeletedNode($event)"/>
+                <app-folder (showProperties)="handleShowProperties($event)" [node]="node" (focused)="setSeletedNode($event)" (focusout)="unSeletedNode(node)"/>
             </div>
             <ng-template #file>
                 <div *ngIf="node.type == '__file__'" >
-                    <app-file [node]="node" (focused)="setSeletedNode($event)"/>
+                    <app-file [node]="node" (showProperties)="handleShowProperties($event)" (focused)="setSeletedNode($event)" (focusout)="unSeletedNode(node)"/>
                 </div>
             </ng-template>
         </ng-container>
     </div>
-
-    <!-- <app-node-properties class="m-3"/> -->
+    <div tabindex="0" (focus)="setPropertiesFocus()" (focusout)="removePropertiesFocus()" class="hidden md:block w-80 bg-base-200 text-secondary-content shadow-xl m-3">
+        <app-folder-properties (showProperties)="handleShowProperties($event)" *ngIf="openProperties && (selectedNode && selectedNode.type == '__folder__' || selectedNode == undefined)" [folder]="selectedNode"  class=""/>
+        <app-file-properties (showProperties)="handleShowProperties($event)" *ngIf="openProperties && (selectedNode && selectedNode.type == '__file__' || selectedNode == undefined)" [file]="selectedNode" class=""/>
+        <div *ngIf="!selectedNode && openProperties" class="prose prose-md px-3 py-20 text-center">
+            <h3>Select a file or folder to see details</h3>
+        </div>
+    </div>
 </div>

@@ -15,7 +15,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavigationBarMainComponent } from './components/navigation-bar-main/navigation-bar-main.component';
 import { FileContextMenuComponent } from './components/file-context-menu/file-context-menu.component';
 import { FolderContextMenuComponent } from './components/folder-context-menu/folder-context-menu.component';
-import { NodePropertiesComponent } from './components/node-properties/node-properties.component';
 import { FilePropertiesComponent } from './components/file-properties/file-properties.component';
 import { FolderPropertiesComponent } from './components/folder-properties/folder-properties.component';
 
@@ -32,7 +31,6 @@ import { FolderPropertiesComponent } from './components/folder-properties/folder
     NavigationBarMainComponent,
     FileContextMenuComponent,
     FolderContextMenuComponent,
-    NodePropertiesComponent,
     FilePropertiesComponent,
     FolderPropertiesComponent,
   ],

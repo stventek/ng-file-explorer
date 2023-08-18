@@ -1,4 +1,4 @@
-<div class="group focus:text-neutral-content focus:bg-neutral"  tabindex="0" (focusout)="onClickedOutside($event)" (focus)="emitSelectedFolder(node)">
+<div class="group focus:text-neutral-content focus:bg-neutral"  tabindex="0" (focusout)="onClickedOutside($event)" (focus)="emitSelectedFolder($event, node)">
     <div #folderContextMenu class="fixed text-base-content shadow-xl" [ngStyle]="contextMenuStyles">
         <app-folder-context-menu *ngIf="isContextMenuOpen" (showProperties)="handleOpenProperties()"/>
     </div>

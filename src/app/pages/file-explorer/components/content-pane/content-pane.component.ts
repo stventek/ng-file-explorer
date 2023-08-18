@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 
@@ -11,33 +11,26 @@ export class ContentPaneComponent {
   @Input() currentContent!: CurrentContent;
   selectedNode: (IFolderNode | IFileNode) | undefined;
   openProperties = true;
-  fileFocus = false;
-  folderFoucs = false;
-  propertiesFocus = false;
+  nodeFocus = false;
+  selectedElement: HTMLElement | undefined;
+  @ViewChild('properties', { static: true }) propertiesElement!: ElementRef;
 
-  setSeletedNode(node: (IFolderNode | IFileNode)){
-    if(node.type == '__file__') this.fileFocus = true;
-    else this.folderFoucs = true;
-    this.propertiesFocus = true;
-    this.selectedNode = node;
+  setSeletedNode(data: {node: (IFolderNode | IFileNode), target: HTMLElement}){
+    this.selectedElement = data.target;
+    this.selectedNode = data.node;
+    this.nodeFocus = true;
   }
 
-  unSeletedNode(node: (IFolderNode | IFileNode)){
-    if(node.type == '__file__') this.fileFocus = false;
-    else this.folderFoucs = false;
-    if(!this.folderFoucs && !this.fileFocus && !this.propertiesFocus) this.selectedNode = undefined;
+  unSelectNode(){
+    const propertiesElement = this.propertiesElement.nativeElement;
+    window.setTimeout(()=> {
+      if(!(this.selectedElement && (document.activeElement == this.selectedElement || document.activeElement == propertiesElement || propertiesElement.contains(document.activeElement)))){
+        this.nodeFocus = false;
+      }
+    }, 0)
   }
 
   handleShowProperties(val: boolean){
     this.openProperties = val;
-  }
-
-  setPropertiesFocus(){
-    this.propertiesFocus = true;
-  }
-
-  removePropertiesFocus(){
-    this.propertiesFocus = false;
-    if(!this.folderFoucs && !this.fileFocus && !this.propertiesFocus) this.selectedNode = undefined;
   }
 }

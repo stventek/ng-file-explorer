@@ -11,6 +11,7 @@ export class FolderPropertiesComponent {
   @Input() folder: IFolderNode | undefined;
   @Output() showProperties = new EventEmitter<boolean>();
   faFolder = faFolder
+
   handleCloseProperties(){
     this.showProperties.emit(false);
   }

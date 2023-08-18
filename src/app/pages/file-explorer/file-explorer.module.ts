@@ -17,6 +17,7 @@ import { FileContextMenuComponent } from './components/file-context-menu/file-co
 import { FolderContextMenuComponent } from './components/folder-context-menu/folder-context-menu.component';
 import { FilePropertiesComponent } from './components/file-properties/file-properties.component';
 import { FolderPropertiesComponent } from './components/folder-properties/folder-properties.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class FolderComponent {
   @Input() node!: IFolderNode;
   @ViewChild('folderContextMenu', { static: true }) contextMenuRef!: ElementRef;
-  @Output() focused = new EventEmitter<IFolderNode>();
+  @Output() focused = new EventEmitter<{node: IFolderNode, target: HTMLElement}>();
   @Output() showProperties = new EventEmitter<boolean>();
 
   faFolder = faFolder;
@@ -37,8 +37,9 @@ export class FolderComponent {
     this.router.navigate([this.node.path]);
   }
 
-  emitSelectedFolder(node: IFolderNode){
-    this.focused.emit(node);
+  emitSelectedFolder(event: FocusEvent, node: IFolderNode){
+    const target = event.target as HTMLElement;
+    this.focused.emit({node, target});
   }
 
   handleOpenProperties(){

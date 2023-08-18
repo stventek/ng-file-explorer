@@ -1,4 +1,5 @@
-<div class="group focus:text-neutral-content focus:bg-neutral" tabindex="0" (focus)="emitSelectedFile(node)" (focusout)="onClickedOutside($event)">
+<!-- TODO: ocus:text-neutral-content focus:bg-neutral should depend on focus input variable -->
+<div class="group focus:text-neutral-content focus:bg-neutral" tabindex="0" (focus)="emitSelectedFile($event, node)" (focusout)="onClickedOutside($event)">
     <div #fileContextMenu class="fixed text-base-content z-10 shadow-xl" [ngStyle]="contextMenuStyles">
         <app-file-context-menu *ngIf="isContextMenuOpen" (showProperties)="handleOpenProperties()"/>
     </div>

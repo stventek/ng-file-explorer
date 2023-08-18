@@ -11,7 +11,7 @@ import { getIcon } from '../../utils/icon-utils';
 export class FileComponent {
   @Input() node!: IFileNode;
   @ViewChild('fileContextMenu', { static: true }) contextMenuRef!: ElementRef;
-  @Output() focused = new EventEmitter<IFileNode>();
+  @Output() focused = new EventEmitter<{node: IFileNode, target: HTMLElement}>();
   @Output() showProperties = new EventEmitter<boolean>();
   
   isContextMenuOpen = false;
@@ -35,8 +35,9 @@ export class FileComponent {
     this.isContextMenuOpen = false;
   }
 
-  emitSelectedFile(node: IFileNode){
-    this.focused.emit(node);
+  emitSelectedFile(event: FocusEvent, node: IFileNode){
+    const target = event.target as HTMLElement;
+    this.focused.emit({node, target});
   }
 
   handleOpenProperties(){

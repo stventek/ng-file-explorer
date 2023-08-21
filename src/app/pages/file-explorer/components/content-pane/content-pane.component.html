@@ -2,27 +2,20 @@
     <div class="flex gap-3 flex-wrap flex-1 items-start content-start overflow-y-auto p-3">
         <ng-container *ngFor="let node of currentContent.nodes">
             <div *ngIf="node.type == '__folder__'; else file">
-                <app-folder  (showProperties)="handleShowProperties($event)" [node]="node" (focused)="setSeletedNode($event)" (focusout)="unSelectNode()" [nodeFocus]="nodeFocus && selectedNode == node"/>
+                <app-folder  (contextMenuAction)="handleContextMenuAction($event)" [node]="node" (focused)="setSeletedNode($event)" (focusout)="unSelectNode()" [nodeFocus]="nodeFocus && selectedNode == node"/>
             </div>
             <ng-template #file>
                 <div *ngIf="node.type == '__file__'" >
-                    <app-file [node]="node" (showProperties)="handleShowProperties($event)" (focused)="setSeletedNode($event)" (focusout)="unSelectNode()" [nodeFocus]="nodeFocus && selectedNode == node"/>
+                    <app-file [node]="node" (contextMenuAction)="handleContextMenuAction($event)" (focused)="setSeletedNode($event)" (focusout)="unSelectNode()" [nodeFocus]="nodeFocus && selectedNode == node"/>
                 </div>
             </ng-template>
         </ng-container>
     </div>
-    <div #properties tabindex="0" (focusout)="unSelectNode()"  [ngClass]="'hidden md:block w-80 bg-base-200 text-secondary-content shadow-xl m-3 ' + (openProperties ? '' : 'md:hidden')" >
+    <div #properties tabindex="0" (focusout)="unSelectNode()"  [ngClass]="{
+        'hidden md:block w-80 bg-base-200 text-secondary-content shadow-xl m-3': true, 
+        'md:hidden': !openProperties}" >
         <app-folder-properties (showProperties)="handleShowProperties($event)" *ngIf="openProperties && (nodeFocus && selectedNode && selectedNode.type == '__folder__')" [folder]="selectedNode"  class=""/>
         <app-file-properties (showProperties)="handleShowProperties($event)" *ngIf="openProperties && (nodeFocus && selectedNode && selectedNode.type == '__file__')" [file]="selectedNode" class=""/>
-        <div *ngIf="!nodeFocus && openProperties" class="prose prose-md text-center">
-            <div class="card-body items-center text-center">
-                <div class="card-actions justify-end w-full">
-                    <button class="btn btn-square btn-sm" (click)="handleShowProperties(false)">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
-                </div>
-                <h3>Select a file or folder to see details</h3>
-            </div>
-        </div>
+        <app-placeholder-properties (showProperties)="handleShowProperties($event)" *ngIf="!nodeFocus && openProperties" />
     </div>
 </div>

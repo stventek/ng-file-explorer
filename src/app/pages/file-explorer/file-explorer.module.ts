@@ -18,6 +18,7 @@ import { FolderContextMenuComponent } from './components/folder-context-menu/fol
 import { FilePropertiesComponent } from './components/file-properties/file-properties.component';
 import { FolderPropertiesComponent } from './components/folder-properties/folder-properties.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PlaceholderPropertiesComponent } from './components/placeholder-properties/placeholder-properties.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FolderContextMenuComponent,
     FilePropertiesComponent,
     FolderPropertiesComponent,
+    PlaceholderPropertiesComponent,
   ],
   imports: [
     CommonModule,

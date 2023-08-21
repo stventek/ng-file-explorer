@@ -14,7 +14,7 @@ export class FolderComponent {
   @Input() nodeFocus!: boolean;
   @ViewChild('folderContextMenu', { static: true }) contextMenuRef!: ElementRef;
   @Output() focused = new EventEmitter<{node: IFolderNode, target: HTMLElement}>();
-  @Output() showProperties = new EventEmitter<boolean>();
+  @Output() contextMenuAction = new EventEmitter<'open_properties' | 'delete' | 'rename'>();
 
   faFolder = faFolder;
   isContextMenuOpen = false;
@@ -43,8 +43,8 @@ export class FolderComponent {
     this.focused.emit({node, target});
   }
 
-  handleOpenProperties(){
+  handleContextMenuAction(type : 'open_properties' | 'delete' | 'rename'){
     this.isContextMenuOpen = false;
-    this.showProperties.emit(true);
+    this.contextMenuAction.emit(type)
   }
 }

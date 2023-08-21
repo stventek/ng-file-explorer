@@ -6,9 +6,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./file-context-menu.component.scss']
 })
 export class FileContextMenuComponent {
-  @Output() showProperties = new EventEmitter<boolean>();
+  @Output() contextMenuAction = new EventEmitter<'open_properties' | 'delete' | 'rename'>();
 
-  handleOpenProperties(){
-    this.showProperties.emit(true);
+  handleContextMenuAction(type : 'open_properties' | 'delete' | 'rename'){
+    this.contextMenuAction.emit(type)
   }
 }

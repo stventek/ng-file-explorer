@@ -61,6 +61,7 @@ export class FileSystemHelper {
       const node = this.graph[nodeId];
       if (!node || node.name === 'root') return;
       const parent = this.graph[node.parentID!] as IFolderNode;
+      console.log(parent.children instanceof Array)
       parent.children.delete(nodeId);
       delete this.graph[nodeId];
     }

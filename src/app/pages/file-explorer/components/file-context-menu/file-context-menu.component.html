@@ -1,5 +1,5 @@
 <ul class="menu menu-md w-32 min-w-min sm:w-56 rounded-box bg-base-200">
-    <li class=""><a>Rename</a></li>
-    <li class=""><a>Delete</a></li>
-    <li class="" (click)="handleOpenProperties()"><a>Properties</a></li>
+    <li (click)="handleContextMenuAction('rename')"><a>Rename</a></li>
+    <li (click)="handleContextMenuAction('delete')"><a>Delete</a></li>
+    <li (click)="handleContextMenuAction('open_properties')"><a>Properties</a></li>
 </ul>

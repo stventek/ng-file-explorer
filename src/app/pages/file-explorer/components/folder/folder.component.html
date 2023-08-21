@@ -1,6 +1,6 @@
 <div [ngClass]="{'text-neutral-content bg-neutral': nodeFocus}"  tabindex="0" (focusout)="onClickedOutside($event)" (focus)="emitSelectedFolder($event, node)">
     <div #folderContextMenu class="fixed text-base-content shadow-xl" [ngStyle]="contextMenuStyles">
-        <app-folder-context-menu *ngIf="isContextMenuOpen" (showProperties)="handleOpenProperties()"/>
+        <app-folder-context-menu *ngIf="isContextMenuOpen" (contextMenuAction)="handleContextMenuAction($event)"/>
     </div>
     <a (dblclick)="openFolder()" class="hidden sm:block text-center select-none flex items-center justify-center flex-col w-24 p-1" (contextmenu)="openContextMenu($event)" >
         <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>

@@ -1,6 +1,8 @@
-import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
+import { FilesystemService } from '../../services/filesystem/filesystem.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-content-pane',
@@ -14,6 +16,8 @@ export class ContentPaneComponent {
   nodeFocus = false;
   selectedElement: HTMLElement | undefined;
   @ViewChild('properties', { static: true }) propertiesElement!: ElementRef;
+
+  constructor(private fileSystemService: FilesystemService, public router: Router){}
 
   setSeletedNode(data: {node: (IFolderNode | IFileNode), target: HTMLElement}){
     this.selectedElement = data.target;
@@ -32,5 +36,14 @@ export class ContentPaneComponent {
 
   handleShowProperties(val: boolean){
     this.openProperties = val;
+  }
+
+  handleContextMenuAction(type : 'open_properties' | 'delete' | 'rename'){
+    if(type == 'open_properties') this.openProperties = true;
+    if(type == 'delete'){
+      this.fileSystemService.fs.deleteNode(this.selectedNode!.path + this.selectedNode!.type);
+      const path = decodeURIComponent(this.router.url);
+      this.fileSystemService.updateCurrentContentByPath(path);
+    }
   }
 }

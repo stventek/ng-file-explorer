@@ -2,11 +2,11 @@
     <div class="flex gap-3 flex-wrap flex-1 items-start content-start overflow-y-auto p-3">
         <ng-container *ngFor="let node of currentContent.nodes">
             <div *ngIf="node.type == '__folder__'; else file">
-                <app-folder  (showProperties)="handleShowProperties($event)" [node]="node" (focused)="setSeletedNode($event)" (focusout)="unSelectNode()"/>
+                <app-folder  (showProperties)="handleShowProperties($event)" [node]="node" (focused)="setSeletedNode($event)" (focusout)="unSelectNode()" [nodeFocus]="nodeFocus && selectedNode == node"/>
             </div>
             <ng-template #file>
                 <div *ngIf="node.type == '__file__'" >
-                    <app-file [node]="node" (showProperties)="handleShowProperties($event)" (focused)="setSeletedNode($event)" (focusout)="unSelectNode()"/>
+                    <app-file [node]="node" (showProperties)="handleShowProperties($event)" (focused)="setSeletedNode($event)" (focusout)="unSelectNode()" [nodeFocus]="nodeFocus && selectedNode == node"/>
                 </div>
             </ng-template>
         </ng-container>

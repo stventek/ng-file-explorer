@@ -10,6 +10,7 @@ import { getIcon } from '../../utils/icon-utils';
 })
 export class FileComponent {
   @Input() node!: IFileNode;
+  @Input() nodeFocus!: boolean;
   @ViewChild('fileContextMenu', { static: true }) contextMenuRef!: ElementRef;
   @Output() focused = new EventEmitter<{node: IFileNode, target: HTMLElement}>();
   @Output() showProperties = new EventEmitter<boolean>();

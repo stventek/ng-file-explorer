@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class FolderComponent {
   @Input() node!: IFolderNode;
+  @Input() nodeFocus!: boolean;
   @ViewChild('folderContextMenu', { static: true }) contextMenuRef!: ElementRef;
   @Output() focused = new EventEmitter<{node: IFolderNode, target: HTMLElement}>();
   @Output() showProperties = new EventEmitter<boolean>();

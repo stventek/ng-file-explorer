@@ -8,7 +8,7 @@ describe('FileContextMenuComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FileContextMenuComponent]
+      declarations: [FileContextMenuComponent],
     });
     fixture = TestBed.createComponent(FileContextMenuComponent);
     component = fixture.componentInstance;

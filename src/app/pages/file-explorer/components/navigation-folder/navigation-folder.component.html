@@ -1,19 +1,28 @@
 <summary [routerLink]="node.path">
-    <fa-icon [icon]="faFolder" class=""></fa-icon>
-    {{node.name}}
+  <fa-icon [icon]="faFolder" class=""></fa-icon>
+  {{ node.name }}
 </summary>
 <ul>
-    <ng-container *ngFor="let child of childsFolders">
-        <li *ngIf="child.type == '__folder__'">
-            <ng-container *ngIf="fileSystemService.fs.getChildrenFolders(this.child.path + '__folder__') as childNodes">
-                <details *ngIf="childNodes.length > 0; else noChildFoldersTemplate" app-navigation-folder [node]="child" [childsFolders]="childNodes"></details>
-            </ng-container>
-            <ng-template #noChildFoldersTemplate>
-                    <a [routerLink]="child.path">
-                        <fa-icon [icon]="faFolder" class=""></fa-icon>
-                        {{child.name}}
-                    </a>
-            </ng-template>
-        </li>
-    </ng-container>
+  <ng-container *ngFor="let child of childsFolders">
+    <li *ngIf="child.type === '__folder__'">
+      <ng-container
+        *ngIf="
+          fileSystemService.fs.getChildrenFolders(
+            this.child.path + '__folder__'
+          ) as childNodes
+        ">
+        <details
+          *ngIf="childNodes.length > 0; else noChildFoldersTemplate"
+          app-navigation-folder
+          [node]="child"
+          [childsFolders]="childNodes"></details>
+      </ng-container>
+      <ng-template #noChildFoldersTemplate>
+        <a [routerLink]="child.path">
+          <fa-icon [icon]="faFolder" class=""></fa-icon>
+          {{ child.name }}
+        </a>
+      </ng-template>
+    </li>
+  </ng-container>
 </ul>

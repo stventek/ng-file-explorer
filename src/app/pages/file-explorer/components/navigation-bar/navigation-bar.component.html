@@ -1,17 +1,19 @@
 <nav class="text-sm breadcrumbs">
-    <ul>
-        <li>
-            <ng-container *ngIf="navigationItems.length > 1; else up">
-                <a [routerLink]="navigationItems[navigationItems.length - 2].path">
-                    <fa-icon [icon]="faCircleUp" class=""></fa-icon>
-                </a>
-            </ng-container>
-            <ng-template #up>
-                <fa-icon [icon]="faCircleUp" class="text-neutral-content"></fa-icon>
-            </ng-template>
-        </li>
-        <ng-container *ngFor="let item of navigationItems">
-            <li><a [routerLink]="item.path" >{{item.text}}</a></li>
-        </ng-container>
-    </ul>
+  <ul>
+    <li>
+      <ng-container *ngIf="navigationItems.length > 1; else up">
+        <a [routerLink]="navigationItems[navigationItems.length - 2].path">
+          <fa-icon [icon]="faCircleUp" class=""></fa-icon>
+        </a>
+      </ng-container>
+      <ng-template #up>
+        <fa-icon [icon]="faCircleUp" class="text-neutral-content"></fa-icon>
+      </ng-template>
+    </li>
+    <ng-container *ngFor="let item of navigationItems">
+      <li>
+        <a [routerLink]="item.path">{{ item.text }}</a>
+      </li>
+    </ng-container>
+  </ul>
 </nav>

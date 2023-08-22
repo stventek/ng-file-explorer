@@ -4,13 +4,14 @@ import { FilesystemService } from '../../services/filesystem/filesystem.service'
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'details[app-navigation-folder]',
   templateUrl: './navigation-folder.component.html',
-  styleUrls: ['./navigation-folder.component.scss']
+  styleUrls: ['./navigation-folder.component.scss'],
 })
 export class NavigationFolderComponent {
   @Input() node!: IFolderNode;
-  @Input() childsFolders !: IFolderNode[];
+  @Input() childsFolders!: IFolderNode[];
   faFolder = faFolder;
-  constructor(public fileSystemService: FilesystemService){}
+  constructor(public fileSystemService: FilesystemService) {}
 }

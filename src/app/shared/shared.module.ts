@@ -2,15 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
 
-
-
 @NgModule({
-  declarations: [
-    ClickOutsideDirective
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports: [ClickOutsideDirective]
+  declarations: [ClickOutsideDirective],
+  imports: [CommonModule],
+  exports: [ClickOutsideDirective],
 })
-export class SharedModule { }
+export class SharedModule {}

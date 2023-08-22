@@ -8,7 +8,7 @@ describe('NavigationFolderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NavigationFolderComponent]
+      declarations: [NavigationFolderComponent],
     });
     fixture = TestBed.createComponent(NavigationFolderComponent);
     component = fixture.componentInstance;

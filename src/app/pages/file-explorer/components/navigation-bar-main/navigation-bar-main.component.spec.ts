@@ -8,7 +8,7 @@ describe('NavigationBarMainComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [NavigationBarMainComponent]
+      declarations: [NavigationBarMainComponent],
     });
     fixture = TestBed.createComponent(NavigationBarMainComponent);
     component = fixture.componentInstance;

@@ -1,4 +1,4 @@
 export interface NavigationItem {
-    path: string,
-    text: string
+  path: string;
+  text: string;
 }

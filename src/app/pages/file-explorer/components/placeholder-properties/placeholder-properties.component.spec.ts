@@ -8,7 +8,7 @@ describe('PlaceholderPropertiesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PlaceholderPropertiesComponent]
+      declarations: [PlaceholderPropertiesComponent],
     });
     fixture = TestBed.createComponent(PlaceholderPropertiesComponent);
     component = fixture.componentInstance;

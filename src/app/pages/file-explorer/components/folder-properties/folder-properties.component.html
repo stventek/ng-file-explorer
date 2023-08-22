@@ -1,37 +1,48 @@
 <div *ngIf="folder" class="card">
-    <div class="card-body items-center text-center">
-        <div class="card-actions justify-end w-full">
-            <button class="btn btn-square btn-sm" (click)="handleCloseProperties()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
-        </div>
-        <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
-        <h2 class="card-title mb-3">
-             {{folder.name}}
-        </h2>
-      <div class="prose-md">
-        <ul>
-            <li>
-                <span class="font-bold">Created at: </span>
-                <span>{{folder.date}}</span>
-            </li>
-            <li>
-                <span class="font-bold">Created by: </span>
-                <span>{{folder.creatorName}}</span>
-            </li>
-            <li>
-                <span class="font-bold">Name: </span>
-                <span>{{folder.name}}</span>
-            </li>
-            <li>
-                <span class="font-bold">Path: </span>
-                <span>{{folder.path}}</span>
-            </li>
-            <li>
-                <span class="font-bold">Size: </span>
-                <span>{{folder.size}}</span>
-            </li>
-        </ul>
-      </div>
+  <div class="card-body items-center text-center">
+    <div class="card-actions justify-end w-full">
+      <button class="btn btn-square btn-sm" (click)="handleCloseProperties()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
+    <h2 class="card-title mb-3">
+      {{ folder.name }}
+    </h2>
+    <div class="prose-md">
+      <ul>
+        <li>
+          <span class="font-bold">Created at: </span>
+          <span>{{ folder.date }}</span>
+        </li>
+        <li>
+          <span class="font-bold">Created by: </span>
+          <span>{{ folder.creatorName }}</span>
+        </li>
+        <li>
+          <span class="font-bold">Name: </span>
+          <span>{{ folder.name }}</span>
+        </li>
+        <li>
+          <span class="font-bold">Path: </span>
+          <span>{{ folder.path }}</span>
+        </li>
+        <li>
+          <span class="font-bold">Size: </span>
+          <span>{{ folder.size }}</span>
+        </li>
+      </ul>
     </div>
   </div>
+</div>

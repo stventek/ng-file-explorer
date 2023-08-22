@@ -5,14 +5,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { FileExplorerModule } from './file-explorer/file-explorer.module';
 
 @NgModule({
-  declarations: [
-    PagesComponent
-  ],
-  imports: [
-    CommonModule,
-    PagesRoutingModule,
-    FileExplorerModule
-  ],
-  exports: [PagesComponent]
+  declarations: [PagesComponent],
+  imports: [CommonModule, PagesRoutingModule, FileExplorerModule],
+  exports: [PagesComponent],
 })
-export class PagesModule { }
+export class PagesModule {}

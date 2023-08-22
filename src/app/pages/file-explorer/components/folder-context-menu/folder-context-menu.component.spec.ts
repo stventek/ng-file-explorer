@@ -8,7 +8,7 @@ describe('FolderContextMenuComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FolderContextMenuComponent]
+      declarations: [FolderContextMenuComponent],
     });
     fixture = TestBed.createComponent(FolderContextMenuComponent);
     component = fixture.componentInstance;

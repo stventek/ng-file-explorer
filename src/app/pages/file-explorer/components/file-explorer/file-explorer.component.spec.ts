@@ -8,7 +8,7 @@ describe('FileExplorerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FileExplorerComponent]
+      declarations: [FileExplorerComponent],
     });
     fixture = TestBed.createComponent(FileExplorerComponent);
     component = fixture.componentInstance;

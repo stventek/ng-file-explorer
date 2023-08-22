@@ -8,7 +8,7 @@ describe('FilePropertiesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FilePropertiesComponent]
+      declarations: [FilePropertiesComponent],
     });
     fixture = TestBed.createComponent(FilePropertiesComponent);
     component = fixture.componentInstance;

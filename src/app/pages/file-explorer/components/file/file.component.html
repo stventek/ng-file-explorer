@@ -1,12 +1,26 @@
-<div [ngClass]="{'text-neutral-content bg-neutral': nodeFocus}" tabindex="0" (focus)="emitSelectedFile($event, node)" (focusout)="onClickedOutside($event)">
-    <div #fileContextMenu class="fixed text-base-content z-10 shadow-xl" [ngStyle]="contextMenuStyles">
-        <app-file-context-menu *ngIf="isContextMenuOpen" (contextMenuAction)="handleContextMenuAction($event)"/>
-    </div>
-    <div class="flex items-center justify-center flex-col w-24 p-1 text-center select-none" (contextmenu)="openContextMenu($event)">
-        <fa-icon [icon]="getIcon()" class="text-4xl"></fa-icon>
-        <p [ngClass]="{
-            'line-clamp-2': true,
-            'line-clamp-none': nodeFocus
-        }">{{node.name}}</p>
-    </div>
+<div
+  [ngClass]="{ 'text-neutral-content bg-neutral': nodeFocus }"
+  tabindex="0"
+  (focus)="emitSelectedFile($event, node)"
+  (focusout)="onClickedOutside($event)">
+  <div
+    #fileContextMenu
+    class="fixed text-base-content z-10 shadow-xl"
+    [ngStyle]="contextMenuStyles">
+    <app-file-context-menu
+      *ngIf="isContextMenuOpen"
+      (contextMenuAction)="handleContextMenuAction($event)" />
+  </div>
+  <div
+    class="flex items-center justify-center flex-col w-24 p-1 text-center select-none"
+    (contextmenu)="openContextMenu($event)">
+    <fa-icon [icon]="getIcon()" class="text-4xl"></fa-icon>
+    <p
+      [ngClass]="{
+        'line-clamp-2': true,
+        'line-clamp-none': nodeFocus
+      }">
+      {{ node.name }}
+    </p>
+  </div>
 </div>

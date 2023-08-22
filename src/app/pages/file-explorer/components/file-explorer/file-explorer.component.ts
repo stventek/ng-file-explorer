@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { Observable, Subscription } from 'rxjs';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
@@ -8,31 +8,34 @@ import { CurrentContent } from '../../interfaces/current-content.interface';
 @Component({
   selector: 'app-file-explorer',
   templateUrl: './file-explorer.component.html',
-  styleUrls: ['./file-explorer.component.scss']
+  styleUrls: ['./file-explorer.component.scss'],
 })
-export class FileExplorerComponent implements OnInit{
+export class FileExplorerComponent implements OnInit, OnDestroy {
   $currentContent: Observable<CurrentContent | null>;
   private routerSubscription!: Subscription;
-  
-  constructor(private fileSystemService: FilesystemService, public router: Router){
+
+  constructor(
+    private fileSystemService: FilesystemService,
+    public router: Router
+  ) {
     this.$currentContent = this.fileSystemService.$currentContent;
   }
 
   ngOnInit(): void {
     this.navigateTo(this.router.url);
-    
-    this.routerSubscription = this.router.events.subscribe((event) => {
-      if(event instanceof NavigationEnd){
+
+    this.routerSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
         this.navigateTo(this.router.url);
       }
     });
   }
 
-  navigateTo(path: string){
+  navigateTo(path: string) {
     path = decodeURIComponent(path);
-    try{
+    try {
       this.fileSystemService.updateCurrentContentByPath(path);
-    }catch(err){
+    } catch (err) {
       this.router.navigate(['/']);
     }
   }

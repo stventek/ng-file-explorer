@@ -1,6 +1,6 @@
-import { IFileNode, IFolderNode } from "./node.interface";
+import { IFileNode, IFolderNode } from './node.interface';
 
 export interface CurrentContent {
-    path: string,
-    nodes: Array<IFileNode | IFolderNode>
+  path: string;
+  nodes: Array<IFileNode | IFolderNode>;
 }

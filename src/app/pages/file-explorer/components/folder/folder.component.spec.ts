@@ -8,7 +8,7 @@ describe('FolderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FolderComponent]
+      declarations: [FolderComponent],
     });
     fixture = TestBed.createComponent(FolderComponent);
     component = fixture.componentInstance;

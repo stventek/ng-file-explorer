@@ -6,22 +6,23 @@ import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FilesystemService {
   fs = new FileSystemHelper(fsData);
   currentContentSource = new BehaviorSubject<CurrentContent | null>(null);
-  $currentContent = this.currentContentSource.asObservable(); 
+  $currentContent = this.currentContentSource.asObservable();
 
-  constructor() { }
+  constructor() {}
 
-  updateCurrentContentByPath(path: string){
+  updateCurrentContentByPath(path: string) {
     const nodes = this.fs.getChildrenNodes(path + '__folder__');
-    this.currentContentSource.next({path, nodes});
+    this.currentContentSource.next({ path, nodes });
   }
 
-  updateCurrentContent(contentData: Partial<CurrentContent>){
+  updateCurrentContent(contentData: Partial<CurrentContent>) {
     const currentValue = this.currentContentSource.getValue();
-    if(currentValue) this.currentContentSource.next({...currentValue, ...contentData});
+    if (currentValue)
+      this.currentContentSource.next({ ...currentValue, ...contentData });
   }
 }

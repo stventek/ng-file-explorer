@@ -5,17 +5,17 @@ import { getIcon } from '../../utils/icon-utils';
 @Component({
   selector: 'app-file-properties',
   templateUrl: './file-properties.component.html',
-  styleUrls: ['./file-properties.component.scss']
+  styleUrls: ['./file-properties.component.scss'],
 })
 export class FilePropertiesComponent {
   @Input() file: IFileNode | undefined;
   @Output() showProperties = new EventEmitter<boolean>();
 
-  handleCloseProperties(){
+  handleCloseProperties() {
     this.showProperties.emit(false);
   }
 
-  getIcon(){
+  getIcon() {
     return getIcon(this.file!.name);
   }
 }

@@ -22,14 +22,7 @@
       </ng-template>
     </ng-container>
   </div>
-  <div
-    #properties
-    tabindex="0"
-    (focusout)="unSelectNode()"
-    [ngClass]="{
-      'hidden md:block w-80 bg-base-200 text-secondary-content shadow-xl m-3': true,
-      'md:hidden': !openProperties
-    }">
+  <div #properties tabindex="0" (focusout)="unSelectNode()">
     <app-folder-properties
       (showProperties)="handleShowProperties($event)"
       *ngIf="
@@ -38,8 +31,7 @@
         selectedNode &&
         selectedNode.type === '__folder__'
       "
-      [folder]="selectedNode"
-      class="" />
+      [folder]="selectedNode" />
     <app-file-properties
       (showProperties)="handleShowProperties($event)"
       *ngIf="
@@ -48,8 +40,7 @@
         selectedNode &&
         selectedNode.type === '__file__'
       "
-      [file]="selectedNode"
-      class="" />
+      [file]="selectedNode" />
     <app-placeholder-properties
       (showProperties)="handleShowProperties($event)"
       *ngIf="!nodeFocus && openProperties" />

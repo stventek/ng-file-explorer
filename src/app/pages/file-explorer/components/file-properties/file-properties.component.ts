@@ -8,7 +8,7 @@ import { getIcon } from '../../utils/icon-utils';
   styleUrls: ['./file-properties.component.scss'],
 })
 export class FilePropertiesComponent {
-  @Input() file: IFileNode | undefined;
+  @Input() file!: IFileNode;
   @Output() showProperties = new EventEmitter<boolean>();
 
   handleCloseProperties() {

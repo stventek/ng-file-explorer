@@ -8,7 +8,7 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./folder-properties.component.scss'],
 })
 export class FolderPropertiesComponent {
-  @Input() folder: IFolderNode | undefined;
+  @Input() folder!: IFolderNode;
   @Output() showProperties = new EventEmitter<boolean>();
   faFolder = faFolder;
 

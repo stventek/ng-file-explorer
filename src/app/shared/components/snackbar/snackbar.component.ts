@@ -69,7 +69,6 @@ export class SnackbarComponent implements OnDestroy {
     this.visibilityState = 'visible';
 
     this.timerSubscription = timer(this.hideDuration).subscribe(() => {
-      console.log('hide');
       this.closeSnackbar();
     });
   }

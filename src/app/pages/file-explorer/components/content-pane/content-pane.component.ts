@@ -3,7 +3,6 @@ import {
   ElementRef,
   HostListener,
   Input,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
@@ -38,22 +37,6 @@ export class ContentPaneComponent {
     this.nodeFocus = true;
   }
 
-  unSelectNode() {
-    const propertiesElement = this.propertiesElement.nativeElement;
-    window.setTimeout(() => {
-      if (
-        !(
-          this.selectedElement &&
-          (document.activeElement == this.selectedElement ||
-            document.activeElement == propertiesElement ||
-            propertiesElement.contains(document.activeElement))
-        )
-      ) {
-        this.nodeFocus = false;
-      }
-    }, 0);
-  }
-
   handleShowProperties(val: boolean) {
     this.openProperties = val;
   }
@@ -75,5 +58,24 @@ export class ContentPaneComponent {
 
   snackbarClose() {
     this.snackbarOpen = false;
+  }
+
+  //if there is a click outside, properties, selected item or search input, unfocus item
+  @HostListener('document:click', ['$event.target'])
+  public onClick(target: any) {
+    const propertiesElement = this.propertiesElement.nativeElement;
+    window.setTimeout(() => {
+      if (
+        !(
+          this.selectedElement &&
+          (document.activeElement == this.selectedElement ||
+            document.activeElement == propertiesElement ||
+            (target.id === 'search' && document.activeElement == target) ||
+            propertiesElement.contains(document.activeElement))
+        )
+      ) {
+        this.nodeFocus = false;
+      }
+    }, 0);
   }
 }

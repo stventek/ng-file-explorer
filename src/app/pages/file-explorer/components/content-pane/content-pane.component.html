@@ -7,7 +7,6 @@
           (contextMenuAction)="handleContextMenuAction($event)"
           [node]="node"
           (focused)="setSeletedNode($event)"
-          (focusout)="unSelectNode()"
           [nodeFocus]="nodeFocus && selectedNode === node" />
       </div>
       <ng-template #file>
@@ -16,13 +15,12 @@
             [node]="node"
             (contextMenuAction)="handleContextMenuAction($event)"
             (focused)="setSeletedNode($event)"
-            (focusout)="unSelectNode()"
             [nodeFocus]="nodeFocus && selectedNode === node" />
         </div>
       </ng-template>
     </ng-container>
   </div>
-  <div #properties tabindex="0" (focusout)="unSelectNode()">
+  <div #properties tabindex="0">
     <app-folder-properties
       (showProperties)="handleShowProperties($event)"
       *ngIf="

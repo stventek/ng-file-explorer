@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IFileNode } from '../../interfaces/node.interface';
 import { getIcon } from '../../utils/icon-utils';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-file-properties',
@@ -11,14 +10,9 @@ import { Subject } from 'rxjs';
 export class FilePropertiesComponent {
   @Input() file!: IFileNode;
   @Output() showProperties = new EventEmitter<boolean>();
-  @Input() openPropertiesModal!: Subject<boolean>;
 
   handleCloseProperties() {
     this.showProperties.emit(false);
-  }
-
-  handleCloseModal() {
-    this.openPropertiesModal.next(false);
   }
 
   getIcon() {

@@ -11,14 +11,9 @@ import { Subject } from 'rxjs';
 export class FolderPropertiesComponent {
   @Input() folder!: IFolderNode;
   @Output() showProperties = new EventEmitter<boolean>();
-  @Input() openPropertiesModal!: Subject<boolean>;
   faFolder = faFolder;
 
   handleCloseProperties() {
     this.showProperties.emit(false);
-  }
-
-  handleCloseModal() {
-    this.openPropertiesModal.next(false);
   }
 }

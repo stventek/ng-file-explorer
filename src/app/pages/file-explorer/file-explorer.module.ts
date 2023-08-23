@@ -19,6 +19,8 @@ import { FilePropertiesComponent } from './components/file-properties/file-prope
 import { FolderPropertiesComponent } from './components/folder-properties/folder-properties.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PlaceholderPropertiesComponent } from './components/placeholder-properties/placeholder-properties.component';
+import { FilePropertiesModalComponent } from './components/file-properties-modal/file-properties-modal.component';
+import { FolderPropertiesModalComponent } from './components/folder-properties-modal/folder-properties-modal.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { PlaceholderPropertiesComponent } from './components/placeholder-propert
     FilePropertiesComponent,
     FolderPropertiesComponent,
     PlaceholderPropertiesComponent,
+    FilePropertiesModalComponent,
+    FolderPropertiesModalComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,41 @@
+<dialog
+  id="folder_properties_modal"
+  class="modal md:hidden"
+  [class.modal-open]="openPropertiesModal | async">
+  <form
+    method="dialog"
+    class="modal-box items-center text-center flex flex-col">
+    <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
+    <h2 class="card-title mb-3">
+      {{ folder.name }}
+    </h2>
+    <div class="prose-md">
+      <ul>
+        <li>
+          <span class="font-bold">Created at: </span>
+          <span>{{ folder.date }}</span>
+        </li>
+        <li>
+          <span class="font-bold">Created by: </span>
+          <span>{{ folder.creatorName }}</span>
+        </li>
+        <li>
+          <span class="font-bold">Name: </span>
+          <span>{{ folder.name }}</span>
+        </li>
+        <li>
+          <span class="font-bold">Path: </span>
+          <span>{{ folder.path }}</span>
+        </li>
+        <li>
+          <span class="font-bold">Size: </span>
+          <span>{{ folder.size }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-action">
+      <!-- if there is a button in form, it will close the modal -->
+      <button class="btn" (click)="handleCloseModal()">Close</button>
+    </div>
+  </form>
+</dialog>

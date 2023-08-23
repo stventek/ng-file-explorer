@@ -10,6 +10,7 @@ import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-content-pane',
@@ -22,7 +23,9 @@ export class ContentPaneComponent {
   openProperties = true;
   nodeFocus = false;
   selectedElement: HTMLElement | undefined;
+  snackbarOpen = false;
   @ViewChild('properties', { static: true }) propertiesElement!: ElementRef;
+  openPropertiesModal: Subject<boolean> = new Subject();
 
   constructor(
     private fileSystemService: FilesystemService,
@@ -56,13 +59,21 @@ export class ContentPaneComponent {
   }
 
   handleContextMenuAction(type: 'open_properties' | 'delete' | 'rename') {
-    if (type == 'open_properties') this.openProperties = true;
+    if (type == 'open_properties') {
+      this.openProperties = true;
+      this.openPropertiesModal.next(true);
+    }
     if (type == 'delete') {
       this.fileSystemService.fs.deleteNode(
         this.selectedNode!.path + this.selectedNode!.type
       );
       const path = decodeURIComponent(this.router.url);
       this.fileSystemService.updateCurrentContentByPath(path);
+      this.snackbarOpen = true;
     }
+  }
+
+  snackbarClose() {
+    this.snackbarOpen = false;
   }
 }

@@ -37,7 +37,13 @@ import { PlaceholderPropertiesComponent } from './components/placeholder-propert
     FolderPropertiesComponent,
     PlaceholderPropertiesComponent,
   ],
-  imports: [CommonModule, RouterModule, FormsModule, FontAwesomeModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    FontAwesomeModule,
+    SharedModule,
+  ],
   exports: [FileExplorerComponent],
   providers: [FilesystemService],
 })

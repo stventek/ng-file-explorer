@@ -48,7 +48,10 @@
     </div>
   </div>
 </div>
-<dialog id="file_properties_modal" class="modal md:hidden">
+<dialog
+  id="file_properties_modal"
+  class="modal md:hidden"
+  [class.modal-open]="openPropertiesModal | async">
   <form
     method="dialog"
     class="modal-box items-center text-center flex flex-col">
@@ -82,7 +85,7 @@
     </div>
     <div class="modal-action">
       <!-- if there is a button in form, it will close the modal -->
-      <button class="btn">Close</button>
+      <button class="btn" (click)="handleCloseModal()">Close</button>
     </div>
   </form>
 </dialog>

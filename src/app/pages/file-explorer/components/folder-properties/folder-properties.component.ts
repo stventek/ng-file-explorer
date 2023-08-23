@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IFolderNode } from '../../interfaces/node.interface';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-folder-properties',
@@ -10,9 +11,14 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons';
 export class FolderPropertiesComponent {
   @Input() folder!: IFolderNode;
   @Output() showProperties = new EventEmitter<boolean>();
+  @Input() openPropertiesModal!: Subject<boolean>;
   faFolder = faFolder;
 
   handleCloseProperties() {
     this.showProperties.emit(false);
+  }
+
+  handleCloseModal() {
+    this.openPropertiesModal.next(false);
   }
 }

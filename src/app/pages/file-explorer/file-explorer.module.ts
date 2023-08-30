@@ -21,6 +21,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PlaceholderPropertiesComponent } from './components/placeholder-properties/placeholder-properties.component';
 import { FilePropertiesModalComponent } from './components/file-properties-modal/file-properties-modal.component';
 import { FolderPropertiesModalComponent } from './components/folder-properties-modal/folder-properties-modal.component';
+import { RenameNodeModalComponent } from './components/rename-node-modal/rename-node-modal.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { FolderPropertiesModalComponent } from './components/folder-properties-m
     PlaceholderPropertiesComponent,
     FilePropertiesModalComponent,
     FolderPropertiesModalComponent,
+    RenameNodeModalComponent,
   ],
   imports: [
     CommonModule,

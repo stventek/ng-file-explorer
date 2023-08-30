@@ -24,7 +24,9 @@ export class ContentPaneComponent {
   selectedElement: HTMLElement | undefined;
   snackbarOpen = false;
   @ViewChild('properties', { static: true }) propertiesElement!: ElementRef;
+  @ViewChild('renameModal', { static: true }) renameModalElement!: ElementRef;
   openPropertiesModal: Subject<boolean> = new Subject();
+  openRenameModal = false;
 
   constructor(
     private fileSystemService: FilesystemService,
@@ -45,8 +47,9 @@ export class ContentPaneComponent {
     if (type == 'open_properties') {
       this.openProperties = true;
       this.openPropertiesModal.next(true);
-    }
-    if (type == 'delete') {
+    } else if (type === 'rename') {
+      this.openRenameModal = true;
+    } else if (type == 'delete') {
       this.fileSystemService.fs.deleteNode(
         this.selectedNode!.path + this.selectedNode!.type
       );
@@ -60,10 +63,22 @@ export class ContentPaneComponent {
     this.snackbarOpen = false;
   }
 
+  closeRenameModal(name: string) {
+    if (name) {
+      const path = this.selectedNode!.path + this.selectedNode!.type;
+      this.fileSystemService.fs.updateNode(path, { name });
+      this.fileSystemService.updateCurrentContentByPath(
+        decodeURIComponent(this.router.url)
+      );
+    }
+    this.openRenameModal = false;
+  }
+
   //if there is a click outside, properties, selected item or search input, unfocus item
   @HostListener('document:click', ['$event.target'])
   public onClick(target: any) {
     const propertiesElement = this.propertiesElement.nativeElement;
+    const renameModalElement = this.renameModalElement.nativeElement;
     window.setTimeout(() => {
       if (
         !(
@@ -71,7 +86,9 @@ export class ContentPaneComponent {
           (document.activeElement == this.selectedElement ||
             document.activeElement == propertiesElement ||
             (target.id === 'search' && document.activeElement == target) ||
-            propertiesElement.contains(document.activeElement))
+            propertiesElement.contains(document.activeElement) ||
+            document.activeElement == renameModalElement ||
+            renameModalElement.contains(document.activeElement))
         )
       ) {
         this.nodeFocus = false;

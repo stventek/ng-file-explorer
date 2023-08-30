@@ -43,9 +43,12 @@ export class FileSystemHelper {
     if (!node || node.name === 'root') return;
     if (data.name) {
       //update path
-      node.path = node.parentPath + node.date;
+      node.name = data.name;
+      node.path = `${node.parentPath!.replace(/\/$/, '')}/${data.name}`;
       //update reference in graph
-      this.graph[md5(node.path)] = node;
+      if (node.type == '__folder__')
+        this.graph[md5(node.path + '__folder__')] = node;
+      else this.graph[md5(node.path + '__file__')] = node;
       const parent = this.graph[node.parentID!] as IFolderNode;
       //update parent children reference
       parent.children.delete(nodeId);
@@ -83,6 +86,7 @@ export class FileSystemHelper {
   }
 
   getChildrenFolders(path: string) {
+    console.log('test');
     const parent = this.graph[md5(path)] as IFolderNode;
     if (parent) {
       let childs = Array.from(parent.children);

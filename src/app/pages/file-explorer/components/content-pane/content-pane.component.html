@@ -7,7 +7,11 @@
           (contextMenuAction)="handleContextMenuAction($event)"
           [node]="node"
           (focused)="setSeletedNode($event)"
-          [nodeFocus]="nodeFocus && selectedNode === node" />
+          [nodeFocus]="
+            nodeFocus &&
+            selectedNode !== undefined &&
+            selectedNode.path === node.path
+          " />
       </div>
       <ng-template #file>
         <div *ngIf="node.type === '__file__'">
@@ -15,7 +19,11 @@
             [node]="node"
             (contextMenuAction)="handleContextMenuAction($event)"
             (focused)="setSeletedNode($event)"
-            [nodeFocus]="nodeFocus && selectedNode === node" />
+            [nodeFocus]="
+              nodeFocus &&
+              selectedNode !== undefined &&
+              selectedNode.path === node.path
+            " />
         </div>
       </ng-template>
     </ng-container>
@@ -57,4 +65,10 @@
     [open]="snackbarOpen"
     (afterClose)="snackbarClose()"
     [message]="'File deleted successfully'" />
+  <div #renameModal>
+    <app-rename-node-modal
+      [open]="openRenameModal"
+      (closeModal)="closeRenameModal($event)"
+      (cancel)="openRenameModal = false" />
+  </div>
 </div>

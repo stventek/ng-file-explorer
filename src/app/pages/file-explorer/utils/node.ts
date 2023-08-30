@@ -40,6 +40,6 @@ export class FolderNode extends Node implements IFolderNode {
     this.children = folderArgs.children;
   }
   addChildren(node: FolderNode | FileNode) {
-    this.children.add(md5(node.path));
+    this.children.add(md5(node.path + node.type));
   }
 }

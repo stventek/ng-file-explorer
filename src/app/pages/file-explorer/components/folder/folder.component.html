@@ -5,7 +5,7 @@
   (focus)="emitSelectedFolder($event, node)">
   <div
     #folderContextMenu
-    class="fixed text-base-content shadow-xl"
+    class="fixed text-base-content z-10 shadow-xl"
     [ngStyle]="contextMenuStyles">
     <app-folder-context-menu
       *ngIf="isContextMenuOpen"

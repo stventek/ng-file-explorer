@@ -9,9 +9,16 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './navigation-folder.component.html',
   styleUrls: ['./navigation-folder.component.scss'],
 })
-export class NavigationFolderComponent {
+export class NavigationFolderComponent implements OnInit {
   @Input() node!: IFolderNode;
   @Input() childsFolders!: IFolderNode[];
+  childrenChildrenFolders: { [key: string]: IFolderNode[] } = {};
   faFolder = faFolder;
   constructor(public fileSystemService: FilesystemService) {}
+  ngOnInit(): void {
+    this.childsFolders.forEach(child => {
+      this.childrenChildrenFolders[child.path + '__folder__'] =
+        this.fileSystemService.fs.getChildrenFolders(child.path + '__folder__');
+    });
+  }
 }

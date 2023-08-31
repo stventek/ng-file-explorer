@@ -1,22 +1,9 @@
-<ul class="menu menu-md bg-base-200 rounded-lg max-w-lg w-full">
-  <ng-container *ngFor="let child of childrenFolders">
-    <li>
-      <details
-        *ngIf="
-          childrenChildrenFolders[child.path + '__folder__'].length > 0;
-          else noChildFoldersTemplate
-        "
-        app-navigation-folder
-        [node]="child"
-        [childsFolders]="
-          childrenChildrenFolders[child.path + '__folder__']
-        "></details>
-      <ng-template #noChildFoldersTemplate>
-        <a [routerLink]="child.path">
-          <fa-icon [icon]="faFolder"></fa-icon>
-          {{ child.name }}
-        </a>
-      </ng-template>
+<ul
+  *ngIf="rootNode.type === '__folder__'"
+  class="p-2 bg-base-200 rounded-lg w-full">
+  <ng-container *ngFor="let child of rootNode.children">
+    <li *ngIf="graph[child].type === '__folder__'" class="">
+      <app-navigation-folder [nodeId]="child" />
     </li>
   </ng-container>
 </ul>

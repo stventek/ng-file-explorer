@@ -1,24 +1,32 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IFolderNode } from '../../interfaces/node.interface';
 import { FilesystemService } from '../../services/filesystem/filesystem.service';
-import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FSData } from '../../interfaces/fs-data.interface';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'details[app-navigation-folder]',
+  selector: 'app-navigation-folder',
   templateUrl: './navigation-folder.component.html',
   styleUrls: ['./navigation-folder.component.scss'],
 })
-export class NavigationFolderComponent implements OnInit {
-  @Input() node!: IFolderNode;
-  @Input() childsFolders!: IFolderNode[];
-  childrenChildrenFolders: { [key: string]: IFolderNode[] } = {};
+export class NavigationFolderComponent {
+  graph: FSData;
+  hiddenChildren = true;
+  node!: IFolderNode;
+  _nodeId!: string;
+  @Input() set nodeId(value: string) {
+    this._nodeId = value;
+    this.node = this.graph[this._nodeId] as IFolderNode;
+  }
+
+  get nodeId() {
+    return this._nodeId;
+  }
+
   faFolder = faFolder;
-  constructor(public fileSystemService: FilesystemService) {}
-  ngOnInit(): void {
-    this.childsFolders.forEach(child => {
-      this.childrenChildrenFolders[child.path + '__folder__'] =
-        this.fileSystemService.fs.getChildrenFolders(child.path + '__folder__');
-    });
+  faArrowRight = faArrowRight;
+
+  constructor(public fileSystemService: FilesystemService) {
+    this.graph = this.fileSystemService.fs.getAdjGraph();
   }
 }

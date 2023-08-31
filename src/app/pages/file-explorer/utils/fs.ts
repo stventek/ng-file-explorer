@@ -86,7 +86,6 @@ export class FileSystemHelper {
   }
 
   getChildrenFolders(path: string) {
-    console.log('test');
     const parent = this.graph[md5(path)] as IFolderNode;
     if (parent) {
       let childs = Array.from(parent.children);
@@ -98,5 +97,9 @@ export class FileSystemHelper {
     } else {
       throw Error('Not such node');
     }
+  }
+
+  getAdjGraph() {
+    return this.graph;
   }
 }

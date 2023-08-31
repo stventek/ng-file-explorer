@@ -53,8 +53,6 @@ export class ContentPaneComponent {
       this.fileSystemService.fs.deleteNode(
         this.selectedNode!.path + this.selectedNode!.type
       );
-      const path = decodeURIComponent(this.router.url);
-      this.fileSystemService.updateCurrentContentByPath(path);
       this.snackbarOpen = true;
     }
   }
@@ -67,9 +65,6 @@ export class ContentPaneComponent {
     if (name) {
       const path = this.selectedNode!.path + this.selectedNode!.type;
       this.fileSystemService.fs.updateNode(path, { name });
-      this.fileSystemService.updateCurrentContentByPath(
-        decodeURIComponent(this.router.url)
-      );
     }
     this.openRenameModal = false;
   }

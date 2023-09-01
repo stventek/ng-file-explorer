@@ -10,6 +10,8 @@ import { CurrentContent } from '../../interfaces/current-content.interface';
 import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { FSData } from '../../interfaces/fs-data.interface';
+import * as md5 from 'md5';
 
 @Component({
   selector: 'app-content-pane',
@@ -17,7 +19,6 @@ import { Subject } from 'rxjs';
   styleUrls: ['./content-pane.component.scss'],
 })
 export class ContentPaneComponent {
-  @Input() currentContent!: CurrentContent;
   selectedNode: (IFolderNode | IFileNode) | undefined;
   openProperties = true;
   nodeFocus = false;
@@ -27,11 +28,32 @@ export class ContentPaneComponent {
   @ViewChild('renameModal', { static: true }) renameModalElement!: ElementRef;
   openPropertiesModal: Subject<boolean> = new Subject();
   openRenameModal = false;
+  graph: FSData;
+  _currentContent!: CurrentContent;
+  nodes!: Set<string>;
+
+  @Input() set currentContent(value: CurrentContent) {
+    this._currentContent = value;
+    if (value.nodes) {
+      this.nodes = new Set(value.nodes);
+    } else {
+      const parentNode = this.graph[
+        md5(this._currentContent.path + '__folder__')
+      ] as IFolderNode;
+      this.nodes = parentNode.children;
+    }
+  }
+
+  get currentContent() {
+    return this._currentContent;
+  }
 
   constructor(
     private fileSystemService: FilesystemService,
     public router: Router
-  ) {}
+  ) {
+    this.graph = this.fileSystemService.fs.getAdjGraph();
+  }
 
   setSeletedNode(data: { node: IFolderNode | IFileNode; target: HTMLElement }) {
     this.selectedElement = data.target;
@@ -50,10 +72,15 @@ export class ContentPaneComponent {
     } else if (type === 'rename') {
       this.openRenameModal = true;
     } else if (type == 'delete') {
-      this.fileSystemService.fs.deleteNode(
-        this.selectedNode!.path + this.selectedNode!.type
-      );
-      this.snackbarOpen = true;
+      this.fileSystemService.fs.deleteNode(this.selectedNode!);
+      if (this.snackbarOpen) {
+        this.snackbarOpen = false;
+        setTimeout(() => {
+          this.snackbarOpen = true;
+        }, 50);
+      } else {
+        this.snackbarOpen = true;
+      }
     }
   }
 
@@ -67,6 +94,13 @@ export class ContentPaneComponent {
       this.fileSystemService.fs.updateNode(path, { name });
     }
     this.openRenameModal = false;
+  }
+
+  isFolderNode(node: IFileNode | IFolderNode): node is IFolderNode {
+    return node.type === '__folder__';
+  }
+  isFileNode(node: IFileNode | IFolderNode): node is IFileNode {
+    return node.type === '__file__';
   }
 
   //if there is a click outside, properties, selected item or search input, unfocus item

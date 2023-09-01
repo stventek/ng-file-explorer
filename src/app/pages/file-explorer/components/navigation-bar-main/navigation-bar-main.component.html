@@ -19,10 +19,22 @@
   </div>
   <!--controls-->
   <div class="gap-2">
-    <a class="btn btn-sm btn-ghost normal-case">
-      <fa-icon [icon]="faCirclePlus"></fa-icon>
-      <span class="hidden sm:inline">New</span>
-    </a>
+    <div class="dropdown dropdown-end">
+      <label tabindex="0" class="btn btn-sm btn-ghost normal-case">
+        <fa-icon [icon]="faCirclePlus"></fa-icon>
+        <span class="hidden sm:inline">New</span>
+      </label>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-40">
+        <li (click)="openCreateFolderModal = true">
+          <a> <fa-icon [icon]="faFolder"></fa-icon>Folder</a>
+        </li>
+        <li>
+          <a> <fa-icon [icon]="faFile"></fa-icon>Upload File</a>
+        </li>
+      </ul>
+    </div>
     <div class="dropdown dropdown-end">
       <label tabindex="0" class="btn btn-sm btn-ghost normal-case">
         <fa-icon [icon]="faSort"></fa-icon>
@@ -37,3 +49,7 @@
     </div>
   </div>
 </div>
+<app-create-folder-modal
+  [open]="openCreateFolderModal"
+  (closeModal)="handleCloseCreateFolderMoldal()"
+  (cancel)="handleCloseCreateFolderMoldal()" />

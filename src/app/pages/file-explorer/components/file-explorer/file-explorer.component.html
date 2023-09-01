@@ -5,7 +5,8 @@
     <div class="h-screen flex flex-col">
       <app-navigation-bar-main />
       <div class="flex flex-1 items-start overflow-hidden">
-        <app-navigation-pane class="w-52 bg-base-200 h-full hidden md:block" />
+        <app-navigation-pane
+          class="w-52 bg-base-200 h-full hidden md:block overflow-x-auto" />
         <div
           class="flex-1 flex flex-col w-full h-full overflow-hidden"
           *ngIf="$currentContent | async as currentContent">

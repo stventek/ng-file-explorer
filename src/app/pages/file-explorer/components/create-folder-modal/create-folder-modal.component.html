@@ -1,0 +1,15 @@
+<dialog id="my_modal_1" class="modal" [class.modal-open]="open">
+  <form method="dialog" class="modal-box w-72">
+    <h3 class="font-bold text-lg mb-4">Create folder</h3>
+    <input
+      type="text"
+      class="input input-bordered w-full"
+      [(ngModel)]="name"
+      name="rename" />
+    <div class="modal-action">
+      <!-- if there is a button in form, it will close the modal -->
+      <button class="btn" (click)="handleCancel()">Cancel</button>
+      <button class="btn" (click)="handleClose()">Save</button>
+    </div>
+  </form>
+</dialog>

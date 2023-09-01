@@ -44,9 +44,9 @@ export class SnackbarComponent implements OnDestroy {
   @Input() hideDuration!: number;
   @Input() message!: string;
   @Output() afterClose = new EventEmitter<void>();
-  private _open!: boolean;
   visibilityState = 'hidden';
   private timerSubscription!: Subscription;
+  private _open!: boolean;
 
   @Input() set open(value: boolean) {
     this._open = value;
@@ -67,7 +67,9 @@ export class SnackbarComponent implements OnDestroy {
 
   showSnackbar() {
     this.visibilityState = 'visible';
-
+    if (this.timerSubscription) {
+      this.timerSubscription.unsubscribe();
+    }
     this.timerSubscription = timer(this.hideDuration).subscribe(() => {
       this.closeSnackbar();
     });
@@ -76,5 +78,11 @@ export class SnackbarComponent implements OnDestroy {
   closeSnackbar() {
     this.visibilityState = 'hidden';
     this.afterClose.emit();
+  }
+
+  animationDone(event: any) {
+    if (event.toState == 'hidden') {
+      event.element.style.display = 'none';
+    }
   }
 }

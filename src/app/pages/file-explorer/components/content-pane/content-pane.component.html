@@ -1,28 +1,30 @@
 <div class="flex h-full overflow-hidden">
   <div
     class="flex gap-3 flex-wrap flex-1 items-start content-start overflow-y-auto p-3">
-    <ng-container *ngFor="let node of currentContent.nodes">
-      <div *ngIf="node.type === '__folder__'; else file">
+    <ng-container *ngFor="let node of nodes">
+      <div *ngIf="graph[node] as folderNode">
         <app-folder
+          *ngIf="isFolderNode(folderNode); else file"
           (contextMenuAction)="handleContextMenuAction($event)"
-          [node]="node"
+          [node]="folderNode"
           (focused)="setSeletedNode($event)"
           [nodeFocus]="
             nodeFocus &&
             selectedNode !== undefined &&
-            selectedNode.path === node.path
+            selectedNode.path === graph[node].path
           " />
       </div>
       <ng-template #file>
-        <div *ngIf="node.type === '__file__'">
+        <div *ngIf="graph[node] as fileNode">
           <app-file
-            [node]="node"
+            *ngIf="isFileNode(fileNode)"
+            [node]="fileNode"
             (contextMenuAction)="handleContextMenuAction($event)"
             (focused)="setSeletedNode($event)"
             [nodeFocus]="
               nodeFocus &&
               selectedNode !== undefined &&
-              selectedNode.path === node.path
+              selectedNode.path === graph[node].path
             " />
         </div>
       </ng-template>
@@ -69,6 +71,7 @@
     <app-rename-node-modal
       [open]="openRenameModal"
       (closeModal)="closeRenameModal($event)"
+      [name]="selectedNode ? selectedNode.name : ''"
       (cancel)="openRenameModal = false" />
   </div>
 </div>

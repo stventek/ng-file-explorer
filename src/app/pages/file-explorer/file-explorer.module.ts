@@ -22,6 +22,7 @@ import { PlaceholderPropertiesComponent } from './components/placeholder-propert
 import { FilePropertiesModalComponent } from './components/file-properties-modal/file-properties-modal.component';
 import { FolderPropertiesModalComponent } from './components/folder-properties-modal/folder-properties-modal.component';
 import { RenameNodeModalComponent } from './components/rename-node-modal/rename-node-modal.component';
+import { CreateFolderModalComponent } from './components/create-folder-modal/create-folder-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { RenameNodeModalComponent } from './components/rename-node-modal/rename-
     FilePropertiesModalComponent,
     FolderPropertiesModalComponent,
     RenameNodeModalComponent,
+    CreateFolderModalComponent,
   ],
   imports: [
     CommonModule,

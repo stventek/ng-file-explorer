@@ -21,3 +21,11 @@ export interface IFolderNode extends INode {
 export interface IFileNode extends INode {
   type: '__file__';
 }
+
+export type FolderParams = Omit<
+  IFolderNode,
+  'date' | 'path' | 'type' | 'addChildren' | 'children'
+> & {
+  date?: string;
+  children?: Set<string>;
+};

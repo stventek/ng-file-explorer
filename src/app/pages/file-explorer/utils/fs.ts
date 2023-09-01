@@ -28,8 +28,31 @@ export class FileSystemHelper {
     return result;
   }
 
+  searchBFSIds(keyword: string, rootPath: string) {
+    const root = md5(rootPath);
+    const result: Array<string> = [];
+    const queue = [root];
+    const visited = new Set();
+    visited.add(root);
+    while (queue.length > 0) {
+      const current = queue.shift()!;
+      const currentNode = this.graph[current];
+      if (currentNode.name.includes(keyword)) {
+        result.push(md5(currentNode.path + currentNode.type));
+      }
+      if (currentNode.type == '__file__') continue;
+      currentNode.children.forEach(id => {
+        if (!visited.has(id)) {
+          queue.push(id);
+          visited.add(id);
+        }
+      });
+    }
+    return result;
+  }
+
   addNode(node: IFileNode | IFolderNode) {
-    const nodeId = md5(node.path);
+    const nodeId = md5(node.path + node.type);
     this.graph[nodeId] = node;
     if (node.parentID) {
       const parent = this.graph[node.parentID] as IFolderNode;
@@ -59,12 +82,9 @@ export class FileSystemHelper {
     Object.assign(node, data);
   }
 
-  deleteNode(path: string) {
-    const nodeId = md5(path);
-    const node = this.graph[nodeId];
-    if (!node || node.name === 'root') return;
+  deleteNode(node: IFileNode | IFolderNode) {
+    const nodeId = md5(node.path + node.type);
     const parent = this.graph[node.parentID!] as IFolderNode;
-    console.log(parent.children instanceof Array);
     parent.children.delete(nodeId);
     delete this.graph[nodeId];
   }

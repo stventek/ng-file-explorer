@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { NavigationEnd, Router, NavigationStart } from '@angular/router';
 import { CurrentContent } from '../../interfaces/current-content.interface';
+import { FSData } from '../../interfaces/fs-data.interface';
 
 @Component({
   selector: 'app-file-explorer',
@@ -13,11 +14,13 @@ import { CurrentContent } from '../../interfaces/current-content.interface';
 export class FileExplorerComponent implements OnInit, OnDestroy {
   $currentContent: Observable<CurrentContent | null>;
   private routerSubscription!: Subscription;
+  graph: FSData;
 
   constructor(
     private fileSystemService: FilesystemService,
     public router: Router
   ) {
+    this.graph = this.fileSystemService.fs.getAdjGraph();
     this.$currentContent = this.fileSystemService.$currentContent;
   }
 
@@ -34,7 +37,7 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
   navigateTo(path: string) {
     path = decodeURIComponent(path);
     try {
-      this.fileSystemService.updateCurrentContentByPath(path);
+      this.fileSystemService.updateCurrentContent({ path });
     } catch (err) {
       this.router.navigate(['/']);
     }

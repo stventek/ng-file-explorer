@@ -1,7 +1,9 @@
-<div class="fixed bottom-0 left-0 w-full px-3 py-2 sm:w-96">
-  <div
-    [ngClass]="[type, 'alert flex items-center shadow-xl']"
-    [@fade]="visibilityState">
+<div
+  class="fixed bottom-0 left-0 w-full px-3 py-2 sm:w-96"
+  [@fade]="visibilityState"
+  (@fade.start)="$event.element.style.display = 'flex'"
+  (@fade.done)="animationDone($event)">
+  <div [ngClass]="[type, 'alert flex items-center shadow-xl']">
     <h3 class="font-bold grow">{{ message }}</h3>
     <button (click)="closeSnackbar()" class="btn btn-square btn-sm btn-info">
       <svg

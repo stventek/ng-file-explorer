@@ -1,13 +1,11 @@
 <ul class="navigation-folder">
   <div
     [routerLink]="node.path"
-    class="parent-folder btn btn-sm block btn-ghost flex justify-start whitespace-nowrap"
+    class="btn btn-sm block btn-ghost flex justify-start block"
     (click)="hiddenChildren = !hiddenChildren">
-    <span class="block flex w-full gap-1"
+    <span class="block flex gap-1"
       ><fa-icon [icon]="faFolder"></fa-icon>
-      <span class="overflow-hidden whitespace-nowrap text-ellipsis">{{
-        node.name
-      }}</span>
+      <span class="whitespace-nowrap">{{ node.name }}</span>
       <fa-icon
         class="ml-auto arrow-icon transition"
         [class.fa-rotate-90]="hiddenChildren"

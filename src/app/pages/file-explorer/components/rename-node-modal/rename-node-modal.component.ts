@@ -9,7 +9,7 @@ export class RenameNodeModalComponent {
   @Input() open!: boolean;
   @Output() closeModal = new EventEmitter<string>();
   @Output() cancel = new EventEmitter<void>();
-  name: string | undefined;
+  @Input() name!: string;
 
   handleClose() {
     this.closeModal.emit(this.name);

@@ -21,7 +21,7 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.$currentContent.subscribe(currentContent => {
-      if (currentContent) {
+      if (currentContent && currentContent.path) {
         this.navigationItems = this.convertPathToObjects(currentContent.path);
       }
     });

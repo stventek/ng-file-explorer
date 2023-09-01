@@ -17,14 +17,14 @@ export class SearchComponent {
       const currentContent =
         this.fileSystemService.currentContentSource.getValue();
       if (currentContent) {
-        const result = this.fileSystemService.fs.searchBFS(
+        const result = this.fileSystemService.fs.searchBFSIds(
           this.searchInput,
           currentContent.path + '__folder__'
         );
         this.fileSystemService.updateCurrentContent({ nodes: result });
       }
     } else {
-      this.fileSystemService.updateCurrentContentByPath('/');
+      this.fileSystemService.updateCurrentContent({ nodes: undefined });
     }
   }
 }

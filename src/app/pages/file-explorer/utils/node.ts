@@ -1,5 +1,6 @@
 import * as md5 from 'md5';
 import {
+  FolderParams,
   IFileNode,
   IFolderNode,
   INode,
@@ -34,10 +35,10 @@ export class FileNode extends Node implements IFileNode {
 export class FolderNode extends Node implements IFolderNode {
   type!: '__folder__';
   children!: Set<string>;
-  constructor(folderArgs: NodeParams<IFolderNode>) {
+  constructor(folderArgs: FolderParams) {
     super(folderArgs);
     this.type = '__folder__';
-    this.children = folderArgs.children;
+    this.children = folderArgs?.children ?? new Set();
   }
   addChildren(node: FolderNode | FileNode) {
     this.children.add(md5(node.path + node.type));

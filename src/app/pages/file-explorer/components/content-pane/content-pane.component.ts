@@ -30,18 +30,12 @@ export class ContentPaneComponent {
   openRenameModal = false;
   graph: FSData;
   _currentContent!: CurrentContent;
-  nodes!: Set<string>;
-
+  parentNode!: IFolderNode;
   @Input() set currentContent(value: CurrentContent) {
     this._currentContent = value;
-    if (value.nodes) {
-      this.nodes = new Set(value.nodes);
-    } else {
-      const parentNode = this.graph[
-        md5(this._currentContent.path + '__folder__')
-      ] as IFolderNode;
-      this.nodes = parentNode.children;
-    }
+    this.parentNode = this.graph[
+      md5(this._currentContent.path + '__folder__')
+    ] as IFolderNode;
   }
 
   get currentContent() {

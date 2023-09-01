@@ -6,12 +6,12 @@
       <app-navigation-bar-main />
       <div class="flex flex-1 items-start overflow-hidden">
         <app-navigation-pane
-          class="w-52 bg-base-200 h-full hidden md:block overflow-x-auto" />
+          class="w-52 bg-base-200 h-full hidden md:block overflow-x-auto p-1" />
         <div
           class="flex-1 flex flex-col w-full h-full overflow-hidden"
           *ngIf="$currentContent | async as currentContent">
           <div
-            class="flex justify-center items-center w-full gap-3 py-3 px-5 bg-primary flex-wrap">
+            class="flex justify-center items-center w-full gap-3 py-3 px-5 bg-accent text-accent-content flex-wrap">
             <app-navigation-bar class="flex-1 w-full overflow-x-auto" />
             <app-search class="w-full sm:w-auto" />
           </div>
@@ -24,6 +24,6 @@
   </div>
   <div class="drawer-side">
     <label for="my-drawer" class="drawer-overlay"></label>
-    <app-navigation-pane class="w-52 bg-base-200 h-full" />
+    <app-navigation-pane class="w-52 bg-base-200 h-full overflow-x-auto" />
   </div>
 </div>

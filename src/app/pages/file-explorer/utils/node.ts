@@ -34,13 +34,14 @@ export class FileNode extends Node implements IFileNode {
 
 export class FolderNode extends Node implements IFolderNode {
   type!: '__folder__';
-  children!: Set<string>;
+  children!: Array<string>;
   constructor(folderArgs: FolderParams) {
     super(folderArgs);
     this.type = '__folder__';
-    this.children = folderArgs?.children ?? new Set();
+    this.children = folderArgs?.children ?? [];
   }
   addChildren(node: FolderNode | FileNode) {
-    this.children.add(md5(node.path + node.type));
+    console.log('adding');
+    this.children.push(md5(node.path + node.type));
   }
 }

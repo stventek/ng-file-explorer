@@ -1,4 +1,8 @@
-.navigation-folder:not(:has(li)) > div > span > .arrow-icon {
+.navigation-folder:not(:has(li)) > div > div > .arrow-icon {
     display: none;
+}
+
+.navigation-folder:not(:has(li)) > div > .folder-icons {
+    margin-left: 1.8rem;
 }
 

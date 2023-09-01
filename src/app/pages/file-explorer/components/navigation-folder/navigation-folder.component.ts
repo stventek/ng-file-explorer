@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IFolderNode } from '../../interfaces/node.interface';
 import { FilesystemService } from '../../services/filesystem/filesystem.service';
-import { faFolder, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faFolder, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FSData } from '../../interfaces/fs-data.interface';
 
 @Component({
@@ -24,7 +24,7 @@ export class NavigationFolderComponent {
   }
 
   faFolder = faFolder;
-  faArrowRight = faArrowRight;
+  faAngleUp = faAngleUp;
 
   constructor(public fileSystemService: FilesystemService) {
     this.graph = this.fileSystemService.fs.getAdjGraph();

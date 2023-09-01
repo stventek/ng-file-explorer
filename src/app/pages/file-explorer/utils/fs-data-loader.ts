@@ -8,7 +8,6 @@ function injectData(dummyData: any) {
     if (dummyData[key].type === '__folder__') {
       fsData[key] = new FolderNode(dummyData[key]);
       const folderNode = fsData[key] as FolderNode;
-      folderNode.children = new Set(folderNode.children);
     } else if (dummyData[key].type === '__file__') {
       fsData[key] = new FileNode(dummyData[key]);
     } else {

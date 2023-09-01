@@ -74,7 +74,7 @@ export class FileSystemHelper {
       else this.graph[md5(node.path + '__file__')] = node;
       const parent = this.graph[node.parentID!] as IFolderNode;
       //update parent children reference
-      parent.children.delete(nodeId);
+      parent.children = parent.children.filter(id => nodeId != id);
       parent.addChildren(node);
       //delete old node reference
       delete this.graph[nodeId];
@@ -85,7 +85,7 @@ export class FileSystemHelper {
   deleteNode(node: IFileNode | IFolderNode) {
     const nodeId = md5(node.path + node.type);
     const parent = this.graph[node.parentID!] as IFolderNode;
-    parent.children.delete(nodeId);
+    parent.children = parent.children.filter(id => nodeId != id);
     delete this.graph[nodeId];
   }
 

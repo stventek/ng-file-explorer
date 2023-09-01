@@ -3,15 +3,15 @@
     [routerLink]="node.path"
     class="btn btn-sm block btn-ghost flex justify-start block"
     (click)="hiddenChildren = !hiddenChildren">
-    <span class="block flex gap-1"
-      ><fa-icon [icon]="faFolder"></fa-icon>
-      <span class="whitespace-nowrap">{{ node.name }}</span>
+    <div class="flex folder-icons">
       <fa-icon
-        class="ml-auto arrow-icon transition"
-        [class.fa-rotate-90]="hiddenChildren"
-        [class.fa-rotate-270]="!hiddenChildren"
-        [icon]="faArrowRight"></fa-icon>
-    </span>
+        class="arrow-icon transition mr-4"
+        [class.fa-rotate-180]="hiddenChildren"
+        [class.fa-rotate-0]="!hiddenChildren"
+        [icon]="faAngleUp"></fa-icon>
+      <fa-icon [icon]="faFolder" class="mr-2"></fa-icon>
+      <span class="whitespace-nowrap normal-case">{{ node.name }}</span>
+    </div>
   </div>
   <ng-container *ngFor="let child of node.children">
     <li

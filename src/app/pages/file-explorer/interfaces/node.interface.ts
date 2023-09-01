@@ -14,7 +14,7 @@ export interface INode {
 
 export interface IFolderNode extends INode {
   type: '__folder__';
-  children: Set<string>;
+  children: Array<string>;
   addChildren(node: INode): void;
 }
 
@@ -27,5 +27,5 @@ export type FolderParams = Omit<
   'date' | 'path' | 'type' | 'addChildren' | 'children'
 > & {
   date?: string;
-  children?: Set<string>;
+  children?: Array<string>;
 };

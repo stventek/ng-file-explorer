@@ -1,15 +1,36 @@
 <dialog id="my_modal_1" class="modal" [class.modal-open]="open">
-  <form method="dialog" class="modal-box w-72">
+  <form
+    #ngForm="ngForm"
+    method="dialog"
+    class="modal-box w-72"
+    [formGroup]="form"
+    (ngSubmit)="handleClose()">
     <h3 class="font-bold text-lg mb-4">Create folder</h3>
     <input
+      [class.input-error]="form.get('name')?.errors && ngForm.dirty"
       type="text"
       class="input input-bordered w-full"
-      [(ngModel)]="name"
+      formControlName="name"
       name="rename" />
+    <div *ngIf="form.get('name')?.hasError('duplicatedFolderName')">
+      folder already exists
+    </div>
+    <div *ngIf="form.get('name')?.hasError('required') && ngForm.dirty">
+      name cannot be empty
+    </div>
+    <div *ngIf="form.get('name')?.hasError('pattern') && ngForm.dirty">
+      Invalid folder name. Please use only letters, numbers, underscores, and
+      hyphens.
+    </div>
     <div class="modal-action">
       <!-- if there is a button in form, it will close the modal -->
-      <button class="btn" (click)="handleCancel()">Cancel</button>
-      <button class="btn" (click)="handleClose()">Save</button>
+      <a class="btn" (click)="handleCancel()">Cancel</a>
+      <a
+        class="btn"
+        (click)="handleClose()"
+        [class.btn-disabled]="form.invalid">
+        Save
+      </a>
     </div>
   </form>
 </dialog>

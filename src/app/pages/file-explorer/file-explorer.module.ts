@@ -9,7 +9,7 @@ import { FileComponent } from './components/file/file.component';
 import { FolderComponent } from './components/folder/folder.component';
 import { NavigationFolderComponent } from './components/navigation-folder/navigation-folder.component';
 import { SearchComponent } from './components/search/search.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavigationBarMainComponent } from './components/navigation-bar-main/navigation-bar-main.component';
@@ -52,6 +52,7 @@ import { LocalStorageService } from './services/local-storage/local-storage.serv
     FormsModule,
     FontAwesomeModule,
     SharedModule,
+    ReactiveFormsModule,
   ],
   exports: [FileExplorerComponent],
   providers: [FilesystemService, LocalStorageService],

@@ -100,7 +100,6 @@ export class ContentPaneComponent {
   //if there is a click outside, properties, selected item or search input, unfocus item
   @HostListener('document:click', ['$event.target'])
   public onClick(target: any) {
-    console.log(this.propertiesElement);
     const propertiesElement = this.propertiesElement.nativeElement;
     const renameModalElement = this.renameModalElement.nativeElement;
     window.setTimeout(() => {

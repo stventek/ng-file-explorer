@@ -24,7 +24,6 @@ export class LocalStorageService {
 
   refreshGraph() {
     const graph = this.localStorageETL.load();
-    console.log(graph);
     this.fsHelper.updateGraph(graph);
     this.graphSource.next(graph);
   }
@@ -56,17 +55,26 @@ export class LocalStorageService {
         parentID: md5(currentContent.path + '__folder__'),
       });
       this.fsHelper.addNode(newFolder);
+      this.fsHelper.sortChildsBy(
+        currentContent.path,
+        this.sortType,
+        this.ascending
+      );
       this.graphSource.next(this.fsHelper.getAdjGraph());
     }
   }
 
   deleteNode(node: IFileNode | IFolderNode) {
     this.fsHelper.deleteNode(node);
+    this.fsHelper.sortChildsBy(node.parentPath!, this.sortType, this.ascending);
     this.graphSource.next(this.fsHelper.getAdjGraph());
   }
 
   updateNode(path: string, data: Partial<IFileNode> | Partial<IFolderNode>) {
+    const node = this.fsHelper.getAdjGraph()[md5(path)];
+    const parentPath = node.parentPath!;
     this.fsHelper.updateNode(path, data);
+    this.fsHelper.sortChildsBy(parentPath, this.sortType, this.ascending);
     this.graphSource.next(this.fsHelper.getAdjGraph());
   }
 

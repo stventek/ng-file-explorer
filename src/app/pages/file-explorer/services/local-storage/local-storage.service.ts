@@ -18,7 +18,8 @@ export class LocalStorageService {
   graphSource = new BehaviorSubject<FSData | null>(null);
   $graph = this.graphSource.asObservable();
   localStorageETL = new LocalStorageETL();
-  sortType = 'name';
+  sortType: 'name' | 'size' = 'name';
+  ascending = true;
   constructor() {}
 
   refreshGraph() {
@@ -37,9 +38,10 @@ export class LocalStorageService {
     }
   }
 
-  sortBy(path: string, type: 'name' | 'size') {
-    this.sortType = type;
-    this.fsHelper.sortBy(path, type);
+  sortChildsBy(path: string, type?: 'name' | 'size', ascending?: boolean) {
+    if (type) this.sortType = type;
+    if (ascending !== undefined) this.ascending = ascending;
+    this.fsHelper.sortChildsBy(path, this.sortType, this.ascending);
     this.graphSource.next(this.fsHelper.getAdjGraph());
   }
 

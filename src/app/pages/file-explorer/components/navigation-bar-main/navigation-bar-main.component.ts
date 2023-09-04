@@ -5,7 +5,6 @@ import {
   faFile,
   faFolder,
 } from '@fortawesome/free-solid-svg-icons';
-import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
@@ -26,10 +25,14 @@ export class NavigationBarMainComponent {
     this.openCreateFolderModal = false;
   }
 
-  sortBy(type: 'name' | 'size') {
+  sortChildsBy(data: { type?: 'name' | 'size'; ascending?: boolean }) {
     const currentContent =
       this.fileSystemService.currentContentSource.getValue();
     if (currentContent.path)
-      this.fileSystemService.sortBy(currentContent.path, type);
+      this.fileSystemService.sortChildsBy(
+        currentContent.path,
+        data.type,
+        data.ascending
+      );
   }
 }

@@ -43,8 +43,11 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li (click)="sortBy('name')"><a>Name</a></li>
-        <li (click)="sortBy('size')"><a>Size</a></li>
+        <li (click)="sortChildsBy({ type: 'name' })"><a>Name</a></li>
+        <li (click)="sortChildsBy({ type: 'size' })"><a>Size</a></li>
+        <div class="divider m-0"></div>
+        <li (click)="sortChildsBy({ ascending: true })"><a>Ascending</a></li>
+        <li (click)="sortChildsBy({ ascending: false })"><a>Descending</a></li>
       </ul>
     </div>
   </div>

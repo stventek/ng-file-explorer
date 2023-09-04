@@ -267,17 +267,26 @@ export class FileSystemHelperV2 {
     return this.graph;
   }
 
-  sortBy(path: string, type: 'name' | 'size') {
+  sortChildsBy(path: string, type: 'name' | 'size', ascending = true) {
     const parent = this.graph[md5(path + '__folder__')] as
       | IFolderNode
       | undefined;
     if (parent === undefined) throw Error('Not such node');
     parent.children = parent.children.sort((a, b) => {
       if (type === 'name') {
-        if (this.graph[a].name < this.graph[b].name) return -1;
-        if (this.graph[a].name > this.graph[b].name) return 1;
+        if (this.graph[a].name < this.graph[b].name) {
+          return ascending ? -1 : 1;
+        }
+        if (this.graph[a].name > this.graph[b].name) {
+          return ascending ? 1 : -1;
+        }
       } else if (type === 'size') {
-        return this.graph[a].size - this.graph[b].size;
+        if (this.graph[a].size < this.graph[b].size) {
+          return ascending ? -1 : 1;
+        }
+        if (this.graph[a].size > this.graph[b].size) {
+          return ascending ? 1 : -1;
+        }
       }
       return 0;
     });

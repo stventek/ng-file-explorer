@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { last } from 'rxjs';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-search',
@@ -10,14 +11,14 @@ import { last } from 'rxjs';
 export class SearchComponent {
   searchInput!: string;
 
-  constructor(private fileSystemService: FilesystemService) {}
+  constructor(private fileSystemService: LocalStorageService) {}
 
   search() {
     if (this.searchInput) {
       const currentContent =
         this.fileSystemService.currentContentSource.getValue();
       if (currentContent) {
-        const result = this.fileSystemService.fs.searchBFSIds(
+        const result = this.fileSystemService.searchBFSIds(
           this.searchInput,
           currentContent.path + '__folder__'
         );

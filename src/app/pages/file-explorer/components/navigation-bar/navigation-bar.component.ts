@@ -4,6 +4,7 @@ import { CurrentContent } from '../../interfaces/current-content.interface';
 import { Observable } from 'rxjs';
 import { NavigationItem } from '../../interfaces/navigation-item.interface';
 import { faCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -15,7 +16,7 @@ export class NavigationBarComponent implements OnInit {
   navigationItems: NavigationItem[] = [];
   faCircleUp = faCircleUp;
 
-  constructor(private fileSystemService: FilesystemService) {
+  constructor(private fileSystemService: LocalStorageService) {
     this.$currentContent = fileSystemService.$currentContent;
   }
 

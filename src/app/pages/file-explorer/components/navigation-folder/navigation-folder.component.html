@@ -1,24 +1,28 @@
-<ul class="navigation-folder">
-  <div
-    [routerLink]="node.path"
-    class="btn btn-sm block btn-ghost flex justify-start block"
-    (click)="hiddenChildren = !hiddenChildren">
-    <div class="flex folder-icons">
-      <fa-icon
-        class="arrow-icon transition mr-4"
-        [class.fa-rotate-180]="hiddenChildren"
-        [class.fa-rotate-0]="!hiddenChildren"
-        [icon]="faAngleUp"></fa-icon>
-      <fa-icon [icon]="faFolder" class="mr-2"></fa-icon>
-      <span class="whitespace-nowrap normal-case">{{ node.name }}</span>
+<ng-container *ngIf="$graph | async as graph">
+  <ul class="navigation-folder">
+    <div
+      [routerLink]="graph[nodeId].path"
+      class="btn btn-sm block btn-ghost flex justify-start block"
+      (click)="hiddenChildren = !hiddenChildren">
+      <div class="flex folder-icons">
+        <fa-icon
+          class="arrow-icon transition mr-4"
+          [class.fa-rotate-180]="hiddenChildren"
+          [class.fa-rotate-0]="!hiddenChildren"
+          [icon]="faAngleUp"></fa-icon>
+        <fa-icon [icon]="faFolder" class="mr-2"></fa-icon>
+        <span class="whitespace-nowrap normal-case">{{
+          graph[nodeId].name
+        }}</span>
+      </div>
     </div>
-  </div>
-  <ng-container *ngFor="let child of node.children">
-    <li
-      *ngIf="graph[child].type === '__folder__'"
-      class="ml-4"
-      [hidden]="hiddenChildren">
-      <app-navigation-folder [nodeId]="child" />
-    </li>
-  </ng-container>
-</ul>
+    <ng-container *ngFor="let child of getNode(graph).children">
+      <li
+        *ngIf="graph[child].type === '__folder__'"
+        class="ml-4"
+        [hidden]="hiddenChildren">
+        <app-navigation-folder [nodeId]="child" />
+      </li>
+    </ng-container>
+  </ul>
+</ng-container>

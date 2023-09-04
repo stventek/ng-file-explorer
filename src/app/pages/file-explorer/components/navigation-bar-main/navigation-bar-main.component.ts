@@ -5,6 +5,8 @@ import {
   faFile,
   faFolder,
 } from '@fortawesome/free-solid-svg-icons';
+import { FilesystemService } from '../../services/filesystem/filesystem.service';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-navigation-bar-main',
@@ -18,7 +20,16 @@ export class NavigationBarMainComponent {
   faFolder = faFolder;
   openCreateFolderModal = false;
 
+  constructor(private fileSystemService: LocalStorageService) {}
+
   handleCloseCreateFolderMoldal() {
     this.openCreateFolderModal = false;
+  }
+
+  sortBy(type: 'name' | 'size') {
+    const currentContent =
+      this.fileSystemService.currentContentSource.getValue();
+    if (currentContent.path)
+      this.fileSystemService.sortBy(currentContent.path, type);
   }
 }

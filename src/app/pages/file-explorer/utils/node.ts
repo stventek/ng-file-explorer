@@ -45,3 +45,13 @@ export class FolderNode extends Node implements IFolderNode {
     this.children.push(md5(node.path + node.type));
   }
 }
+
+export const isFolder = (
+  node: IFolderNode | IFileNode
+): node is IFolderNode => {
+  return node.type === '__folder__';
+};
+
+export const isFile = (node: IFolderNode | IFileNode): node is IFileNode => {
+  return node.type === '__file__';
+};

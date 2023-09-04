@@ -1,7 +1,9 @@
-<ul *ngIf="rootNode.type === '__folder__'" class="min-w-full inline-block">
-  <ng-container *ngFor="let child of rootNode.children">
-    <li *ngIf="graph[child].type === '__folder__'" class="">
-      <app-navigation-folder [nodeId]="child" />
-    </li>
-  </ng-container>
-</ul>
+<ng-container *ngIf="$graph | async as graph">
+  <ul class="min-w-full inline-block">
+    <ng-container *ngFor="let child of getParentNodeChilds(graph)">
+      <li *ngIf="graph[child].type === '__folder__'" class="">
+        <app-navigation-folder [nodeId]="child" />
+      </li>
+    </ng-container>
+  </ul>
+</ng-container>

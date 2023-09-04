@@ -13,8 +13,14 @@ export class FilesystemService {
   fs = new FileSystemHelper(fsData);
   currentContentSource = new BehaviorSubject<CurrentContent>({});
   $currentContent = this.currentContentSource.asObservable();
+  sortType = 'name';
 
   constructor() {}
+
+  sortBy(path: string, type: 'name' | 'size') {
+    this.sortType = type;
+    this.fs.sortBy(path, type);
+  }
 
   createFolder(name: string) {
     const currentContent = this.currentContentSource.getValue()!;

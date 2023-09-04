@@ -23,6 +23,7 @@ import { FilePropertiesModalComponent } from './components/file-properties-modal
 import { FolderPropertiesModalComponent } from './components/folder-properties-modal/folder-properties-modal.component';
 import { RenameNodeModalComponent } from './components/rename-node-modal/rename-node-modal.component';
 import { CreateFolderModalComponent } from './components/create-folder-modal/create-folder-modal.component';
+import { LocalStorageService } from './services/local-storage/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,6 @@ import { CreateFolderModalComponent } from './components/create-folder-modal/cre
     SharedModule,
   ],
   exports: [FileExplorerComponent],
-  providers: [FilesystemService],
+  providers: [FilesystemService, LocalStorageService],
 })
 export class FileExplorerModule {}

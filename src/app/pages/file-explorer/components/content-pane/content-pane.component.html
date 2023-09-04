@@ -1,8 +1,9 @@
 <div class="flex h-full overflow-hidden">
   <div
+    *ngIf="$graph | async as graph"
     class="flex gap-3 flex-wrap flex-1 items-start content-start overflow-y-auto p-3">
     <ng-container
-      *ngFor="let node of currentContent.nodes || parentNode.children">
+      *ngFor="let node of currentContent.nodes || getParentNodeChilds(graph)">
       <div *ngIf="graph[node] as folderNode">
         <app-folder
           *ngIf="isFolderNode(folderNode); else file"

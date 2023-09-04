@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { Observable, Subscription } from 'rxjs';
-import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
-import { NavigationEnd, Router, NavigationStart } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { CurrentContent } from '../../interfaces/current-content.interface';
-import { FSData } from '../../interfaces/fs-data.interface';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-file-explorer',
@@ -14,17 +13,16 @@ import { FSData } from '../../interfaces/fs-data.interface';
 export class FileExplorerComponent implements OnInit, OnDestroy {
   $currentContent: Observable<CurrentContent | null>;
   private routerSubscription!: Subscription;
-  graph: FSData;
 
   constructor(
-    private fileSystemService: FilesystemService,
+    private fileSystemService: LocalStorageService,
     public router: Router
   ) {
-    this.graph = this.fileSystemService.fs.getAdjGraph();
     this.$currentContent = this.fileSystemService.$currentContent;
   }
 
   ngOnInit(): void {
+    this.fileSystemService.refreshGraph();
     this.navigateTo(this.router.url);
 
     this.routerSubscription = this.router.events.subscribe(event => {

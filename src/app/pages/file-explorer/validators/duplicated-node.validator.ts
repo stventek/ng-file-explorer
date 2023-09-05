@@ -13,7 +13,7 @@ export function ValidateFolderDuplication(service: LocalStorageService) {
       name &&
       graph &&
       currentContet &&
-      graph[md5(`${currentContet.path!}${name}__folder__`)]
+      graph[md5(`${currentContet.path!}/${name}__folder__`)]
     )
       return { duplicatedFolderName: true };
     return null;

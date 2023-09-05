@@ -18,11 +18,21 @@ export class NavigationBarMainComponent {
   faFile = faFile;
   faFolder = faFolder;
   openCreateFolderModal = false;
+  snackbarMessage = 'Folder created successfully';
+  snackbarOpen = false;
 
   constructor(private fileSystemService: LocalStorageService) {}
 
   handleCloseCreateFolderMoldal() {
     this.openCreateFolderModal = false;
+    this.snackbarOpen = true;
+  }
+  handleCancelCreateFolderMoldal() {
+    this.openCreateFolderModal = false;
+  }
+
+  snackbarClose() {
+    this.snackbarOpen = false;
   }
 
   sortChildsBy(data: { type?: 'name' | 'size'; ascending?: boolean }) {

@@ -55,4 +55,10 @@
 <app-create-folder-modal
   [open]="openCreateFolderModal"
   (closeModal)="handleCloseCreateFolderMoldal()"
-  (cancel)="handleCloseCreateFolderMoldal()" />
+  (cancel)="handleCancelCreateFolderMoldal()" />
+<app-snackbar
+  [type]="'alert-info'"
+  [hideDuration]="6000"
+  [open]="snackbarOpen"
+  (afterClose)="snackbarClose()"
+  [message]="snackbarMessage" />

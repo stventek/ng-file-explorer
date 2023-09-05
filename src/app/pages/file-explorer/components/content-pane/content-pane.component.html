@@ -68,7 +68,7 @@
     [hideDuration]="6000"
     [open]="snackbarOpen"
     (afterClose)="snackbarClose()"
-    [message]="'File deleted successfully'" />
+    [message]="snackbarMessaege" />
   <div #renameModal>
     <app-rename-node-modal
       *ngIf="selectedNode"

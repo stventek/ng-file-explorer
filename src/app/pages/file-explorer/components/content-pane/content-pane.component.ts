@@ -31,6 +31,7 @@ export class ContentPaneComponent {
   $graph: Observable<FSData | null>;
   @Input() currentContent!: CurrentContent;
   parentNode!: string;
+  snackbarMessaege = '';
 
   getParentNodeChilds(graph: FSData) {
     const parentId = md5(this.currentContent.path + '__folder__');
@@ -69,14 +70,19 @@ export class ContentPaneComponent {
       this.openRenameModal = true;
     } else if (type == 'delete') {
       this.fileSystemService.deleteNode(this.selectedNode!);
-      if (this.snackbarOpen) {
-        this.snackbarOpen = false;
-        setTimeout(() => {
-          this.snackbarOpen = true;
-        }, 50);
-      } else {
+      this.snackbarMessaege = 'File deleted successfully';
+      this.openSnackbar();
+    }
+  }
+
+  openSnackbar() {
+    if (this.snackbarOpen) {
+      this.snackbarOpen = false;
+      setTimeout(() => {
         this.snackbarOpen = true;
-      }
+      }, 50);
+    } else {
+      this.snackbarOpen = true;
     }
   }
 
@@ -88,6 +94,8 @@ export class ContentPaneComponent {
     if (name) {
       const path = this.selectedNode!.path + this.selectedNode!.type;
       this.fileSystemService.updateNode(path, { name });
+      this.snackbarMessaege = 'File updated successfully';
+      this.openSnackbar();
     }
     this.openRenameModal = false;
   }

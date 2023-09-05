@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
-import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { FSData } from '../../interfaces/fs-data.interface';
@@ -53,6 +52,9 @@ export class ContentPaneComponent {
     this.selectedElement = data.target;
     this.selectedNode = data.node;
     this.nodeFocus = true;
+    this.fileSystemService.updateCurrentContent({
+      selectedNode: md5(data.node.path + data.node.type),
+    });
   }
 
   handleShowProperties(val: boolean) {

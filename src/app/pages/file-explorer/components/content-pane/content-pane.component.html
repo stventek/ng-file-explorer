@@ -71,9 +71,10 @@
     [message]="'File deleted successfully'" />
   <div #renameModal>
     <app-rename-node-modal
+      *ngIf="selectedNode"
       [open]="openRenameModal"
       (closeModal)="closeRenameModal($event)"
-      [name]="selectedNode ? selectedNode.name : ''"
+      [node]="selectedNode"
       (cancel)="openRenameModal = false" />
   </div>
 </div>

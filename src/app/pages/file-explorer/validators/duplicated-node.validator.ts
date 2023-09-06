@@ -26,13 +26,13 @@ export function ValidateNodeDuplication(service: LocalStorageService) {
     const graph = service.graphSource.getValue()!;
     const currentContet = service.currentContentSource.getValue();
     const node = currentContet?.selectedNode;
-    if (name && graph && currentContet && node && graph[node]) {
-      if (graph[node].name === name) return null;
-      if (isFolder(graph[node])) {
+    if (name && graph && currentContet && node) {
+      if (node.name === name) return null;
+      if (isFolder(node)) {
         if (graph[md5(`${currentContet.path!}/${name}__folder__`)]) {
           return { duplicatedNodeName: true };
         }
-      } else if (isFile(graph[node])) {
+      } else if (isFile(node)) {
         if (graph[md5(`${currentContet.path!}/${name}__file__`)]) {
           return { duplicatedNodeName: true };
         }

@@ -12,8 +12,8 @@
           (focused)="setSeletedNode($event)"
           [nodeFocus]="
             nodeFocus &&
-            selectedNode !== undefined &&
-            selectedNode.path === graph[node].path
+            currentContent.selectedNode !== undefined &&
+            currentContent.selectedNode.path === graph[node].path
           " />
       </div>
       <ng-template #file>
@@ -25,8 +25,8 @@
             (focused)="setSeletedNode($event)"
             [nodeFocus]="
               nodeFocus &&
-              selectedNode !== undefined &&
-              selectedNode.path === graph[node].path
+              currentContent.selectedNode !== undefined &&
+              currentContent.selectedNode.path === graph[node].path
             " />
         </div>
       </ng-template>
@@ -38,29 +38,37 @@
       *ngIf="
         openProperties &&
         nodeFocus &&
-        selectedNode &&
-        selectedNode.type === '__folder__'
+        currentContent.selectedNode &&
+        currentContent.selectedNode.type === '__folder__'
       "
-      [folder]="selectedNode" />
+      [folder]="currentContent.selectedNode" />
     <app-file-properties
       (showProperties)="handleShowProperties($event)"
       *ngIf="
         openProperties &&
         nodeFocus &&
-        selectedNode &&
-        selectedNode.type === '__file__'
+        currentContent.selectedNode &&
+        currentContent.selectedNode.type === '__file__'
       "
-      [file]="selectedNode" />
+      [file]="currentContent.selectedNode" />
     <app-placeholder-properties
       (showProperties)="handleShowProperties($event)"
       *ngIf="!nodeFocus && openProperties" />
     <app-file-properties-modal
-      *ngIf="nodeFocus && selectedNode && selectedNode.type === '__file__'"
-      [file]="selectedNode"
+      *ngIf="
+        nodeFocus &&
+        currentContent.selectedNode &&
+        currentContent.selectedNode.type === '__file__'
+      "
+      [file]="currentContent.selectedNode"
       [openPropertiesModal]="openPropertiesModal" />
     <app-folder-properties-modal
-      *ngIf="nodeFocus && selectedNode && selectedNode.type === '__folder__'"
-      [folder]="selectedNode"
+      *ngIf="
+        nodeFocus &&
+        currentContent.selectedNode &&
+        currentContent.selectedNode.type === '__folder__'
+      "
+      [folder]="currentContent.selectedNode"
       [openPropertiesModal]="openPropertiesModal" />
   </div>
   <app-snackbar
@@ -71,10 +79,10 @@
     [message]="snackbarMessaege" />
   <div #renameModal>
     <app-rename-node-modal
-      *ngIf="selectedNode"
+      *ngIf="currentContent.selectedNode"
       [open]="openRenameModal"
       (closeModal)="closeRenameModal($event)"
-      [node]="selectedNode"
+      [node]="currentContent.selectedNode"
       (cancel)="openRenameModal = false" />
   </div>
 </div>

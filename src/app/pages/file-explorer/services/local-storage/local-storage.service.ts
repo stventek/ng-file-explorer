@@ -61,6 +61,7 @@ export class LocalStorageService {
         this.ascending
       );
       this.graphSource.next(this.fsHelper.getAdjGraph());
+      this.updateCurrentContent({ selectedNode: newFolder });
     }
   }
 
@@ -71,11 +72,13 @@ export class LocalStorageService {
   }
 
   updateNode(path: string, data: Partial<IFileNode> | Partial<IFolderNode>) {
-    const node = this.fsHelper.getAdjGraph()[md5(path)];
+    const graph = this.fsHelper.getAdjGraph();
+    let node = graph[md5(path)];
     const parentPath = node.parentPath!;
-    this.fsHelper.updateNode(path, data);
+    node = this.fsHelper.updateNode(path, data);
     this.fsHelper.sortChildsBy(parentPath, this.sortType, this.ascending);
-    this.graphSource.next(this.fsHelper.getAdjGraph());
+    this.graphSource.next(graph);
+    this.updateCurrentContent({ selectedNode: node });
   }
 
   searchBFSIds(keyword: string, rootPath: string) {

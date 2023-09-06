@@ -207,15 +207,19 @@ export class FileSystemHelperV2 {
   updateNode(path: string, data: Partial<IFileNode> | Partial<IFolderNode>) {
     const nodeId = md5(path);
     const node = this.graph[nodeId];
-    if (!node || node.name === 'root') return;
+    if (!node || node.name === 'root') return node;
     if (data.name) {
       //update path
       node.name = data.name;
       node.path = `${node.parentPath!.replace(/\/$/, '')}/${data.name}`;
       //update reference in graph
-      if (node.type == '__folder__')
-        this.graph[md5(node.path + '__folder__')] = node;
-      else this.graph[md5(node.path + '__file__')] = node;
+      let newId = '';
+      if (node.type == '__folder__') {
+        newId = md5(node.path + '__folder__');
+      } else {
+        newId = md5(node.path + '__file__');
+      }
+      this.graph[newId] = node;
       const parent = this.graph[node.parentID!] as IFolderNode;
       //update parent children reference
       parent.children = parent.children.filter(id => nodeId != id);
@@ -224,6 +228,7 @@ export class FileSystemHelperV2 {
       delete this.graph[nodeId];
     }
     Object.assign(node, data);
+    return node;
   }
 
   deleteNode(node: IFileNode | IFolderNode) {

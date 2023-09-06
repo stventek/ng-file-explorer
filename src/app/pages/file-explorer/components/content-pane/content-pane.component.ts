@@ -19,7 +19,6 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
   styleUrls: ['./content-pane.component.scss'],
 })
 export class ContentPaneComponent {
-  selectedNode: (IFolderNode | IFileNode) | undefined;
   openProperties = true;
   nodeFocus = false;
   selectedElement: HTMLElement | undefined;
@@ -51,10 +50,9 @@ export class ContentPaneComponent {
 
   setSeletedNode(data: { node: IFolderNode | IFileNode; target: HTMLElement }) {
     this.selectedElement = data.target;
-    this.selectedNode = data.node;
     this.nodeFocus = true;
     this.fileSystemService.updateCurrentContent({
-      selectedNode: md5(data.node.path + data.node.type),
+      selectedNode: data.node,
     });
   }
 
@@ -69,7 +67,7 @@ export class ContentPaneComponent {
     } else if (type === 'rename') {
       this.openRenameModal = true;
     } else if (type == 'delete') {
-      this.fileSystemService.deleteNode(this.selectedNode!);
+      this.fileSystemService.deleteNode(this.currentContent.selectedNode!);
       this.snackbarMessaege = 'File deleted successfully';
       this.openSnackbar();
     }
@@ -92,7 +90,9 @@ export class ContentPaneComponent {
 
   closeRenameModal(name: string) {
     if (name) {
-      const path = this.selectedNode!.path + this.selectedNode!.type;
+      const path =
+        this.currentContent.selectedNode!.path +
+        this.currentContent.selectedNode!.type;
       this.fileSystemService.updateNode(path, { name });
       this.snackbarMessaege = 'File updated successfully';
       this.openSnackbar();
@@ -112,6 +112,7 @@ export class ContentPaneComponent {
   public onClick(target: any) {
     const propertiesElement = this.propertiesElement.nativeElement;
     const renameModalElement = this.renameModalElement.nativeElement;
+    console.log(target.id);
     window.setTimeout(() => {
       if (
         !(
@@ -119,6 +120,8 @@ export class ContentPaneComponent {
           (document.activeElement == this.selectedElement ||
             document.activeElement == propertiesElement ||
             (target.id === 'search' && document.activeElement == target) ||
+            (target.id === 'navbar' && document.activeElement == target) ||
+            target.contains(document.activeElement) ||
             propertiesElement.contains(document.activeElement) ||
             document.activeElement == renameModalElement ||
             renameModalElement.contains(document.activeElement))

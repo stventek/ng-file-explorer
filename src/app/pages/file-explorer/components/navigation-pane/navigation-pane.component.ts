@@ -6,6 +6,7 @@ import { FSData } from '../../interfaces/fs-data.interface';
 import * as md5 from 'md5';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
+import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 
 @Component({
   selector: 'app-navigation-pane',
@@ -14,8 +15,15 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
 })
 export class NavigationPaneComponent {
   $graph: Observable<FSData | null>;
-  constructor(public fileSystemService: LocalStorageService) {
+  constructor(
+    public fileSystemService: LocalStorageService,
+    private itemFocusService: ItemFocusService
+  ) {
     this.$graph = this.fileSystemService.$graph;
+  }
+
+  setFocusLost() {
+    this.itemFocusService.setFocusLost(false);
   }
 
   getParentNodeChilds(graph: FSData) {

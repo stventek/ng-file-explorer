@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
+import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 
 @Component({
   selector: 'app-file-explorer',
@@ -16,9 +17,14 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
 
   constructor(
     private fileSystemService: LocalStorageService,
-    public router: Router
+    public router: Router,
+    private itemFocusService: ItemFocusService
   ) {
     this.$currentContent = this.fileSystemService.$currentContent;
+  }
+
+  setFocusLost() {
+    this.itemFocusService.setFocusLost(false);
   }
 
   ngOnInit(): void {

@@ -12,14 +12,7 @@ import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 export class SearchComponent {
   searchInput!: string;
 
-  constructor(
-    private fileSystemService: LocalStorageService,
-    private itemFocusService: ItemFocusService
-  ) {}
-
-  setFocusLost() {
-    this.itemFocusService.setFocusLost(false);
-  }
+  constructor(private fileSystemService: LocalStorageService) {}
 
   search() {
     if (this.searchInput) {

@@ -1,4 +1,6 @@
-<ng-container *ngIf="$graph | async as graph">
+<div
+  *ngIf="$graph | async as graph"
+  class="w-52 bg-base-200 h-full overflow-x-auto flex flex-col">
   <ul class="min-w-full inline-block">
     <ng-container *ngFor="let child of getParentNodeChilds(graph)">
       <li *ngIf="graph[child].type === '__folder__'" class="">
@@ -6,4 +8,5 @@
       </li>
     </ng-container>
   </ul>
-</ng-container>
+  <div class="grow" (click)="setFocusLost()"></div>
+</div>

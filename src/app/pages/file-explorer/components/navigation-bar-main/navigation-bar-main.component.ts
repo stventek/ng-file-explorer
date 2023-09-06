@@ -6,6 +6,7 @@ import {
   faFolder,
 } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
+import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 
 @Component({
   selector: 'app-navigation-bar-main',
@@ -21,7 +22,10 @@ export class NavigationBarMainComponent {
   snackbarMessage = 'Folder created successfully';
   snackbarOpen = false;
 
-  constructor(private fileSystemService: LocalStorageService) {}
+  constructor(
+    private fileSystemService: LocalStorageService,
+    private itemFocusService: ItemFocusService
+  ) {}
 
   handleCloseCreateFolderMoldal() {
     this.openCreateFolderModal = false;
@@ -44,5 +48,9 @@ export class NavigationBarMainComponent {
         data.type,
         data.ascending
       );
+  }
+
+  setFocusLost() {
+    this.itemFocusService.setFocusLost(false);
   }
 }

@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { Router } from '@angular/router';
@@ -12,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { FSData } from '../../interfaces/fs-data.interface';
 import * as md5 from 'md5';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
+import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 
 @Component({
   selector: 'app-content-pane',
@@ -20,11 +15,7 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
 })
 export class ContentPaneComponent {
   openProperties = true;
-  nodeFocus = false;
-  selectedElement: HTMLElement | undefined;
   snackbarOpen = false;
-  @ViewChild('properties', { static: true }) propertiesElement!: ElementRef;
-  @ViewChild('renameModal', { static: true }) renameModalElement!: ElementRef;
   openPropertiesModal: Subject<boolean> = new Subject();
   openRenameModal = false;
   $graph: Observable<FSData | null>;
@@ -43,17 +34,17 @@ export class ContentPaneComponent {
 
   constructor(
     private fileSystemService: LocalStorageService,
+    private itemFocusService: ItemFocusService,
     public router: Router
   ) {
     this.$graph = this.fileSystemService.$graph;
   }
 
-  setSeletedNode(data: { node: IFolderNode | IFileNode; target: HTMLElement }) {
-    this.selectedElement = data.target;
-    this.nodeFocus = true;
+  setSeletedNode(node: IFolderNode | IFileNode) {
     this.fileSystemService.updateCurrentContent({
-      selectedNode: data.node,
+      selectedNode: node,
     });
+    this.itemFocusService.setFocusLost(false);
   }
 
   handleShowProperties(val: boolean) {
@@ -108,27 +99,21 @@ export class ContentPaneComponent {
   }
 
   //if there is a click outside, properties, selected item or search input, unfocus item
+  @HostListener('contextmenu', ['$event.target'])
   @HostListener('document:click', ['$event.target'])
   public onClick(target: any) {
-    const propertiesElement = this.propertiesElement.nativeElement;
-    const renameModalElement = this.renameModalElement.nativeElement;
-    console.log(target.id);
     window.setTimeout(() => {
-      if (
-        !(
-          this.selectedElement &&
-          (document.activeElement == this.selectedElement ||
-            document.activeElement == propertiesElement ||
-            (target.id === 'search' && document.activeElement == target) ||
-            (target.id === 'navbar' && document.activeElement == target) ||
-            target.contains(document.activeElement) ||
-            propertiesElement.contains(document.activeElement) ||
-            document.activeElement == renameModalElement ||
-            renameModalElement.contains(document.activeElement))
-        )
-      ) {
-        this.nodeFocus = false;
+      const focusLost = this.itemFocusService.focusLostSource.getValue();
+      if (focusLost) {
+        this.fileSystemService.updateCurrentContent({
+          selectedNode: undefined,
+        });
       }
+      this.itemFocusService.setFocusLost(true);
     }, 0);
+  }
+
+  setFocusLost() {
+    this.itemFocusService.setFocusLost(false);
   }
 }

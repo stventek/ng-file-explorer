@@ -1,5 +1,6 @@
 <form action="" (ngSubmit)="search()">
   <input
+    (click)="setFocusLost()"
     type="text"
     [(ngModel)]="searchInput"
     name="search"

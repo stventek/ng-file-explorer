@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { last } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
+import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 
 @Component({
   selector: 'app-search',
@@ -11,7 +12,14 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
 export class SearchComponent {
   searchInput!: string;
 
-  constructor(private fileSystemService: LocalStorageService) {}
+  constructor(
+    private fileSystemService: LocalStorageService,
+    private itemFocusService: ItemFocusService
+  ) {}
+
+  setFocusLost() {
+    this.itemFocusService.setFocusLost(false);
+  }
 
   search() {
     if (this.searchInput) {

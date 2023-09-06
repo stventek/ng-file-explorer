@@ -1,8 +1,7 @@
 <div
   [ngClass]="{ 'text-neutral-content bg-neutral': nodeFocus }"
   tabindex="0"
-  (focusout)="onClickedOutside($event)"
-  (focus)="emitSelectedFolder($event, node)">
+  (focusout)="onClickedOutside($event)">
   <div
     #folderContextMenu
     class="fixed text-base-content z-10 shadow-xl"

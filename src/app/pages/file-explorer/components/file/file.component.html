@@ -1,7 +1,6 @@
 <div
   [ngClass]="{ 'text-neutral-content bg-neutral': nodeFocus }"
   tabindex="0"
-  (focus)="emitSelectedFile($event, node)"
   (focusout)="onClickedOutside($event)">
   <div
     #fileContextMenu

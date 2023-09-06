@@ -207,7 +207,7 @@ export class FileSystemHelperV2 {
   updateNode(path: string, data: Partial<IFileNode> | Partial<IFolderNode>) {
     const nodeId = md5(path);
     const node = this.graph[nodeId];
-    if (!node || node.name === 'root') return node;
+    if (!node || node.name === 'root' || node.name === data.name) return node;
     if (data.name) {
       //update path
       node.name = data.name;

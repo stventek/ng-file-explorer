@@ -20,10 +20,6 @@ export class FileComponent {
   @Input() node!: IFileNode;
   @Input() nodeFocus!: boolean;
   @ViewChild('fileContextMenu', { static: true }) contextMenuRef!: ElementRef;
-  @Output() focused = new EventEmitter<{
-    node: IFileNode;
-    target: HTMLElement;
-  }>();
   @Output() contextMenuAction = new EventEmitter<
     'open_properties' | 'delete' | 'rename'
   >();
@@ -50,11 +46,6 @@ export class FileComponent {
 
   onClickedOutside(e: any) {
     this.isContextMenuOpen = false;
-  }
-
-  emitSelectedFile(event: FocusEvent, node: IFileNode) {
-    const target = event.target as HTMLElement;
-    this.focused.emit({ node, target });
   }
 
   handleContextMenuAction(type: 'open_properties' | 'delete' | 'rename') {

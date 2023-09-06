@@ -1,4 +1,4 @@
-<div class="navbar" id="navbar">
+<div class="navbar" id="navbar" (click)="setFocusLost()">
   <div class="flex-none">
     <label class="btn btn-square btn-ghost md:hidden" for="my-drawer">
       <svg
@@ -53,10 +53,12 @@
   </div>
 </div>
 <app-create-folder-modal
+  (click)="setFocusLost()"
   [open]="openCreateFolderModal"
   (closeModal)="handleCloseCreateFolderMoldal()"
   (cancel)="handleCancelCreateFolderMoldal()" />
 <app-snackbar
+  (click)="setFocusLost()"
   [type]="'alert-info'"
   [hideDuration]="6000"
   [open]="snackbarOpen"

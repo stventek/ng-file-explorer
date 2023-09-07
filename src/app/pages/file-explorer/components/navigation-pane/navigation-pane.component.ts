@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { IFolderNode } from '../../interfaces/node.interface';
 import { FSData } from '../../interfaces/fs-data.interface';

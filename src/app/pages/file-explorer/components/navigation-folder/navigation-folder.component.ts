@@ -1,11 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
-import { FilesystemService } from '../../services/filesystem/filesystem.service';
+import { IFolderNode } from '../../interfaces/node.interface';
 import { faFolder, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FSData } from '../../interfaces/fs-data.interface';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { Observable } from 'rxjs';
-import { isFolder } from '../../utils/node';
 
 @Component({
   selector: 'app-navigation-folder',

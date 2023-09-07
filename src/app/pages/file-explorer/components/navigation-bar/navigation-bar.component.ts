@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FilesystemService } from '../../services/filesystem/filesystem.service';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { Observable } from 'rxjs';
 import { NavigationItem } from '../../interfaces/navigation-item.interface';

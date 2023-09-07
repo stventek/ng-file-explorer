@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FileExplorerComponent } from './components/file-explorer/file-explorer.component';
 import { NavigationPaneComponent } from './components/navigation-pane/navigation-pane.component';
 import { ContentPaneComponent } from './components/content-pane/content-pane.component';
-import { FilesystemService } from './services/filesystem/filesystem.service';
 import { RouterModule } from '@angular/router';
 import { FileComponent } from './components/file/file.component';
 import { FolderComponent } from './components/folder/folder.component';
@@ -24,6 +23,7 @@ import { FolderPropertiesModalComponent } from './components/folder-properties-m
 import { RenameNodeModalComponent } from './components/rename-node-modal/rename-node-modal.component';
 import { CreateFolderModalComponent } from './components/create-folder-modal/create-folder-modal.component';
 import { LocalStorageService } from './services/local-storage/local-storage.service';
+import { StorageProviderMenuComponent } from './components/storage-provider-menu/storage-provider-menu.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { LocalStorageService } from './services/local-storage/local-storage.serv
     FolderPropertiesModalComponent,
     RenameNodeModalComponent,
     CreateFolderModalComponent,
+    StorageProviderMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +56,6 @@ import { LocalStorageService } from './services/local-storage/local-storage.serv
     ReactiveFormsModule,
   ],
   exports: [FileExplorerComponent],
-  providers: [FilesystemService, LocalStorageService],
+  providers: [LocalStorageService],
 })
 export class FileExplorerModule {}

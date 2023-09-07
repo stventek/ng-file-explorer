@@ -19,7 +19,7 @@ class Node implements INode {
     Object.assign(this, params);
     if (!this.date) this.date = new Date().toISOString();
     if (this.parentPath)
-      this.path = `${this.parentPath.replace(/\/$/, '')}/${this.name}`;
+      this.path = joinPathWithName(this.parentPath, this.name);
     else this.path = '/';
   }
 }
@@ -53,4 +53,8 @@ export const isFolder = (
 
 export const isFile = (node: IFolderNode | IFileNode): node is IFileNode => {
   return node.type === '__file__';
+};
+
+export const joinPathWithName = (path: string, name: string) => {
+  return `${path.replace(/\/$/, '')}/${name}`;
 };

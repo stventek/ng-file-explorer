@@ -81,10 +81,10 @@ export class ContentPaneComponent {
 
   closeRenameModal(name: string) {
     if (name) {
-      const path =
-        this.currentContent.selectedNode!.path +
-        this.currentContent.selectedNode!.type;
-      this.fileSystemService.updateNode(path, { name });
+      this.fileSystemService.updateNodeByInstance(
+        this.currentContent.selectedNode!,
+        { name }
+      );
       this.snackbarMessaege = 'File updated successfully';
       this.openSnackbar();
     }

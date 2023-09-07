@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { FilesystemService } from '../../services/filesystem/filesystem.service';
-import { last } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
-import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 
 @Component({
   selector: 'app-search',

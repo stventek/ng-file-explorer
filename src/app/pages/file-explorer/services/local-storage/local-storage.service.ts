@@ -71,13 +71,13 @@ export class LocalStorageService {
     this.graphSource.next(this.fsHelper.getAdjGraph());
   }
 
-  updateNode(path: string, data: Partial<IFileNode> | Partial<IFolderNode>) {
-    const graph = this.fsHelper.getAdjGraph();
-    let node = graph[md5(path)];
-    const parentPath = node.parentPath!;
-    node = this.fsHelper.updateNode(path, data);
-    this.fsHelper.sortChildsBy(parentPath, this.sortType, this.ascending);
-    this.graphSource.next(graph);
+  updateNodeByInstance(
+    node: IFileNode | IFolderNode,
+    data: Partial<IFileNode> | Partial<IFolderNode>
+  ) {
+    node = this.fsHelper.updateNodeByInstance(node, data);
+    this.fsHelper.sortChildsBy(node.parentPath!, this.sortType, this.ascending);
+    this.graphSource.next(this.fsHelper.getAdjGraph());
     this.updateCurrentContent({ selectedNode: node });
   }
 

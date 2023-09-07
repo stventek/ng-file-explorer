@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { ItemContextMenuService } from '../../services/item-context-menu/item-context-menu.service';
+import { contextMenuAction } from '../../types/file-explorer.type';
 
 @Component({
   selector: 'app-file-context-menu',
@@ -6,11 +8,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./file-context-menu.component.scss'],
 })
 export class FileContextMenuComponent {
-  @Output() contextMenuAction = new EventEmitter<
-    'open_properties' | 'delete' | 'rename'
-  >();
+  constructor(private itemContextMenuService: ItemContextMenuService) {}
 
-  handleContextMenuAction(type: 'open_properties' | 'delete' | 'rename') {
-    this.contextMenuAction.emit(type);
+  handleContextMenuAction(type: contextMenuAction) {
+    this.itemContextMenuService.setAction(type);
   }
 }

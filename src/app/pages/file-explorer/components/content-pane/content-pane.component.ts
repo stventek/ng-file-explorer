@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { Router } from '@angular/router';
@@ -7,13 +7,15 @@ import { FSData } from '../../interfaces/fs-data.interface';
 import * as md5 from 'md5';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
+import { ItemContextMenuService } from '../../services/item-context-menu/item-context-menu.service';
+import { contextMenuAction } from '../../types/file-explorer.type';
 
 @Component({
   selector: 'app-content-pane',
   templateUrl: './content-pane.component.html',
   styleUrls: ['./content-pane.component.scss'],
 })
-export class ContentPaneComponent {
+export class ContentPaneComponent implements OnInit {
   openProperties = true;
   snackbarOpen = false;
   openPropertiesModal: Subject<boolean> = new Subject();
@@ -35,9 +37,16 @@ export class ContentPaneComponent {
   constructor(
     private fileSystemService: LocalStorageService,
     private itemFocusService: ItemFocusService,
+    private itemContextMenuService: ItemContextMenuService,
     public router: Router
   ) {
     this.$graph = this.fileSystemService.$graph;
+  }
+
+  ngOnInit(): void {
+    this.itemContextMenuService.$action.subscribe(action => {
+      this.handleContextMenuAction(action);
+    });
   }
 
   setSeletedNode(node: IFolderNode | IFileNode) {
@@ -51,7 +60,7 @@ export class ContentPaneComponent {
     this.openProperties = val;
   }
 
-  handleContextMenuAction(type: 'open_properties' | 'delete' | 'rename') {
+  handleContextMenuAction(type: contextMenuAction) {
     if (type == 'open_properties') {
       this.openProperties = true;
       this.openPropertiesModal.next(true);

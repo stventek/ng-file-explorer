@@ -21,9 +21,6 @@ export class FolderComponent {
   @Input() node!: IFolderNode;
   @Input() nodeFocus!: boolean;
   @ViewChild('folderContextMenu', { static: true }) contextMenuRef!: ElementRef;
-  @Output() contextMenuAction = new EventEmitter<
-    'open_properties' | 'delete' | 'rename'
-  >();
 
   faFolder = faFolder;
   isContextMenuOpen = false;
@@ -53,8 +50,7 @@ export class FolderComponent {
     this.router.navigate([this.node.path]);
   }
 
-  handleContextMenuAction(type: 'open_properties' | 'delete' | 'rename') {
+  handleContextMenuAction() {
     this.isContextMenuOpen = false;
-    this.contextMenuAction.emit(type);
   }
 }

@@ -7,7 +7,6 @@
       <div *ngIf="graph[node] as folderNode">
         <app-folder
           *ngIf="isFolderNode(folderNode); else file"
-          (contextMenuAction)="handleContextMenuAction($event)"
           [node]="folderNode"
           (click)="setSeletedNode(folderNode)"
           (contextmenu)="setSeletedNode(folderNode)"
@@ -21,7 +20,6 @@
           <app-file
             *ngIf="isFileNode(fileNode)"
             [node]="fileNode"
-            (contextMenuAction)="handleContextMenuAction($event)"
             (click)="setSeletedNode(fileNode)"
             (contextmenu)="setSeletedNode(fileNode)"
             [nodeFocus]="

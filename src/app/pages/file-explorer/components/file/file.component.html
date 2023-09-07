@@ -8,7 +8,7 @@
     [ngStyle]="contextMenuStyles">
     <app-file-context-menu
       *ngIf="isContextMenuOpen"
-      (contextMenuAction)="handleContextMenuAction($event)" />
+      (click)="handleContextMenuAction()" />
   </div>
   <div
     class="flex items-center justify-center flex-col w-24 p-1 text-center select-none"

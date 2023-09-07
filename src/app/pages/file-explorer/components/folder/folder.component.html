@@ -8,7 +8,7 @@
     [ngStyle]="contextMenuStyles">
     <app-folder-context-menu
       *ngIf="isContextMenuOpen"
-      (contextMenuAction)="handleContextMenuAction($event)" />
+      (click)="handleContextMenuAction()" />
   </div>
   <a
     (dblclick)="openFolder()"

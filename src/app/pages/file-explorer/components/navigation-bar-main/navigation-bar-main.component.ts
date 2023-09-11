@@ -7,6 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
+import { SortParams } from '../../interfaces/sort-params.interface';
 
 @Component({
   selector: 'app-navigation-bar-main',
@@ -39,15 +40,11 @@ export class NavigationBarMainComponent {
     this.snackbarOpen = false;
   }
 
-  sortChildsBy(data: { type?: 'name' | 'size'; ascending?: boolean }) {
+  sortChildsBy(sortParams: Partial<SortParams>) {
     const currentContent =
       this.fileSystemService.currentContentSource.getValue();
     if (currentContent.path)
-      this.fileSystemService.sortChildsBy(
-        currentContent.path,
-        data.type,
-        data.ascending
-      );
+      this.fileSystemService.sortChildsBy(currentContent.path, sortParams);
   }
 
   setFocusLost() {

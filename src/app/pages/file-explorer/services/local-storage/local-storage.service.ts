@@ -7,6 +7,7 @@ import { FolderNode } from '../../utils/node';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { FileSystemHelperV2 } from '../../utils/fs';
 import { FSData } from '../../interfaces/fs-data.interface';
+import { SortParams } from '../../interfaces/sort-params.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,12 @@ export class LocalStorageService {
   graphSource = new BehaviorSubject<FSData | null>(null);
   $graph = this.graphSource.asObservable();
   localStorageETL = new LocalStorageETL();
-  sortType: 'name' | 'size' = 'name';
-  ascending = true;
+  sortParamsSource = new BehaviorSubject<SortParams>({
+    sortType: 'name',
+    ascending: true,
+  });
+  $sortParams = this.sortParamsSource.asObservable();
+
   constructor() {}
 
   refreshGraph() {
@@ -37,16 +42,36 @@ export class LocalStorageService {
     }
   }
 
-  sortChildsBy(path: string, type?: 'name' | 'size', ascending?: boolean) {
-    if (type) this.sortType = type;
-    if (ascending !== undefined) this.ascending = ascending;
-    this.fsHelper.sortChildsBy(path, this.sortType, this.ascending);
+  updateSortParams(sortParams: Partial<SortParams>) {
+    const oldSortParams = this.sortParamsSource.getValue();
+    const newSortParams = { ...oldSortParams, ...sortParams };
+    this.sortParamsSource.next(newSortParams);
+    const currentContent = this.currentContentSource.getValue()!;
+    if (currentContent.path) {
+      this.fsHelper.sortChildsBy(
+        currentContent.path,
+        newSortParams.sortType,
+        newSortParams.ascending
+      );
+      this.graphSource.next(this.fsHelper.getAdjGraph());
+    }
+    return newSortParams;
+  }
+
+  sortChildsBy(path: string, sortParams: Partial<SortParams>) {
+    let newSortParams = this.updateSortParams(sortParams);
+    this.fsHelper.sortChildsBy(
+      path,
+      newSortParams.sortType,
+      newSortParams.ascending
+    );
     this.graphSource.next(this.fsHelper.getAdjGraph());
   }
 
   createFolder(name: string) {
     const currentContent = this.currentContentSource.getValue()!;
     if (currentContent.path) {
+      const sortParams = this.sortParamsSource.getValue();
       const newFolder = new FolderNode({
         creatorName: '',
         name: name,
@@ -57,8 +82,8 @@ export class LocalStorageService {
       this.fsHelper.addNode(newFolder);
       this.fsHelper.sortChildsBy(
         currentContent.path,
-        this.sortType,
-        this.ascending
+        sortParams.sortType,
+        sortParams.ascending
       );
       this.graphSource.next(this.fsHelper.getAdjGraph());
       this.updateCurrentContent({ selectedNode: newFolder });
@@ -67,7 +92,12 @@ export class LocalStorageService {
 
   deleteNode(node: IFileNode | IFolderNode) {
     this.fsHelper.deleteNode(node);
-    this.fsHelper.sortChildsBy(node.parentPath!, this.sortType, this.ascending);
+    const sortParams = this.sortParamsSource.getValue();
+    this.fsHelper.sortChildsBy(
+      node.parentPath!,
+      sortParams.sortType,
+      sortParams.ascending
+    );
     this.graphSource.next(this.fsHelper.getAdjGraph());
   }
 
@@ -76,7 +106,12 @@ export class LocalStorageService {
     data: Partial<IFileNode> | Partial<IFolderNode>
   ) {
     node = this.fsHelper.updateNodeByInstance(node, data);
-    this.fsHelper.sortChildsBy(node.parentPath!, this.sortType, this.ascending);
+    const sortParams = this.sortParamsSource.getValue();
+    this.fsHelper.sortChildsBy(
+      node.parentPath!,
+      sortParams.sortType,
+      sortParams.ascending
+    );
     this.graphSource.next(this.fsHelper.getAdjGraph());
     this.updateCurrentContent({ selectedNode: node });
   }

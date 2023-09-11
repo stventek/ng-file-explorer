@@ -1,10 +1,8 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { FSData } from '../../interfaces/fs-data.interface';
-import * as md5 from 'md5';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 import { ItemContextMenuService } from '../../services/item-context-menu/item-context-menu.service';
@@ -25,15 +23,6 @@ export class ContentPaneComponent implements OnInit {
   parentNode!: string;
   snackbarMessaege = '';
 
-  getParentNodeChilds(graph: FSData) {
-    const parentId = md5(this.currentContent.path + '__folder__');
-    const parentNode = graph[parentId] as IFolderNode | undefined;
-    if (parentNode) {
-      return parentNode.children;
-    }
-    return [];
-  }
-
   constructor(
     private fileSystemService: LocalStorageService,
     private itemFocusService: ItemFocusService,
@@ -47,13 +36,6 @@ export class ContentPaneComponent implements OnInit {
     this.itemContextMenuService.$action.subscribe(action => {
       this.handleContextMenuAction(action);
     });
-  }
-
-  setSeletedNode(node: IFolderNode | IFileNode) {
-    this.fileSystemService.updateCurrentContent({
-      selectedNode: node,
-    });
-    this.itemFocusService.setFocusLost(false);
   }
 
   handleShowProperties(val: boolean) {
@@ -98,13 +80,6 @@ export class ContentPaneComponent implements OnInit {
       this.openSnackbar();
     }
     this.openRenameModal = false;
-  }
-
-  isFolderNode(node: IFileNode | IFolderNode): node is IFolderNode {
-    return node.type === '__folder__';
-  }
-  isFileNode(node: IFileNode | IFolderNode): node is IFileNode {
-    return node.type === '__file__';
   }
 
   //if there is a click outside, properties, selected item or search input, unfocus item

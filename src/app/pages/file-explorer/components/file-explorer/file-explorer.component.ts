@@ -41,7 +41,7 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
     path = decodeURIComponent(path);
     try {
       this.fileSystemService.updateCurrentContent({ path });
-      this.fileSystemService.sortChildsBy(path);
+      this.fileSystemService.sortChildsBy(path, {});
     } catch (err) {
       this.router.navigate(['/']);
     }

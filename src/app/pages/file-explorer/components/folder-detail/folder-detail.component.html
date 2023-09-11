@@ -1,0 +1,64 @@
+<tr
+  (contextmenu)="openContextMenu($event)"
+  (click)="openFolder()"
+  tabindex="0"
+  (focusout)="onClickedOutside($event)"
+  [ngClass]="{
+    'sm:hidden': true,
+    'bg-base-300': nodeFocus,
+    'hover:bg-base-300': nodeFocus,
+    'hover:bg-base-200': !nodeFocus
+  }">
+  <td>
+    <div class="flex items-center space-x-3 h-8">
+      <div>
+        <fa-icon [icon]="faFolder"></fa-icon>
+      </div>
+      <div>
+        {{ node.name }}
+      </div>
+    </div>
+  </td>
+  <td class="hidden lg:table-cell">{{ node.date }}</td>
+  <td class="hidden lg:table-cell">{{ node.size }}</td>
+  <div
+    #folderContextMenu
+    class="fixed text-base-content z-10 shadow-xl"
+    [ngStyle]="contextMenuStyles">
+    <app-folder-context-menu
+      *ngIf="isContextMenuOpen"
+      (click)="handleContextMenuAction()" />
+  </div>
+</tr>
+<tr
+  (contextmenu)="openContextMenu($event)"
+  (dblclick)="openFolder()"
+  tabindex="0"
+  (focusout)="onClickedOutside($event)"
+  [ngClass]="{
+    'hidden sm:table-row': true,
+    'bg-base-300': nodeFocus,
+    'hover:bg-base-300': nodeFocus,
+    'hover:bg-base-200': !nodeFocus
+  }">
+  <td>
+    <div class="flex items-center space-x-3 h-8">
+      <div>
+        <fa-icon [icon]="faFolder"></fa-icon>
+      </div>
+      <div>
+        {{ node.name }}
+      </div>
+    </div>
+  </td>
+  <td class="hidden lg:table-cell">{{ node.date }}</td>
+  <td class="hidden lg:table-cell">{{ node.size }}</td>
+  <div
+    #folderContextMenu
+    class="fixed text-base-content z-10 shadow-xl"
+    [ngStyle]="contextMenuStyles">
+    <app-folder-context-menu
+      *ngIf="isContextMenuOpen"
+      (click)="handleContextMenuAction()" />
+  </div>
+</tr>

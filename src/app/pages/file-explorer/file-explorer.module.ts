@@ -24,6 +24,11 @@ import { RenameNodeModalComponent } from './components/rename-node-modal/rename-
 import { CreateFolderModalComponent } from './components/create-folder-modal/create-folder-modal.component';
 import { LocalStorageService } from './services/local-storage/local-storage.service';
 import { StorageProviderMenuComponent } from './components/storage-provider-menu/storage-provider-menu.component';
+import { DetailContentComponent } from './components/detail-content/detail-content.component';
+import { LargeContentComponent } from './components/large-content/large-content.component';
+import { FileDetailComponent } from './components/file-detail/file-detail.component';
+import { FolderDetailComponent } from './components/folder-detail/folder-detail.component';
+import { DetailControlsComponent } from './components/detail-controls/detail-controls.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +51,11 @@ import { StorageProviderMenuComponent } from './components/storage-provider-menu
     RenameNodeModalComponent,
     CreateFolderModalComponent,
     StorageProviderMenuComponent,
+    DetailContentComponent,
+    LargeContentComponent,
+    FileDetailComponent,
+    FolderDetailComponent,
+    DetailControlsComponent,
   ],
   imports: [
     CommonModule,

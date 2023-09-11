@@ -160,7 +160,11 @@ export class FileSystemHelperV2 {
     return this.graph;
   }
 
-  sortChildsBy(path: string, type: 'name' | 'size', ascending = true) {
+  sortChildsBy(
+    path: string,
+    type: 'name' | 'size' | 'modified',
+    ascending = true
+  ) {
     const parent = this.graph[md5(path + '__folder__')] as
       | IFolderNode
       | undefined;
@@ -178,6 +182,13 @@ export class FileSystemHelperV2 {
           return ascending ? -1 : 1;
         }
         if (this.graph[a].size > this.graph[b].size) {
+          return ascending ? 1 : -1;
+        }
+      } else if (type === 'modified') {
+        if (new Date(this.graph[a].date) < new Date(this.graph[b].date)) {
+          return ascending ? -1 : 1;
+        }
+        if (new Date(this.graph[a].date) > new Date(this.graph[b].date)) {
           return ascending ? 1 : -1;
         }
       }

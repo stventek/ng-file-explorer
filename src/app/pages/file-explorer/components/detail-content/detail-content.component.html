@@ -1,0 +1,48 @@
+<ng-container *ngIf="$currentContent | async as currentContent">
+  <div *ngIf="$graph | async as graph" class="overflow-x-auto">
+    <div class="overflow-x-auto">
+      <table class="table">
+        <!-- head -->
+        <colgroup>
+          <col class="lg:w-1/2" />
+          <col class="w-1/4 hidden lg:table-column" />
+          <col class="w-1/4 hidden lg:table-column" />
+        </colgroup>
+        <thead>
+          <app-detail-controls />
+        </thead>
+        <tbody>
+          <ng-container
+            *ngFor="
+              let node of currentContent.nodes || getParentNodeChilds(graph)
+            ">
+            <ng-container *ngIf="graph[node] as folderNode">
+              <app-folder-detail
+                *ngIf="isFolderNode(folderNode); else file"
+                [node]="folderNode"
+                (click)="setSeletedNode(folderNode)"
+                (contextmenu)="setSeletedNode(folderNode)"
+                [nodeFocus]="
+                  currentContent.selectedNode !== undefined &&
+                  currentContent.selectedNode.path === graph[node].path
+                " />
+            </ng-container>
+            <ng-template #file>
+              <ng-container *ngIf="graph[node] as fileNode">
+                <app-file-detail
+                  *ngIf="isFileNode(fileNode)"
+                  [node]="fileNode"
+                  (click)="setSeletedNode(fileNode)"
+                  (contextmenu)="setSeletedNode(fileNode)"
+                  [nodeFocus]="
+                    currentContent.selectedNode !== undefined &&
+                    currentContent.selectedNode.path === graph[node].path
+                  " />
+              </ng-container>
+            </ng-template>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>

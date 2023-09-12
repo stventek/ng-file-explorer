@@ -29,6 +29,7 @@ import { LargeContentComponent } from './components/large-content/large-content.
 import { FileDetailComponent } from './components/file-detail/file-detail.component';
 import { FolderDetailComponent } from './components/folder-detail/folder-detail.component';
 import { DetailControlsComponent } from './components/detail-controls/detail-controls.component';
+import { FileSystemHelperV2 } from './utils/fs';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,12 @@ import { DetailControlsComponent } from './components/detail-controls/detail-con
     ReactiveFormsModule,
   ],
   exports: [FileExplorerComponent],
-  providers: [LocalStorageService],
+  providers: [
+    LocalStorageService,
+    {
+      provide: FileSystemHelperV2,
+      useClass: FileSystemHelperV2,
+    },
+  ],
 })
 export class FileExplorerModule {}

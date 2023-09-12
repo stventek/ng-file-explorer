@@ -160,7 +160,7 @@ export class FileSystemHelperV2 {
     return this.graph;
   }
 
-  sortChildsBy(
+  sortChildrenBy(
     path: string,
     type: 'name' | 'size' | 'modified',
     ascending = true

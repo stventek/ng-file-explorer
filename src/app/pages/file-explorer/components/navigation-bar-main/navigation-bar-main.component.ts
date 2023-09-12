@@ -4,10 +4,14 @@ import {
   faSort,
   faFile,
   faFolder,
+  faList,
+  faGrip,
 } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 import { SortParams } from '../../interfaces/sort-params.interface';
+import { ViewMode } from '../../types/file-explorer.type';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navigation-bar-main',
@@ -19,14 +23,19 @@ export class NavigationBarMainComponent {
   faCirclePlus = faCirclePlus;
   faFile = faFile;
   faFolder = faFolder;
+  faList = faList;
+  faGrid = faGrip;
   openCreateFolderModal = false;
   snackbarMessage = 'Folder created successfully';
   snackbarOpen = false;
+  $viewMode: Observable<ViewMode>;
 
   constructor(
     private fileSystemService: LocalStorageService,
     private itemFocusService: ItemFocusService
-  ) {}
+  ) {
+    this.$viewMode = this.fileSystemService.$viewMode;
+  }
 
   handleCloseCreateFolderMoldal() {
     this.openCreateFolderModal = false;
@@ -41,13 +50,15 @@ export class NavigationBarMainComponent {
   }
 
   sortChildsBy(sortParams: Partial<SortParams>) {
-    const currentContent =
-      this.fileSystemService.currentContentSource.getValue();
-    if (currentContent.path)
-      this.fileSystemService.sortChildsBy(currentContent.path, sortParams);
+    this.fileSystemService.sortChildrenBy(sortParams);
   }
 
   setFocusLost() {
     this.itemFocusService.setFocusLost(false);
+  }
+
+  switchViewMode(current: ViewMode) {
+    if (current === 'large') this.fileSystemService.updateViewMode('detail');
+    if (current === 'detail') this.fileSystemService.updateViewMode('large');
   }
 }

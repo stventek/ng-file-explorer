@@ -15,14 +15,14 @@ export class DetailControlsComponent {
     this.$sortParams = fileSystemService.$sortParams;
   }
 
-  sortChildsBy(type: 'name' | 'size' | 'modified') {
+  sortChildrenBy(type: 'name' | 'size' | 'modified') {
     const sortParams = this.fileSystemService.sortParamsSource.getValue();
     if (sortParams.sortType === type) {
-      this.fileSystemService.updateSortParams({
+      this.fileSystemService.sortChildrenBy({
         ascending: !sortParams.ascending,
       });
     } else {
-      this.fileSystemService.updateSortParams({
+      this.fileSystemService.sortChildrenBy({
         ascending: true,
         sortType: type,
       });

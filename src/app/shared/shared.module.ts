@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IsMobileDirective } from './directives/is-mobile/is-mobile.directive';
 
 @NgModule({
-  declarations: [ClickOutsideDirective, SnackbarComponent],
+  declarations: [SnackbarComponent, IsMobileDirective],
   imports: [CommonModule, BrowserAnimationsModule],
-  exports: [ClickOutsideDirective, SnackbarComponent],
+  exports: [SnackbarComponent],
 })
 export class SharedModule {}

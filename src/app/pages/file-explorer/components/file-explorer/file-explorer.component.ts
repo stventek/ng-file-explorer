@@ -27,7 +27,6 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.fileSystemService.refreshGraph();
     this.navigateTo(this.router.url);
 
     this.routerSubscription = this.router.events.subscribe(event => {
@@ -41,7 +40,7 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
     path = decodeURIComponent(path);
     try {
       this.fileSystemService.updateCurrentContent({ path });
-      this.fileSystemService.sortChildsBy(path, {});
+      this.fileSystemService.applyCurrentContentSort();
     } catch (err) {
       this.router.navigate(['/']);
     }

@@ -9,6 +9,7 @@ import { IFolderNode } from '../../interfaces/node.interface';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
 import { Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -24,11 +25,14 @@ export class FolderDetailComponent {
   faFolder = faFolder;
   isContextMenuOpen = false;
   contextMenuStyles: any;
-
+  isMobile: boolean;
   constructor(
     private cdr: ChangeDetectorRef,
-    private router: Router
-  ) {}
+    private router: Router,
+    private deviceService: DeviceDetectorService
+  ) {
+    this.isMobile = this.deviceService.isMobile();
+  }
 
   openContextMenu(event: MouseEvent) {
     event.preventDefault();

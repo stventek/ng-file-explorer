@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, of } from 'rxjs';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { LocalStorageETL } from '../../utils/localstorage-ETL';
 import * as md5 from 'md5';
@@ -8,29 +8,53 @@ import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { FileSystemHelperV2 } from '../../utils/fs';
 import { FSData } from '../../interfaces/fs-data.interface';
 import { SortParams } from '../../interfaces/sort-params.interface';
+import { StorageMap } from '@ngx-pwa/local-storage';
+import { sortParamsSchema, viewModeScema } from '../../utils/json-schemas';
+import { ViewMode } from '../../types/file-explorer.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-  fsHelper = new FileSystemHelperV2();
   currentContentSource = new BehaviorSubject<CurrentContent>({});
   $currentContent = this.currentContentSource.asObservable();
+
   graphSource = new BehaviorSubject<FSData | null>(null);
   $graph = this.graphSource.asObservable();
   localStorageETL = new LocalStorageETL();
-  sortParamsSource = new BehaviorSubject<SortParams>({
+
+  sortParamsDefault = {
     sortType: 'name',
     ascending: true,
-  });
+  } as SortParams;
+  sortParamsSource = new BehaviorSubject(this.sortParamsDefault);
   $sortParams = this.sortParamsSource.asObservable();
 
-  constructor() {}
+  viewModeDefault = 'large' as ViewMode;
+  viewModeSource = new BehaviorSubject(this.viewModeDefault);
+  $viewMode = this.viewModeSource.asObservable();
 
-  refreshGraph() {
-    const graph = this.localStorageETL.load();
-    this.fsHelper.updateGraph(graph);
-    this.graphSource.next(graph);
+  constructor(
+    private storage: StorageMap,
+    private fsHelper: FileSystemHelperV2
+  ) {
+    const $sortParamsObservable = this.storage
+      .get<SortParams>('sortParams', sortParamsSchema)
+      .pipe(catchError(() => of<SortParams>(this.sortParamsDefault)));
+    const $viewModeObservable = this.storage
+      .get<ViewMode>('viewMode', viewModeScema)
+      .pipe(catchError(() => of<ViewMode>(this.viewModeDefault)));
+    combineLatest([$sortParamsObservable, $viewModeObservable]).subscribe(
+      ([sortParamsVal, viewModeVal]) => {
+        if (sortParamsVal) this.sortParamsSource.next(sortParamsVal);
+        if (viewModeVal) this.viewModeSource.next(viewModeVal);
+
+        const graph = this.localStorageETL.load();
+        this.fsHelper.updateGraph(graph);
+        this.applyCurrentContentSort();
+        this.graphSource.next(graph);
+      }
+    );
   }
 
   updateCurrentContent(contentData: Partial<CurrentContent>) {
@@ -42,36 +66,35 @@ export class LocalStorageService {
     }
   }
 
-  updateSortParams(sortParams: Partial<SortParams>) {
+  sortChildrenBy(sortParams: Partial<SortParams>) {
     const oldSortParams = this.sortParamsSource.getValue();
     const newSortParams = { ...oldSortParams, ...sortParams };
+    this.storage.set('sortParams', newSortParams).subscribe();
     this.sortParamsSource.next(newSortParams);
-    const currentContent = this.currentContentSource.getValue()!;
+    this.applyCurrentContentSort();
+  }
+
+  updateViewMode(mode: ViewMode) {
+    this.storage.set('viewMode', mode).subscribe();
+    this.viewModeSource.next(mode);
+  }
+
+  applyCurrentContentSort() {
+    const currentContent = this.currentContentSource.getValue();
+    const sortParams = this.sortParamsSource.getValue();
     if (currentContent.path) {
-      this.fsHelper.sortChildsBy(
+      this.fsHelper.sortChildrenBy(
         currentContent.path,
-        newSortParams.sortType,
-        newSortParams.ascending
+        sortParams.sortType,
+        sortParams.ascending
       );
       this.graphSource.next(this.fsHelper.getAdjGraph());
     }
-    return newSortParams;
-  }
-
-  sortChildsBy(path: string, sortParams: Partial<SortParams>) {
-    let newSortParams = this.updateSortParams(sortParams);
-    this.fsHelper.sortChildsBy(
-      path,
-      newSortParams.sortType,
-      newSortParams.ascending
-    );
-    this.graphSource.next(this.fsHelper.getAdjGraph());
   }
 
   createFolder(name: string) {
     const currentContent = this.currentContentSource.getValue()!;
     if (currentContent.path) {
-      const sortParams = this.sortParamsSource.getValue();
       const newFolder = new FolderNode({
         creatorName: '',
         name: name,
@@ -80,25 +103,14 @@ export class LocalStorageService {
         parentID: md5(currentContent.path + '__folder__'),
       });
       this.fsHelper.addNode(newFolder);
-      this.fsHelper.sortChildsBy(
-        currentContent.path,
-        sortParams.sortType,
-        sortParams.ascending
-      );
-      this.graphSource.next(this.fsHelper.getAdjGraph());
+      this.applyCurrentContentSort();
       this.updateCurrentContent({ selectedNode: newFolder });
     }
   }
 
   deleteNode(node: IFileNode | IFolderNode) {
     this.fsHelper.deleteNode(node);
-    const sortParams = this.sortParamsSource.getValue();
-    this.fsHelper.sortChildsBy(
-      node.parentPath!,
-      sortParams.sortType,
-      sortParams.ascending
-    );
-    this.graphSource.next(this.fsHelper.getAdjGraph());
+    this.applyCurrentContentSort();
   }
 
   updateNodeByInstance(
@@ -106,13 +118,7 @@ export class LocalStorageService {
     data: Partial<IFileNode> | Partial<IFolderNode>
   ) {
     node = this.fsHelper.updateNodeByInstance(node, data);
-    const sortParams = this.sortParamsSource.getValue();
-    this.fsHelper.sortChildsBy(
-      node.parentPath!,
-      sortParams.sortType,
-      sortParams.ascending
-    );
-    this.graphSource.next(this.fsHelper.getAdjGraph());
+    this.applyCurrentContentSort();
     this.updateCurrentContent({ selectedNode: node });
   }
 

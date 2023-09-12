@@ -1,5 +1,10 @@
 <div class="flex h-full overflow-hidden">
-  <app-detail-content class="flex-1 overflow-y-auto" />
+  <ng-container *ngIf="$viewMode | async as viewMode" [ngSwitch]="viewMode">
+    <app-detail-content
+      *ngSwitchCase="'detail'"
+      class="flex-1 overflow-y-auto" />
+    <app-large-content *ngSwitchCase="'large'" class="flex-1 overflow-y-auto" />
+  </ng-container>
   <div #properties tabindex="0" (click)="setFocusLost()">
     <app-folder-properties
       (showProperties)="handleShowProperties($event)"

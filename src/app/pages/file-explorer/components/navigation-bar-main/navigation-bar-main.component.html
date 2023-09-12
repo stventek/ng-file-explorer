@@ -53,6 +53,12 @@
         <li (click)="sortChildsBy({ ascending: false })"><a>Descending</a></li>
       </ul>
     </div>
+    <div
+      *ngIf="$viewMode | async as viewMode"
+      (click)="switchViewMode(viewMode)"
+      class="btn btn-ghost btn-sm">
+      <fa-icon [icon]="faList"></fa-icon>
+    </div>
   </div>
 </div>
 <app-create-folder-modal

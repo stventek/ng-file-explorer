@@ -1,6 +1,6 @@
 <tr *ngIf="$sortParams | async as sortParams">
   <th
-    (click)="sortChildsBy('name')"
+    (click)="sortChildrenBy('name')"
     class="btn btn-ghost rounded-none table-cell border-none text-start">
     <div class="flex justify-between">
       <div>Name</div>
@@ -14,7 +14,7 @@
     </div>
   </th>
   <th
-    (click)="sortChildsBy('modified')"
+    (click)="sortChildrenBy('modified')"
     class="btn btn-ghost rounded-none table-cell border-none text-start hidden lg:table-cell">
     <div class="flex justify-between">
       <div>Modified</div>
@@ -28,7 +28,7 @@
     </div>
   </th>
   <th
-    (click)="sortChildsBy('size')"
+    (click)="sortChildrenBy('size')"
     class="btn btn-ghost rounded-none table-cell border-none text-start hidden lg:table-cell">
     <div class="flex justify-between">
       <div>Size</div>

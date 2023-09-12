@@ -6,7 +6,7 @@ import { FSData } from '../../interfaces/fs-data.interface';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 import { ItemContextMenuService } from '../../services/item-context-menu/item-context-menu.service';
-import { contextMenuAction } from '../../types/file-explorer.type';
+import { ViewMode, contextMenuAction } from '../../types/file-explorer.type';
 
 @Component({
   selector: 'app-content-pane',
@@ -22,6 +22,7 @@ export class ContentPaneComponent implements OnInit {
   @Input() currentContent!: CurrentContent;
   parentNode!: string;
   snackbarMessaege = '';
+  $viewMode: Observable<ViewMode>;
 
   constructor(
     private fileSystemService: LocalStorageService,
@@ -30,6 +31,7 @@ export class ContentPaneComponent implements OnInit {
     public router: Router
   ) {
     this.$graph = this.fileSystemService.$graph;
+    this.$viewMode = this.fileSystemService.$viewMode;
   }
 
   ngOnInit(): void {

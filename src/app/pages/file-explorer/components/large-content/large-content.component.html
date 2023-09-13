@@ -1,33 +1,38 @@
 <ng-container *ngIf="$currentContent | async as currentContent">
-  <div
-    *ngIf="$graph | async as graph"
-    class="flex gap-3 flex-wrap items-start content-start p-3">
-    <ng-container
-      *ngFor="let node of currentContent.nodes || getParentNodeChilds(graph)">
-      <div *ngIf="graph[node] as folderNode">
-        <app-folder
-          *ngIf="isFolderNode(folderNode); else file"
-          [node]="folderNode"
-          (click)="setSeletedNode(folderNode)"
-          (contextmenu)="setSeletedNode(folderNode)"
-          [nodeFocus]="
-            currentContent.selectedNode !== undefined &&
-            currentContent.selectedNode.path === graph[node].path
-          " />
-      </div>
-      <ng-template #file>
-        <div *ngIf="graph[node] as fileNode">
-          <app-file
-            *ngIf="isFileNode(fileNode)"
-            [node]="fileNode"
-            (click)="setSeletedNode(fileNode)"
-            (contextmenu)="setSeletedNode(fileNode)"
+  <ng-container *ngIf="$graph | async as graph">
+    <div class="flex gap-3 flex-wrap items-start content-start">
+      <ng-container
+        *ngFor="let node of currentContent.nodes || getParentNodeChilds(graph)">
+        <div *ngIf="graph[node] as folderNode">
+          <app-folder
+            *ngIf="isFolderNode(folderNode); else file"
+            [node]="folderNode"
+            (click)="setSeletedNode(folderNode)"
+            (contextmenu)="setSeletedNode(folderNode)"
             [nodeFocus]="
               currentContent.selectedNode !== undefined &&
               currentContent.selectedNode.path === graph[node].path
             " />
         </div>
-      </ng-template>
-    </ng-container>
-  </div>
+        <ng-template #file>
+          <div *ngIf="graph[node] as fileNode">
+            <app-file
+              *ngIf="isFileNode(fileNode)"
+              [node]="fileNode"
+              (click)="setSeletedNode(fileNode)"
+              (contextmenu)="setSeletedNode(fileNode)"
+              [nodeFocus]="
+                currentContent.selectedNode !== undefined &&
+                currentContent.selectedNode.path === graph[node].path
+              " />
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+    <h4
+      *ngIf="currentContent.nodes && currentContent.nodes.length === 0"
+      class="text-center mt-8 text-2xl">
+      No results
+    </h4>
+  </ng-container>
 </ng-container>

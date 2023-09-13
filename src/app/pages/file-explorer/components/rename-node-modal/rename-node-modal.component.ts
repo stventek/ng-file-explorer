@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
-import { ValidateNodeDuplication } from '../../validators/duplicated-node.validator';
+import { ValidateNode } from '../../validators/duplicated-node.validator';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 
 @Component({
@@ -25,8 +25,6 @@ export class RenameNodeModalComponent implements OnInit {
 
   form!: FormGroup;
 
-  namePattern = /^[a-zA-Z0-9_\- .]+$/;
-
   constructor(
     private fb: FormBuilder,
     private fileSystemService: LocalStorageService
@@ -34,14 +32,7 @@ export class RenameNodeModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(this.namePattern),
-          ValidateNodeDuplication(this.fileSystemService),
-        ],
-      ],
+      name: ['', [Validators.required, ValidateNode(this.fileSystemService)]],
     });
     this.form.patchValue({ name: this.node.name });
   }

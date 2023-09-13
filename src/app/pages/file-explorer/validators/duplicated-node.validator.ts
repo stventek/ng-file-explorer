@@ -19,13 +19,21 @@ export function ValidateFolderDuplication(service: LocalStorageService) {
   };
 }
 
-export function ValidateNodeDuplication(service: LocalStorageService) {
+export function ValidateNode(service: LocalStorageService) {
   return (control: AbstractControl) => {
     const name = control.value;
     const graph = service.graphSource.getValue()!;
     const currentContet = service.currentContentSource.getValue();
     const node = currentContet?.selectedNode;
     if (name && graph && currentContet && node) {
+      const filePattern = /^[a-zA-Z0-9_\- .]+$/;
+      const folderPattern = /^(?! *$)[a-zA-Z0-9_ -]+$/;
+      if (node.type === '__file__' && filePattern.test(name) === false) {
+        return { filePattern: true };
+      }
+      if (node.type === '__folder__' && folderPattern.test(name) === false) {
+        return { folderPattern: true };
+      }
       if (node.name === name) return null;
       if (isFolder(node)) {
         if (

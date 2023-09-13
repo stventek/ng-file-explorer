@@ -15,7 +15,7 @@ export class CreateFolderModalComponent {
 
   form: FormGroup;
 
-  folderNamePattern = /^[a-zA-Z0-9_-]+$/;
+  folderNamePattern = /^(?! *$)[a-zA-Z0-9_ -]+$/;
 
   constructor(
     private fileSystemService: LocalStorageService,

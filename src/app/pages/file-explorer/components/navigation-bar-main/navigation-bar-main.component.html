@@ -27,10 +27,12 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-40">
-        <li (click)="openCreateFolderModal = true">
+        <li
+          onclick="document.activeElement.blur()"
+          (click)="openCreateFolderModal = true">
           <a> <fa-icon [icon]="faFolder"></fa-icon>Folder</a>
         </li>
-        <li>
+        <li onclick="document.activeElement.blur()">
           <a> <fa-icon [icon]="faFile"></fa-icon>Upload File</a>
         </li>
       </ul>
@@ -43,14 +45,32 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li (click)="sortChildsBy({ sortType: 'name' })"><a>Name</a></li>
-        <li (click)="sortChildsBy({ sortType: 'modified' })">
+        <li
+          onclick="document.activeElement.blur()"
+          (click)="sortChildsBy({ sortType: 'name' })">
+          <a>Name</a>
+        </li>
+        <li
+          onclick="document.activeElement.blur()"
+          (click)="sortChildsBy({ sortType: 'modified' })">
           <a>Modified</a>
         </li>
-        <li (click)="sortChildsBy({ sortType: 'size' })"><a>Size</a></li>
+        <li
+          onclick="document.activeElement.blur()"
+          (click)="sortChildsBy({ sortType: 'size' })">
+          <a>Size</a>
+        </li>
         <div class="divider m-0"></div>
-        <li (click)="sortChildsBy({ ascending: true })"><a>Ascending</a></li>
-        <li (click)="sortChildsBy({ ascending: false })"><a>Descending</a></li>
+        <li
+          onclick="document.activeElement.blur()"
+          (click)="sortChildsBy({ ascending: true })">
+          <a>Ascending</a>
+        </li>
+        <li
+          onclick="document.activeElement.blur()"
+          (click)="sortChildsBy({ ascending: false })">
+          <a>Descending</a>
+        </li>
       </ul>
     </div>
     <div

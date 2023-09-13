@@ -2,7 +2,9 @@
   <ul>
     <li>
       <ng-container *ngIf="navigationItems.length > 1; else up">
-        <a [routerLink]="navigationItems[navigationItems.length - 2].path">
+        <a
+          (click)="unselectNode()"
+          [routerLink]="'/' + navigationItems[navigationItems.length - 2].id">
           <fa-icon [icon]="faCircleUp" class=""></fa-icon>
         </a>
       </ng-container>
@@ -12,7 +14,9 @@
     </li>
     <ng-container *ngFor="let item of navigationItems">
       <li>
-        <a [routerLink]="item.path">{{ item.text }}</a>
+        <a (click)="unselectNode()" [routerLink]="'/' + item.id">{{
+          item.text
+        }}</a>
       </li>
     </ng-container>
   </ul>

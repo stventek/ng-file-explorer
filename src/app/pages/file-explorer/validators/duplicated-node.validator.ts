@@ -3,22 +3,6 @@ import { LocalStorageService } from '../services/local-storage/local-storage.ser
 import * as md5 from 'md5';
 import { isFile, isFolder, joinPathWithName } from '../utils/node';
 
-export function ValidateFolderDuplication(service: LocalStorageService) {
-  return (control: AbstractControl) => {
-    const graph = service.graphSource.getValue()!;
-    const currentContet = service.currentContentSource.getValue();
-    const name = control.value;
-    if (
-      name &&
-      graph &&
-      currentContet &&
-      graph[md5(joinPathWithName(currentContet.path!, name) + '__folder__')]
-    )
-      return { duplicatedFolderName: true };
-    return null;
-  };
-}
-
 export function ValidateNode(service: LocalStorageService) {
   return (control: AbstractControl) => {
     const name = control.value;
@@ -37,13 +21,23 @@ export function ValidateNode(service: LocalStorageService) {
       if (node.name === name) return null;
       if (isFolder(node)) {
         if (
-          graph[md5(joinPathWithName(currentContet.path!, name) + '__folder__')]
+          graph[
+            md5(
+              joinPathWithName(graph[currentContet.parentId!].path, name) +
+                '__folder__'
+            )
+          ]
         ) {
           return { duplicatedNodeName: true };
         }
       } else if (isFile(node)) {
         if (
-          graph[md5(joinPathWithName(currentContet.path!, name) + '__file__')]
+          graph[
+            md5(
+              joinPathWithName(graph[currentContet.parentId!].path, name) +
+                '__file__'
+            )
+          ]
         ) {
           return { duplicatedNodeName: true };
         }

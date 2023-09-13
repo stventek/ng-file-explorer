@@ -82,9 +82,9 @@ export class LocalStorageService {
   applyCurrentContentSort() {
     const currentContent = this.currentContentSource.getValue();
     const sortParams = this.sortParamsSource.getValue();
-    if (currentContent.path) {
+    if (currentContent.parentId) {
       this.fsHelper.sortChildrenBy(
-        currentContent.path,
+        currentContent.parentId,
         sortParams.sortType,
         sortParams.ascending
       );
@@ -94,13 +94,13 @@ export class LocalStorageService {
 
   createFolder(name: string) {
     const currentContent = this.currentContentSource.getValue()!;
-    if (currentContent.path) {
+    if (currentContent.parentId) {
       const newFolder = new FolderNode({
         creatorName: '',
         name: name,
         size: 0,
-        parentPath: currentContent.path,
-        parentID: md5(currentContent.path + '__folder__'),
+        parentPath: currentContent.parentId,
+        parentID: md5(currentContent.parentId + '__folder__'),
       });
       this.fsHelper.addNode(newFolder);
       this.applyCurrentContentSort();

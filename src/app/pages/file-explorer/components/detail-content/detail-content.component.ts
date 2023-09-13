@@ -29,8 +29,9 @@ export class DetailContentComponent {
     const currentContent =
       this.fileSystemService.currentContentSource.getValue();
     if (currentContent) {
-      const parentId = md5(currentContent.path + '__folder__');
-      const parentNode = graph[parentId] as IFolderNode | undefined;
+      const parentNode = graph[currentContent.parentId!] as
+        | IFolderNode
+        | undefined;
       if (parentNode) {
         return parentNode.children;
       }

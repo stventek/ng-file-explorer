@@ -10,6 +10,7 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import * as md5 from 'md5';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -50,7 +51,7 @@ export class FolderDetailComponent {
   }
 
   openFolder() {
-    this.router.navigate([this.node.path]);
+    this.router.navigate([md5(this.node.path + this.node.type)]);
   }
 
   handleContextMenuAction() {

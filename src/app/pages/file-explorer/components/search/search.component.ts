@@ -18,7 +18,7 @@ export class SearchComponent {
       if (currentContent) {
         const result = this.fileSystemService.searchBFSIds(
           this.searchInput,
-          currentContent.path + '__folder__'
+          currentContent.parentId!
         );
         this.fileSystemService.updateCurrentContent({ nodes: result });
       }

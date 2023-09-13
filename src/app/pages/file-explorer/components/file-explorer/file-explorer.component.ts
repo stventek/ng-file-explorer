@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
+import * as md5 from 'md5';
 
 @Component({
   selector: 'app-file-explorer',
@@ -37,12 +38,15 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(path: string) {
-    path = decodeURIComponent(path);
-    try {
-      this.fileSystemService.updateCurrentContent({ path });
-      this.fileSystemService.applyCurrentContentSort();
-    } catch (err) {
-      this.router.navigate(['/']);
+    if (path === '/') this.router.navigate([md5('/__folder__')]);
+    else {
+      try {
+        this.fileSystemService.updateCurrentContent({
+          parentId: path.split('/').pop()!,
+        });
+      } catch (err) {
+        this.router.navigate(['/']);
+      }
     }
   }
 

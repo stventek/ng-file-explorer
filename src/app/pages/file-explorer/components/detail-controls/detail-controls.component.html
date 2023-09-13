@@ -49,7 +49,7 @@
   class="menu menu-horizontal w-full rounded-none">
   <li class="flex-[1_1_50%] rounded-none" (click)="sortChildrenBy('name')">
     <a class="flex justify-between">
-      <span>Name</span>
+      <span class="font-bold">Name</span>
       <fa-icon
         *ngIf="sortParams.sortType === 'name'"
         [icon]="faArrowUp"
@@ -61,7 +61,7 @@
     class="flex-[1_1_25%] rounded-none hidden lg:block"
     (click)="sortChildrenBy('modified')">
     <a class="flex justify-between">
-      <span>Modified</span>
+      <span class="font-bold">Modified</span>
       <fa-icon
         *ngIf="sortParams.sortType === 'modified'"
         [icon]="faArrowUp"
@@ -73,7 +73,7 @@
     class="flex-[1_1_25%] rounded-none hidden lg:block"
     (click)="sortChildrenBy('size')">
     <a class="flex justify-between">
-      <span>Size</span>
+      <span class="font-bold">Size</span>
       <fa-icon
         *ngIf="sortParams.sortType === 'size'"
         [icon]="faArrowUp"

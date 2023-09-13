@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IFolderNode } from '../../interfaces/node.interface';
+import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 import { faFolder, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FSData } from '../../interfaces/fs-data.interface';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { Observable } from 'rxjs';
+import * as md5 from 'md5';
 
 @Component({
   selector: 'app-navigation-folder',
@@ -23,5 +24,9 @@ export class NavigationFolderComponent {
   }
   getNode(graph: FSData) {
     return graph[this.nodeId] as IFolderNode;
+  }
+
+  getFolderLink(folder: IFolderNode | IFileNode) {
+    return md5(folder.path + folder.type);
   }
 }

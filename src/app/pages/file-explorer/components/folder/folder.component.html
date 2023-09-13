@@ -12,20 +12,8 @@
   </div>
   <a
     (dblclick)="openFolder()"
-    class="hidden sm:block text-center select-none flex items-center justify-center flex-col w-24 p-1"
-    (contextmenu)="openContextMenu($event)">
-    <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
-    <p
-      [ngClass]="{
-        'line-clamp-2': true,
-        'line-clamp-none': nodeFocus
-      }">
-      {{ node.name }}
-    </p>
-  </a>
-  <a
-    (click)="openFolder()"
-    class="cursor-default sm:hidden text-center select-none flex items-center justify-center flex-col w-24 p-1"
+    (click)="isMobile ? openFolder() : undefined"
+    class="text-center select-none flex items-center justify-center flex-col w-24 p-1"
     (contextmenu)="openContextMenu($event)">
     <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
     <p

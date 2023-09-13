@@ -9,8 +9,8 @@ export class FileSystemHelperV2 {
     this.graph = graph;
   }
 
-  searchBFS(keyword: string, rootPath: string) {
-    const root = md5(rootPath);
+  searchBFS(keyword: string, id: string) {
+    const root = id;
     const result: Array<IFileNode | IFolderNode> = [];
     const queue = [root];
     const visited = new Set();
@@ -32,8 +32,8 @@ export class FileSystemHelperV2 {
     return result;
   }
 
-  searchBFSIds(keyword: string, rootPath: string) {
-    const root = md5(rootPath);
+  searchBFSIds(keyword: string, id: string) {
+    const root = id;
     const result: Array<string> = [];
     const queue = [root];
     const visited = new Set();
@@ -126,48 +126,16 @@ export class FileSystemHelperV2 {
     delete this.graph[nodeId];
   }
 
-  getChildrenNodes(path: string, fileType?: '__folder__' | '__file__') {
-    const parent = this.graph[md5(path)] as IFolderNode;
-    if (parent) {
-      let childs = Array.from(parent.children);
-      return childs.reduce<(IFolderNode | IFileNode)[]>((result, id) => {
-        const child = this.graph[id];
-        if (fileType) {
-          if (child.type == fileType) result.push(child);
-        } else result.push(child);
-        return result;
-      }, []);
-    } else {
-      throw Error('Not such node');
-    }
-  }
-
-  getChildrenFolders(path: string) {
-    const parent = this.graph[md5(path)] as IFolderNode;
-    if (parent) {
-      let childs = Array.from(parent.children);
-      return childs.reduce<IFolderNode[]>((result, id) => {
-        const child = this.graph[id];
-        if (child.type == '__folder__') result.push(child);
-        return result;
-      }, []);
-    } else {
-      throw Error('Not such node');
-    }
-  }
-
   getAdjGraph() {
     return this.graph;
   }
 
   sortChildrenBy(
-    path: string,
+    id: string,
     type: 'name' | 'size' | 'modified',
     ascending = true
   ) {
-    const parent = this.graph[md5(path + '__folder__')] as
-      | IFolderNode
-      | undefined;
+    const parent = this.graph[id] as IFolderNode | undefined;
     if (parent === undefined) throw Error('Not such node');
     parent.children = parent.children.sort((a, b) => {
       if (type === 'name') {

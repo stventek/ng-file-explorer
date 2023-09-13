@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidateFolderDuplication } from '../../validators/duplicated-node.validator';
+import { ValidateNode } from '../../validators/duplicated-node.validator';
 
 @Component({
   selector: 'app-create-folder-modal',
@@ -27,7 +27,7 @@ export class CreateFolderModalComponent {
         [
           Validators.required,
           Validators.pattern(this.folderNamePattern),
-          ValidateFolderDuplication(this.fileSystemService),
+          ValidateNode(this.fileSystemService),
         ],
       ],
     });

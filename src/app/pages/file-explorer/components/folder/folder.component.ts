@@ -11,6 +11,8 @@ import { IFolderNode } from '../../interfaces/node.interface';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
 import { Router } from '@angular/router';
+import * as md5 from 'md5';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-folder',
@@ -25,11 +27,15 @@ export class FolderComponent {
   faFolder = faFolder;
   isContextMenuOpen = false;
   contextMenuStyles: any;
+  isMobile: boolean;
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private router: Router
-  ) {}
+    private router: Router,
+    private deviceService: DeviceDetectorService
+  ) {
+    this.isMobile = this.deviceService.isMobile();
+  }
 
   openContextMenu(event: MouseEvent) {
     event.preventDefault();
@@ -47,7 +53,7 @@ export class FolderComponent {
   }
 
   openFolder() {
-    this.router.navigate([this.node.path]);
+    this.router.navigate([md5(this.node.path + this.node.type)]);
   }
 
   handleContextMenuAction() {

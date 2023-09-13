@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
-import { ItemContextMenuService } from '../../services/item-context-menu/item-context-menu.service';
 import { Observable } from 'rxjs';
 import { FSData } from '../../interfaces/fs-data.interface';
 import { CurrentContent } from '../../interfaces/current-content.interface';
-import * as md5 from 'md5';
 import { IFileNode, IFolderNode } from '../../interfaces/node.interface';
 
 @Component({
@@ -18,8 +16,7 @@ export class LargeContentComponent {
   $currentContent: Observable<CurrentContent | null>;
   constructor(
     private fileSystemService: LocalStorageService,
-    private itemFocusService: ItemFocusService,
-    private itemContextMenuService: ItemContextMenuService
+    private itemFocusService: ItemFocusService
   ) {
     this.$graph = this.fileSystemService.$graph;
     this.$currentContent = this.fileSystemService.$currentContent;
@@ -29,8 +26,9 @@ export class LargeContentComponent {
     const currentContent =
       this.fileSystemService.currentContentSource.getValue();
     if (currentContent) {
-      const parentId = md5(currentContent.path + '__folder__');
-      const parentNode = graph[parentId] as IFolderNode | undefined;
+      const parentNode = graph[currentContent.parentId!] as
+        | IFolderNode
+        | undefined;
       if (parentNode) {
         return parentNode.children;
       }

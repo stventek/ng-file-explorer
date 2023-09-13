@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentContent } from '../../interfaces/current-content.interface';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { NavigationItem } from '../../interfaces/navigation-item.interface';
 import { faCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
+import * as md5 from 'md5';
+import { FSData } from '../../interfaces/fs-data.interface';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -11,20 +13,26 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
   styleUrls: ['./navigation-bar.component.scss'],
 })
 export class NavigationBarComponent implements OnInit {
-  $currentContent!: Observable<CurrentContent | null>;
   navigationItems: NavigationItem[] = [];
   faCircleUp = faCircleUp;
+  $currentContent!: Observable<CurrentContent | null>;
+  $graph: Observable<FSData | null>;
 
   constructor(private fileSystemService: LocalStorageService) {
-    this.$currentContent = fileSystemService.$currentContent;
+    this.$currentContent = this.fileSystemService.$currentContent;
+    this.$graph = this.fileSystemService.$graph;
   }
 
   ngOnInit(): void {
-    this.$currentContent.subscribe(currentContent => {
-      if (currentContent && currentContent.path) {
-        this.navigationItems = this.convertPathToObjects(currentContent.path);
+    combineLatest([this.$currentContent, this.$graph]).subscribe(
+      ([currentContent, graph]) => {
+        if (currentContent && currentContent.parentId && graph) {
+          this.navigationItems = this.convertPathToObjects(
+            graph[currentContent.parentId].path
+          );
+        }
       }
-    });
+    );
   }
 
   convertPathToObjects(path: string) {
@@ -34,11 +42,18 @@ export class NavigationBarComponent implements OnInit {
     let currentPath = '';
     for (let i = 0; i < segments.length; i++) {
       currentPath += `/${segments[i]}`;
-      result.push({ path: currentPath, text: `${segments[i]}` });
+      result.push({
+        id: md5(currentPath + '__folder__'),
+        text: `${segments[i]}`,
+      });
     }
 
-    result.unshift({ path: '/', text: 'root' });
+    result.unshift({ id: '/', text: 'root' });
 
     return result;
+  }
+
+  unselectNode() {
+    this.fileSystemService.updateCurrentContent({ selectedNode: undefined });
   }
 }

@@ -1,6 +1,9 @@
 <ng-container *ngIf="$currentContent | async as currentContent">
-  <div *ngIf="$graph | async as graph" class="overflow-x-auto">
-    <div class="overflow-x-auto">
+  <div
+    *ngIf="$graph | async as graph"
+    class="overflow-x-auto h-full overflow-hidden flex flex-col">
+    <app-detail-controls />
+    <div class="overflow-x-auto overflow-y-auto flex-1">
       <table class="table">
         <!-- head -->
         <colgroup>
@@ -9,7 +12,7 @@
           <col class="w-1/4 hidden lg:table-column" />
         </colgroup>
         <thead>
-          <app-detail-controls />
+          <tr></tr>
         </thead>
         <tbody>
           <ng-container

@@ -77,7 +77,7 @@
       *ngIf="$viewMode | async as viewMode"
       (click)="switchViewMode(viewMode)"
       class="btn btn-ghost btn-sm">
-      <fa-icon [icon]="faList"></fa-icon>
+      <fa-icon [icon]="viewMode === 'detail' ? faList : faGrid"></fa-icon>
     </div>
   </div>
 </div>

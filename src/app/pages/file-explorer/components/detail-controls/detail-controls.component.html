@@ -1,7 +1,7 @@
-<tr *ngIf="$sortParams | async as sortParams">
+<!-- <tr *ngIf="$sortParams | async as sortParams" class="">
   <th
     (click)="sortChildrenBy('name')"
-    class="btn btn-ghost rounded-none table-cell border-none text-start">
+    class="text-start hover:bg-neutral select-none cursor-pointer">
     <div class="flex justify-between">
       <div>Name</div>
       <div>
@@ -15,7 +15,7 @@
   </th>
   <th
     (click)="sortChildrenBy('modified')"
-    class="btn btn-ghost rounded-none table-cell border-none text-start hidden lg:table-cell">
+    class="text-start hidden lg:table-cell hover:bg-neutral select-none cursor-pointer">
     <div class="flex justify-between">
       <div>Modified</div>
       <div>
@@ -29,7 +29,7 @@
   </th>
   <th
     (click)="sortChildrenBy('size')"
-    class="btn btn-ghost rounded-none table-cell border-none text-start hidden lg:table-cell">
+    class="text-start hidden lg:table-cell hover:bg-neutral select-none cursor-pointer">
     <div class="flex justify-between">
       <div>Size</div>
       <div>
@@ -42,3 +42,43 @@
     </div>
   </th>
 </tr>
+ -->
+
+<ul
+  *ngIf="$sortParams | async as sortParams"
+  class="menu menu-horizontal w-full rounded-none">
+  <li class="flex-[1_1_50%] rounded-none" (click)="sortChildrenBy('name')">
+    <a class="flex justify-between">
+      <span>Name</span>
+      <fa-icon
+        *ngIf="sortParams.sortType === 'name'"
+        [icon]="faArrowUp"
+        [rotate]="sortParams.ascending ? undefined : 180"
+        class="transition"></fa-icon
+    ></a>
+  </li>
+  <li
+    class="flex-[1_1_25%] rounded-none hidden lg:block"
+    (click)="sortChildrenBy('modified')">
+    <a class="flex justify-between">
+      <span>Modified</span>
+      <fa-icon
+        *ngIf="sortParams.sortType === 'modified'"
+        [icon]="faArrowUp"
+        [rotate]="sortParams.ascending ? undefined : 180"
+        class="transition"></fa-icon
+    ></a>
+  </li>
+  <li
+    class="flex-[1_1_25%] rounded-none hidden lg:block"
+    (click)="sortChildrenBy('size')">
+    <a class="flex justify-between">
+      <span>Size</span>
+      <fa-icon
+        *ngIf="sortParams.sortType === 'size'"
+        [icon]="faArrowUp"
+        [rotate]="sortParams.ascending ? undefined : 180"
+        class="transition"></fa-icon
+    ></a>
+  </li>
+</ul>

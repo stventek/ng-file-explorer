@@ -2,12 +2,16 @@
   <ng-container *ngIf="$viewMode | async as viewMode" [ngSwitch]="viewMode">
     <app-detail-content
       *ngSwitchCase="'detail'"
-      class="flex-1 overflow-y-auto mr-3" />
+      class="flex-1 overflow-hidden md:mr-3" />
     <app-large-content
       *ngSwitchCase="'large'"
       class="flex-1 overflow-y-auto mx-3 mt-3" />
   </ng-container>
-  <div #properties tabindex="0" (click)="setFocusLost()" class="mr-3 my-3">
+  <div
+    #properties
+    tabindex="0"
+    (click)="setFocusLost()"
+    class="md:mr-3 md:my-3">
     <app-folder-properties
       (showProperties)="handleShowProperties($event)"
       *ngIf="

@@ -12,7 +12,10 @@
       class="input input-bordered w-full"
       [class.input-error]="form.get('name')?.errors && ngForm.dirty"
       name="rename" />
-    <div *ngIf="form.get('name')?.hasError('duplicatedNodeName')">
+    <div *ngIf="form.get('name')?.hasError('duplicatedFolderName')">
+      Folder already exists
+    </div>
+    <div *ngIf="form.get('name')?.hasError('duplicatedFileName')">
       File already exists
     </div>
     <div *ngIf="form.get('name')?.hasError('required') && ngForm.dirty">

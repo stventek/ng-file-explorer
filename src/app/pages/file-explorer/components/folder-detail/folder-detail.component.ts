@@ -11,6 +11,7 @@ import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
 import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import * as md5 from 'md5';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -30,7 +31,8 @@ export class FolderDetailComponent {
   constructor(
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private fileSystemService: LocalStorageService
   ) {
     this.isMobile = this.deviceService.isMobile();
   }
@@ -51,11 +53,11 @@ export class FolderDetailComponent {
   }
 
   openFolder() {
+    this.fileSystemService.updateCurrentContent({ nodes: undefined });
     this.router.navigate([md5(this.node.path + this.node.type)]);
   }
 
   handleContextMenuAction() {
-    console.log('test');
     this.isContextMenuOpen = false;
   }
 }

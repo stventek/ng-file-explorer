@@ -9,7 +9,11 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
 export class SearchComponent {
   searchInput!: string;
 
-  constructor(private fileSystemService: LocalStorageService) {}
+  constructor(private fileSystemService: LocalStorageService) {
+    this.fileSystemService.$currentContent.subscribe(val => {
+      if (val.nodes === undefined) this.searchInput = '';
+    });
+  }
 
   search() {
     if (this.searchInput) {

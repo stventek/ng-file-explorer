@@ -13,6 +13,7 @@ import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
 import { Router } from '@angular/router';
 import * as md5 from 'md5';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-folder',
@@ -32,7 +33,8 @@ export class FolderComponent {
   constructor(
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private fileSystemService: LocalStorageService
   ) {
     this.isMobile = this.deviceService.isMobile();
   }
@@ -53,6 +55,7 @@ export class FolderComponent {
   }
 
   openFolder() {
+    this.fileSystemService.updateCurrentContent({ nodes: undefined });
     this.router.navigate([md5(this.node.path + this.node.type)]);
   }
 

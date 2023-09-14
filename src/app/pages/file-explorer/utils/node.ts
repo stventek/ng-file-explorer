@@ -17,7 +17,7 @@ class Node implements INode {
   parentID!: string | null;
   constructor(params: NodeParams<INode>) {
     Object.assign(this, params);
-    if (!this.date) this.date = new Date().toISOString();
+    if (!this.date) this.date = new Date().toISOString().split('T')[0];
     if (this.parentPath)
       this.path = joinPathWithName(this.parentPath, this.name);
     else this.path = '/';

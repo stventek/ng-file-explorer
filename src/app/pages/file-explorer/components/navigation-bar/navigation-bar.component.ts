@@ -27,9 +27,10 @@ export class NavigationBarComponent implements OnInit {
     combineLatest([this.$currentContent, this.$graph]).subscribe(
       ([currentContent, graph]) => {
         if (currentContent && currentContent.parentId && graph) {
-          this.navigationItems = this.convertPathToObjects(
-            graph[currentContent.parentId].path
-          );
+          if (graph[currentContent.parentId])
+            this.navigationItems = this.convertPathToObjects(
+              graph[currentContent.parentId].path
+            );
         }
       }
     );

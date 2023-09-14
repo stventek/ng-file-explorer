@@ -28,7 +28,7 @@ export function ValidateNode(service: LocalStorageService) {
             )
           ]
         ) {
-          return { duplicatedNodeName: true };
+          return { duplicatedFolderName: true };
         }
       } else if (isFile(node)) {
         if (
@@ -39,7 +39,7 @@ export function ValidateNode(service: LocalStorageService) {
             )
           ]
         ) {
-          return { duplicatedNodeName: true };
+          return { duplicatedFileName: true };
         }
       }
     }

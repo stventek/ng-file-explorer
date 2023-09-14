@@ -28,12 +28,13 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.navigateTo(this.router.url);
-
-    this.routerSubscription = this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        this.navigateTo(this.router.url);
-      }
+    this.fileSystemService.initialize().subscribe(val => {
+      this.navigateTo(this.router.url);
+      this.routerSubscription = this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+          this.navigateTo(this.router.url);
+        }
+      });
     });
   }
 
@@ -44,6 +45,7 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
         this.fileSystemService.updateCurrentContent({
           parentId: path.split('/').pop()!,
         });
+        this.fileSystemService.applyCurrentContentSort();
       } catch (err) {
         this.router.navigate(['/']);
       }

@@ -2,11 +2,11 @@
   <ul class="navigation-folder">
     <div
       [routerLink]="'/' + getFolderLink(graph[nodeId])"
-      class="btn rounded-none btn-sm block btn-ghost flex justify-start block"
-      (click)="hiddenChildren = !hiddenChildren">
+      class="btn rounded-none btn-sm block btn-ghost flex justify-start block">
       <div class="flex folder-icons">
         <fa-icon
-          class="arrow-icon transition mr-4"
+          (click)="hiddenChildren = !hiddenChildren"
+          class="arrow-icon transition px-2 cursor-default hover:text-white"
           [class.fa-rotate-180]="hiddenChildren"
           [class.fa-rotate-0]="!hiddenChildren"
           [icon]="faAngleUp"></fa-icon>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, combineLatest, of } from 'rxjs';
+import { BehaviorSubject, catchError, combineLatest, map, of } from 'rxjs';
 import { CurrentContent } from '../../interfaces/current-content.interface';
 import { LocalStorageETL } from '../../utils/localstorage-ETL';
 import * as md5 from 'md5';
@@ -37,23 +37,24 @@ export class LocalStorageService {
   constructor(
     private storage: StorageMap,
     private fsHelper: FileSystemHelperV2
-  ) {
+  ) {}
+
+  initialize() {
     const $sortParamsObservable = this.storage
       .get<SortParams>('sortParams', sortParamsSchema)
       .pipe(catchError(() => of<SortParams>(this.sortParamsDefault)));
     const $viewModeObservable = this.storage
       .get<ViewMode>('viewMode', viewModeScema)
       .pipe(catchError(() => of<ViewMode>(this.viewModeDefault)));
-    combineLatest([$sortParamsObservable, $viewModeObservable]).subscribe(
-      ([sortParamsVal, viewModeVal]) => {
+    return combineLatest([$sortParamsObservable, $viewModeObservable]).pipe(
+      map(([sortParamsVal, viewModeVal]) => {
         if (sortParamsVal) this.sortParamsSource.next(sortParamsVal);
         if (viewModeVal) this.viewModeSource.next(viewModeVal);
 
         const graph = this.localStorageETL.load();
         this.fsHelper.updateGraph(graph);
-        this.applyCurrentContentSort();
         this.graphSource.next(graph);
-      }
+      })
     );
   }
 
@@ -94,13 +95,14 @@ export class LocalStorageService {
 
   createFolder(name: string) {
     const currentContent = this.currentContentSource.getValue()!;
+    const graph = this.graphSource.getValue()!;
     if (currentContent.parentId) {
       const newFolder = new FolderNode({
         creatorName: '',
         name: name,
         size: 0,
-        parentPath: currentContent.parentId,
-        parentID: md5(currentContent.parentId + '__folder__'),
+        parentPath: graph[currentContent.parentId].path,
+        parentID: md5(graph[currentContent.parentId].path + '__folder__'),
       });
       this.fsHelper.addNode(newFolder);
       this.applyCurrentContentSort();

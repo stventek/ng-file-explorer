@@ -44,6 +44,7 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
       try {
         this.fileSystemService.updateCurrentContent({
           parentId: path.split('/').pop()!,
+          nodes: undefined,
         });
         this.fileSystemService.applyCurrentContentSort();
       } catch (err) {

@@ -64,7 +64,6 @@ export class FolderDetailComponent {
   }
 
   openFolder() {
-    this.fileSystemService.updateCurrentContent({ nodes: undefined });
     this.router.navigate([md5(this.node.path + this.node.type)]);
   }
 

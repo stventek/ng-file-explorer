@@ -41,7 +41,7 @@ export class FileSystemHelperV2 {
     while (queue.length > 0) {
       const current = queue.shift()!;
       const currentNode = this.graph[current];
-      if (currentNode.name.includes(keyword.toLowerCase())) {
+      if (currentNode.name.toLowerCase().includes(keyword.toLowerCase())) {
         result.push(md5(currentNode.path + currentNode.type));
       }
       if (currentNode.type == '__file__') continue;

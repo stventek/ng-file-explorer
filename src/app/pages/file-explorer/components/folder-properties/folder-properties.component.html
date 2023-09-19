@@ -1,26 +1,19 @@
 <div class="h-full hidden md:block">
   <div class="card w-80 bg-base-200 text-base-content shadow-xl h-full">
-    <div class="card-body items-center text-center">
-      <div class="card-actions justify-end w-full">
+    <div class="card-body">
+      <div class="card-actions w-full text-xl flex-nowrap">
+        <div><fa-icon [icon]="faFolder"></fa-icon></div>
+        <h4 class="font-bold flex-1 line-clamp-4 break-words">
+          {{ folder.name }}
+        </h4>
         <button class="btn btn-square btn-sm" (click)="handleCloseProperties()">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <fa-icon [icon]="faX"></fa-icon>
         </button>
       </div>
-      <fa-icon [icon]="faFolder" class="text-4xl"></fa-icon>
-      <h2 class="card-title mb-3">
-        {{ folder.name }}
-      </h2>
+      <div class="text-center text-4xl my-4">
+        <fa-icon [icon]="faFolder"></fa-icon>
+      </div>
+      <div class="divider">Details</div>
       <div class="prose-md">
         <ul>
           <li>
@@ -31,17 +24,13 @@
             <span class="font-bold">Created by: </span>
             <span>{{ folder.creatorName }}</span>
           </li>
-          <li>
-            <span class="font-bold">Name: </span>
-            <span>{{ folder.name }}</span>
-          </li>
-          <li>
-            <span class="font-bold break-all">Path: </span>
-            <span>{{ folder.path }}</span>
+          <li class="break-all">
+            <span class="font-bold">Path: </span>
+            <span class="">{{ folder.path }}</span>
           </li>
           <li>
             <span class="font-bold">Size: </span>
-            <span>{{ folder.size }}</span>
+            <span>{{ size }}</span>
           </li>
         </ul>
       </div>

@@ -2,14 +2,13 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  EventEmitter,
   Input,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { IFileNode } from '../../interfaces/node.interface';
 import { calculateContextMenuPosition } from '../../utils/context-menu-utils';
 import { getIcon } from '../../utils/icon-utils';
+import { bytesToSize } from '../../utils/bytes-to-size';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -18,9 +17,19 @@ import { getIcon } from '../../utils/icon-utils';
   styleUrls: ['./file-detail.component.scss'],
 })
 export class FileDetailComponent {
-  @Input() node!: IFileNode;
   @Input() nodeFocus!: boolean;
   @ViewChild('fileContextMenu', { static: true }) contextMenuRef!: ElementRef;
+
+  _node!: IFileNode;
+  size = '';
+  @Input() set node(value: IFileNode) {
+    this._node = value;
+    this.size = bytesToSize(this._node.size);
+  }
+
+  get node() {
+    return this._node;
+  }
 
   isContextMenuOpen = false;
   contextMenuStyles: any;

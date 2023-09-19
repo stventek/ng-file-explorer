@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import * as md5 from 'md5';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
+import { bytesToSize } from '../../utils/bytes-to-size';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -20,9 +21,19 @@ import { LocalStorageService } from '../../services/local-storage/local-storage.
   styleUrls: ['./folder-detail.component.scss'],
 })
 export class FolderDetailComponent {
-  @Input() node!: IFolderNode;
   @Input() nodeFocus!: boolean;
   @ViewChild('folderContextMenu', { static: true }) contextMenuRef!: ElementRef;
+
+  _node!: IFolderNode;
+  size = '';
+  @Input() set node(value: IFolderNode) {
+    this._node = value;
+    this.size = bytesToSize(this._node.size);
+  }
+
+  get node() {
+    return this._node;
+  }
 
   faFolder = faFolder;
   isContextMenuOpen = false;

@@ -46,6 +46,11 @@
           </ng-container>
         </tbody>
       </table>
+      <h4
+        *ngIf="currentContent.nodes && currentContent.nodes.length === 0"
+        class="text-center mt-8 text-2xl">
+        No results
+      </h4>
     </div>
   </div>
 </ng-container>

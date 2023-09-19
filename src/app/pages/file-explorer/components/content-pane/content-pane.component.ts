@@ -86,7 +86,7 @@ export class ContentPaneComponent implements OnInit {
 
   //if there is a click outside, properties, selected item or search input, unfocus item
   @HostListener('contextmenu', ['$event.target'])
-  @HostListener('document:click', ['$event.target'])
+  @HostListener('body:click', ['$event.target'])
   public onClick(target: any) {
     window.setTimeout(() => {
       const focusLost = this.itemFocusService.focusLostSource.getValue();

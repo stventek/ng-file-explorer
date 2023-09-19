@@ -1,7 +1,14 @@
 <ul class="menu menu-md w-32 min-w-min sm:w-56 rounded-box bg-base-200">
-  <li (click)="handleContextMenuAction('rename')"><a>Rename</a></li>
-  <li (click)="handleContextMenuAction('delete')"><a>Delete</a></li>
-  <li (click)="handleContextMenuAction('open_properties')">
+  <li (click)="handleContextMenuAction('rename'); $event.stopPropagation()">
+    <a>Rename</a>
+  </li>
+  <li (click)="handleContextMenuAction('delete'); $event.stopPropagation()">
+    <a>Delete</a>
+  </li>
+  <li
+    (click)="
+      handleContextMenuAction('open_properties'); $event.stopPropagation()
+    ">
     <a>Properties</a>
   </li>
 </ul>

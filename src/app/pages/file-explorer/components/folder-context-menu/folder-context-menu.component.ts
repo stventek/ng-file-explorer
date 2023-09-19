@@ -9,8 +9,10 @@ import { contextMenuAction } from '../../types/file-explorer.type';
 })
 export class FolderContextMenuComponent {
   constructor(private itemContextMenuService: ItemContextMenuService) {}
+  @Output() clicked = new EventEmitter();
 
   handleContextMenuAction(type: contextMenuAction) {
+    this.clicked.emit();
     this.itemContextMenuService.setAction(type);
   }
 }

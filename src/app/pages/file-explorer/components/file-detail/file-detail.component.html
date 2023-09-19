@@ -3,9 +3,8 @@
   tabindex="0"
   (focusout)="onClickedOutside($event)"
   [ngClass]="{
-    'bg-neutral': nodeFocus,
-    'hover:neutral': nodeFocus,
-    'hover:bg-neutral-focus': !nodeFocus
+    'bg-base-200': nodeFocus,
+    'hover:bg-base-200': !nodeFocus
   }">
   <td>
     <div class="flex items-center space-x-3 h-8">
@@ -18,7 +17,7 @@
     </div>
   </td>
   <td class="hidden lg:table-cell">{{ node.date }}</td>
-  <td class="hidden lg:table-cell">{{ node.size }}</td>
+  <td class="hidden lg:table-cell">{{ size }}</td>
   <div
     #fileContextMenu
     class="fixed text-base-content z-10 shadow-xl"

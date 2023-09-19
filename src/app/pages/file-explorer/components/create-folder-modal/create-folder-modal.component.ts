@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidateNode } from '../../validators/duplicated-node.validator';
+import { ValidateFolderCreation } from '../../validators/duplicated-node.validator';
 
 @Component({
   selector: 'app-create-folder-modal',
@@ -15,8 +15,6 @@ export class CreateFolderModalComponent {
 
   form: FormGroup;
 
-  folderNamePattern = /^(?! *$)[a-zA-Z0-9_ -]+$/;
-
   constructor(
     private fileSystemService: LocalStorageService,
     private fb: FormBuilder
@@ -24,11 +22,7 @@ export class CreateFolderModalComponent {
     this.form = this.fb.group({
       name: [
         '',
-        [
-          Validators.required,
-          Validators.pattern(this.folderNamePattern),
-          ValidateNode(this.fileSystemService),
-        ],
+        [Validators.required, ValidateFolderCreation(this.fileSystemService)],
       ],
     });
   }

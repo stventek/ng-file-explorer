@@ -1,6 +1,7 @@
 <ng-container *ngIf="$graph | async as graph">
   <ul class="navigation-folder">
     <div
+      onclick="document.activeElement.blur()"
       [routerLink]="'/' + getFolderLink(graph[nodeId])"
       class="btn rounded-none btn-sm block btn-ghost flex justify-start block no-animation h-auto">
       <div class="flex folder-icons">

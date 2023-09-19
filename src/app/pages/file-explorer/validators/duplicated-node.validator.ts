@@ -3,7 +3,29 @@ import { LocalStorageService } from '../services/local-storage/local-storage.ser
 import * as md5 from 'md5';
 import { isFile, isFolder, joinPathWithName } from '../utils/node';
 
-export function ValidateNode(service: LocalStorageService) {
+export function ValidateFolderCreation(service: LocalStorageService) {
+  return (control: AbstractControl) => {
+    const name = control.value;
+    const graph = service.graphSource.getValue()!;
+    const currentContet = service.currentContentSource.getValue();
+    if (name && graph && currentContet) {
+      const folderPattern = /^(?! *$)[a-zA-Z0-9_ -]+$/;
+      const nodeId = md5(
+        joinPathWithName(graph[currentContet.parentId!].path, name) +
+          '__folder__'
+      );
+      if (folderPattern.test(name) === false) {
+        return { folderPattern: true };
+      }
+      if (graph[nodeId]) {
+        return { duplicatedFolderName: true };
+      }
+    }
+    return null;
+  };
+}
+
+export function ValidateNodeRename(service: LocalStorageService) {
   return (control: AbstractControl) => {
     const name = control.value;
     const graph = service.graphSource.getValue()!;

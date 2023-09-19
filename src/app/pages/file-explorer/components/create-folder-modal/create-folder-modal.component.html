@@ -18,7 +18,7 @@
     <div *ngIf="form.get('name')?.hasError('required') && ngForm.dirty">
       name cannot be empty
     </div>
-    <div *ngIf="form.get('name')?.hasError('pattern') && ngForm.dirty">
+    <div *ngIf="form.get('name')?.hasError('folderPattern') && ngForm.dirty">
       Invalid folder name. Please use only letters, numbers, underscores, and
       hyphens.
     </div>

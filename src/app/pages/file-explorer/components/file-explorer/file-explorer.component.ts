@@ -39,16 +39,20 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(path: string) {
-    if (path === '/') this.router.navigate([md5('/__folder__')]);
+    const prefix = this.fileSystemService.prefix;
+    const pathWithoutPrefix = path.split(prefix)[1];
+    if (pathWithoutPrefix === '')
+      this.router.navigate([prefix + '/' + md5('/__folder__')]);
     else {
       try {
         this.fileSystemService.updateCurrentContent({
-          parentId: path.split('/').pop()!,
+          parentId: pathWithoutPrefix.split('/').pop()!,
           nodes: undefined,
+          selectedNode: undefined,
         });
         this.fileSystemService.applyCurrentContentSort();
       } catch (err) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/' + prefix]);
       }
     }
   }

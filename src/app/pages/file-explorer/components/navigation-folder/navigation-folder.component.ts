@@ -5,6 +5,7 @@ import { FSData } from '../../interfaces/fs-data.interface';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { Observable } from 'rxjs';
 import * as md5 from 'md5';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-folder',
@@ -19,7 +20,10 @@ export class NavigationFolderComponent {
   faFolder = faFolder;
   faAngleUp = faAngleUp;
 
-  constructor(public fileSystemService: LocalStorageService) {
+  constructor(
+    public fileSystemService: LocalStorageService,
+    public router: Router
+  ) {
     this.$graph = this.fileSystemService.$graph;
   }
   getNode(graph: FSData) {
@@ -28,5 +32,9 @@ export class NavigationFolderComponent {
 
   getFolderLink(folder: IFolderNode | IFileNode) {
     return md5(folder.path + folder.type);
+  }
+
+  openFolder() {
+    this.router.navigate([this.fileSystemService.prefix + '/' + this.nodeId]);
   }
 }

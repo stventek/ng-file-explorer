@@ -64,7 +64,11 @@ export class FolderDetailComponent {
   }
 
   openFolder() {
-    this.router.navigate([md5(this.node.path + this.node.type)]);
+    this.router.navigate([
+      this.fileSystemService.prefix +
+        '/' +
+        md5(this.node.path + this.node.type),
+    ]);
   }
 
   handleContextMenuAction() {

@@ -6,6 +6,7 @@ import { faCircleUp } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import * as md5 from 'md5';
 import { FSData } from '../../interfaces/fs-data.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -18,7 +19,10 @@ export class NavigationBarComponent implements OnInit {
   $currentContent!: Observable<CurrentContent | null>;
   $graph: Observable<FSData | null>;
 
-  constructor(private fileSystemService: LocalStorageService) {
+  constructor(
+    private fileSystemService: LocalStorageService,
+    private router: Router
+  ) {
     this.$currentContent = this.fileSystemService.$currentContent;
     this.$graph = this.fileSystemService.$graph;
   }
@@ -54,7 +58,7 @@ export class NavigationBarComponent implements OnInit {
     return result;
   }
 
-  unselectNode() {
-    this.fileSystemService.updateCurrentContent({ selectedNode: undefined });
+  openFolder(nodeId: string) {
+    this.router.navigate([this.fileSystemService.prefix + '/' + nodeId]);
   }
 }

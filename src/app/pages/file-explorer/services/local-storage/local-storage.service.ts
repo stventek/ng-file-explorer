@@ -34,6 +34,8 @@ export class LocalStorageService {
   viewModeSource = new BehaviorSubject(this.viewModeDefault);
   $viewMode = this.viewModeSource.asObservable();
 
+  prefix = 'local';
+
   constructor(
     private storage: StorageMap,
     private fsHelper: FileSystemHelperV2

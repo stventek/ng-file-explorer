@@ -66,7 +66,11 @@ import { FileSystemHelperV2 } from './utils/fs';
     SharedModule,
     ReactiveFormsModule,
   ],
-  exports: [FileExplorerComponent],
+  exports: [
+    FileExplorerComponent,
+    NavigationPaneComponent,
+    NavigationBarMainComponent,
+  ],
   providers: [
     LocalStorageService,
     {

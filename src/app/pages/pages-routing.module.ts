@@ -5,12 +5,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
-    path: 'local/:subroute',
-    component: FileExplorerComponent,
-  },
-  {
     path: 'local',
-    component: FileExplorerComponent,
+    children: [{ path: '**', component: FileExplorerComponent }],
   },
   {
     path: '**',

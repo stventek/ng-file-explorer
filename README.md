@@ -30,4 +30,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Pending features
 
-Users will have the ability to grant the application permission to manage files on Google Drive, and similar providers.
+- Users will have the ability to grant the application permission to manage files on Google Drive, and similar providers.
+
+- E2E testing and unit testing.

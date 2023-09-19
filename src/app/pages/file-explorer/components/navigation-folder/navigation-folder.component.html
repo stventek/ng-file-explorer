@@ -2,16 +2,16 @@
   <ul class="navigation-folder">
     <div
       [routerLink]="'/' + getFolderLink(graph[nodeId])"
-      class="btn rounded-none btn-sm block btn-ghost flex justify-start block no-animation">
+      class="btn rounded-none btn-sm block btn-ghost flex justify-start block no-animation h-auto">
       <div class="flex folder-icons">
         <fa-icon
           (click)="hiddenChildren = !hiddenChildren"
-          class="arrow-icon transition px-2 cursor-default hover:text-white"
+          class="arrow-icon transition px-2 cursor-default hover:text-white py-2"
           [class.fa-rotate-180]="hiddenChildren"
           [class.fa-rotate-0]="!hiddenChildren"
           [icon]="faAngleUp"></fa-icon>
-        <fa-icon [icon]="faFolder" class="mr-2"></fa-icon>
-        <span class="whitespace-nowrap normal-case">{{
+        <fa-icon [icon]="faFolder" class="mr-2 py-2"></fa-icon>
+        <span class="whitespace-nowrap normal-case py-2">{{
           graph[nodeId].name
         }}</span>
       </div>

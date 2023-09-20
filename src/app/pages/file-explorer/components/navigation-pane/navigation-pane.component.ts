@@ -6,6 +6,7 @@ import * as md5 from 'md5';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
+import { ThemeManagerService } from 'src/app/shared/services/theme-manager/theme-manager.service';
 
 @Component({
   selector: 'app-navigation-pane',
@@ -14,11 +15,14 @@ import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 })
 export class NavigationPaneComponent {
   $graph: Observable<FSData | null>;
+  $theme: Observable<'dark' | 'light'>;
   constructor(
     public fileSystemService: LocalStorageService,
-    private itemFocusService: ItemFocusService
+    private itemFocusService: ItemFocusService,
+    private themeManagerService: ThemeManagerService
   ) {
     this.$graph = this.fileSystemService.$graph;
+    this.$theme = this.themeManagerService.$theme;
   }
 
   setFocusLost() {
@@ -34,4 +38,8 @@ export class NavigationPaneComponent {
     return [];
   }
   faFolder = faFolder;
+
+  toggleTheme() {
+    this.themeManagerService.toggleTheme();
+  }
 }

@@ -79,6 +79,15 @@
       class="btn btn-ghost btn-sm">
       <fa-icon [icon]="viewMode === 'detail' ? faList : faGrid"></fa-icon>
     </div>
+    <ng-container *ngIf="$theme | async as theme">
+      <button
+        (click)="toggleTheme()"
+        class="hidden md:block btn btn-ghost btn-sm"
+        data-toggle-theme="dark,light"
+        data-act-class="ACTIVECLASS">
+        <fa-icon [icon]="theme === 'dark' ? faMoon : faSun"></fa-icon>
+      </button>
+    </ng-container>
   </div>
 </div>
 <app-create-folder-modal

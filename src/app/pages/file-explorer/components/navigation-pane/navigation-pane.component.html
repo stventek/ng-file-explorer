@@ -1,6 +1,21 @@
 <div
   *ngIf="$graph | async as graph"
   class="w-52 bg-base-200 h-full overflow-x-auto flex flex-col">
+  <div *ngIf="$theme | async as theme" class="md:hidden">
+    <div class="mx-2 mt-2">
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">Dark mode</span>
+          <input
+            (change)="toggleTheme()"
+            type="checkbox"
+            class="toggle"
+            [checked]="theme === 'dark' ? true : false" />
+        </label>
+      </div>
+    </div>
+    <div class="divider m-0 mx-2"></div>
+  </div>
   <app-storage-provider-menu />
   <div class="divider m-0 mx-2"></div>
   <ul class="min-w-full inline-block">

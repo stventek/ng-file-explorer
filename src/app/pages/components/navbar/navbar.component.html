@@ -1,0 +1,14 @@
+<div *ngIf="$theme | async as theme" class="navbar bg-base-100 shadow-sm fixed">
+  <div class="flex-1">
+    <a [routerLink]="'/'" class="btn btn-ghost normal-case text-xl">NG-FE</a>
+  </div>
+  <div class="gap-2">
+    <button
+      (click)="toggleTheme()"
+      class="btn btn-ghost btn-sm"
+      data-toggle-theme="dark,light"
+      data-act-class="ACTIVECLASS">
+      <fa-icon [icon]="theme === 'dark' ? faMoon : faSun"></fa-icon>
+    </button>
+  </div>
+</div>

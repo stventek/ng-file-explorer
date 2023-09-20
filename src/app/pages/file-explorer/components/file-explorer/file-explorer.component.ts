@@ -42,7 +42,9 @@ export class FileExplorerComponent implements OnInit, OnDestroy {
     const prefix = this.fileSystemService.prefix;
     const pathWithoutPrefix = path.split(prefix)[1];
     if (pathWithoutPrefix === '')
-      this.router.navigate([prefix + '/' + md5('/__folder__')]);
+      this.router.navigate([prefix + '/' + md5('/__folder__')], {
+        replaceUrl: true,
+      });
     else {
       try {
         this.fileSystemService.updateCurrentContent({

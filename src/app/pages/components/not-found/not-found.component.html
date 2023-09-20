@@ -1,5 +1,11 @@
-<div class="mt-10 flex flex-col items-center gap-3">
-  <h1 class="text-4xl mt-10">404 Not found</h1>
-  <p>We can't seem to find the page you are looking for</p>
-  <a [routerLink]="'/'" class="btn mt-5">back to homepage</a>
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-5xl font-bold">404 Not found</h1>
+      <p class="py-6">We can't seem to find the page you are looking for</p>
+      <button [routerLink]="'/'" class="btn btn-primary">
+        back to homepage
+      </button>
+    </div>
+  </div>
 </div>

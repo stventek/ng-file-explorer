@@ -6,12 +6,15 @@ import {
   faFolder,
   faList,
   faGrip,
+  faMoon,
+  faSun,
 } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { ItemFocusService } from '../../services/item-focus/item-focus.service';
 import { SortParams } from '../../interfaces/sort-params.interface';
 import { ViewMode } from '../../types/file-explorer.type';
 import { Observable } from 'rxjs';
+import { ThemeManagerService } from 'src/app/shared/services/theme-manager/theme-manager.service';
 
 @Component({
   selector: 'app-navigation-bar-main',
@@ -25,16 +28,21 @@ export class NavigationBarMainComponent {
   faFolder = faFolder;
   faList = faList;
   faGrid = faGrip;
+  faMoon = faMoon;
+  faSun = faSun;
   openCreateFolderModal = false;
   snackbarMessage = 'Folder created successfully';
   snackbarOpen = false;
   $viewMode: Observable<ViewMode>;
+  $theme: Observable<'dark' | 'light'>;
 
   constructor(
     private fileSystemService: LocalStorageService,
-    private itemFocusService: ItemFocusService
+    private itemFocusService: ItemFocusService,
+    private themeManagerService: ThemeManagerService
   ) {
     this.$viewMode = this.fileSystemService.$viewMode;
+    this.$theme = this.themeManagerService.$theme;
   }
 
   handleCloseCreateFolderMoldal() {
@@ -60,5 +68,9 @@ export class NavigationBarMainComponent {
   switchViewMode(current: ViewMode) {
     if (current === 'large') this.fileSystemService.updateViewMode('detail');
     if (current === 'detail') this.fileSystemService.updateViewMode('large');
+  }
+
+  toggleTheme() {
+    this.themeManagerService.toggleTheme();
   }
 }

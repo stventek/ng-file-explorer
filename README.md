@@ -1,6 +1,6 @@
 # ng-file-explorer
 
-Browse and manage file just like any other cloud storage service. This app offers simulated data to allow users to experience a demo of its functionality.
+Browse and manage files just like any other cloud storage service. This app offers simulated data to allow users to experience a demo of its functionality.
 
 [demo](https://ng-file-explorer.vercel.app/)
 
@@ -16,7 +16,7 @@ Built with
 - Clone the repo  
 `git clone git@github.com:stventek/ng-file-explorer.git`  
 - Navigate to the project folder  
-`cd free-to-play-zone`  
+`cd ng-file-explorer`  
 - Install dependencies  
 `npm install`
 

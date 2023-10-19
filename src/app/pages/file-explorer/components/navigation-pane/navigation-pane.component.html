@@ -1,6 +1,18 @@
 <div
   *ngIf="$graph | async as graph"
   class="w-52 bg-base-200 h-full overflow-x-auto flex flex-col">
+  <div class="mx-2">
+    <button
+      class="mt-2 btn btn-primary btn-sm block w-full rounded-none"
+      (click)="login.emit()">
+      Login
+    </button>
+    <button
+      (click)="signUp.emit()"
+      class="mt-2 btn btn-secondary btn-sm block w-full rounded-none">
+      Sign Up
+    </button>
+  </div>
   <div *ngIf="$theme | async as theme" class="md:hidden">
     <div class="mx-2 mt-2">
       <div class="form-control">

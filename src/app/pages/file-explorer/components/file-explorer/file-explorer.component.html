@@ -5,7 +5,10 @@
     <div class="h-screen flex flex-col">
       <app-navigation-bar-main />
       <div class="flex flex-1 items-start overflow-hidden">
-        <app-navigation-pane class="h-full hidden md:block" />
+        <app-navigation-pane
+          class="h-full hidden md:block"
+          (login)="openLogin = true"
+          (signUp)="openSignUp = true" />
         <div
           class="flex-1 flex flex-col w-full h-full overflow-hidden"
           *ngIf="$currentContent | async as currentContent">
@@ -24,6 +27,11 @@
   </div>
   <div class="drawer-side">
     <label for="my-drawer" class="drawer-overlay"></label>
-    <app-navigation-pane class="h-full" />
+    <app-navigation-pane
+      class="h-full"
+      (login)="openLogin = true"
+      (signUp)="openSignUp = true" />
   </div>
 </div>
+<app-login [open]="openLogin" (closeModal)="openLogin = false" />
+<app-sign-up [open]="openSignUp" (closeModal)="openSignUp = false" />

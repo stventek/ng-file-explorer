@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
 import { IFolderNode } from '../../interfaces/node.interface';
 import { FSData } from '../../interfaces/fs-data.interface';
@@ -16,6 +16,9 @@ import { ThemeManagerService } from 'src/app/shared/services/theme-manager/theme
 export class NavigationPaneComponent {
   $graph: Observable<FSData | null>;
   $theme: Observable<'dark' | 'light'>;
+  @Output() login = new EventEmitter<void>();
+  @Output() signUp = new EventEmitter<void>();
+
   constructor(
     public fileSystemService: LocalStorageService,
     private itemFocusService: ItemFocusService,

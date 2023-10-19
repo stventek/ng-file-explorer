@@ -1,0 +1,60 @@
+<dialog id="my_modal_3" class="modal" [class.modal-open]="open">
+  <div class="modal-box w-[348px]">
+    <form method="dialog">
+      <button
+        (click)="onClose()"
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <h3 class="font-bold text-lg text-center">Sign Up</h3>
+    <form class="space-y-4">
+      <div>
+        <label class="label">
+          <span class="text-base label-text">Email</span>
+        </label>
+        <input
+          autocomplete="email"
+          type="text"
+          placeholder="Email Address"
+          class="w-full input input-bordered" />
+      </div>
+      <div>
+        <label class="label">
+          <span class="text-base label-text">Full name</span>
+        </label>
+        <input
+          autocomplete="name"
+          type="text"
+          placeholder="Full name"
+          class="w-full input input-bordered" />
+      </div>
+      <div>
+        <label class="label">
+          <span class="text-base label-text">Password</span>
+        </label>
+        <input
+          autocomplete="new-password"
+          type="password"
+          placeholder="Enter Password"
+          class="w-full input input-bordered" />
+      </div>
+      <div>
+        <label class="label">
+          <span class="text-base label-text">Repeat Password</span>
+        </label>
+        <input
+          autocomplete="new-password"
+          type="password"
+          placeholder="Enter Password"
+          class="w-full input input-bordered" />
+      </div>
+      <div>
+        <button class="btn btn-block btn-secondary" type="button">
+          Sign Up
+        </button>
+      </div>
+      <div id="google_btn_signup"></div>
+    </form>
+  </div>
+</dialog>

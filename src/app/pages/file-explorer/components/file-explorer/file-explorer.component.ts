@@ -14,7 +14,8 @@ import * as md5 from 'md5';
 export class FileExplorerComponent implements OnInit, OnDestroy {
   $currentContent: Observable<CurrentContent | null>;
   private routerSubscription!: Subscription;
-
+  openLogin = false;
+  openSignUp = false;
   constructor(
     private fileSystemService: LocalStorageService,
     public router: Router,

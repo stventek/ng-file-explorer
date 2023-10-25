@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    google.accounts.id.cancel();
+    globalThis.google.accounts.id.cancel();
   }
 
   winLoad(callback: () => void) {
@@ -41,11 +41,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   renderGooogle() {
     this.googleScriptLoad = true;
     const parent = document.getElementById('google_btn')!;
-    google.accounts.id.renderButton(parent, {
+    globalThis.google.accounts.id.renderButton(parent, {
       theme: 'outline',
       width: 300,
       text: 'signin_with',
     });
-    google.accounts.id.prompt();
+    globalThis.google.accounts.id.prompt();
   }
 }

@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     const handleCredentialResponse = this.handleCredentialResponse.bind(this);
     window.onload = function () {
-      google.accounts.id.initialize({
+      globalThis.google.accounts.id.initialize({
         client_id:
           '110962523806-e7pdksn34c3ktb8ib52a9q0v4ou2iek6.apps.googleusercontent.com',
         callback: handleCredentialResponse,

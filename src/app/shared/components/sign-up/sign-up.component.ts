@@ -29,18 +29,18 @@ export class SignUpComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy(): void {
-    google.accounts.id.cancel();
+    globalThis.google.accounts.id.cancel();
   }
 
   renderGooogle() {
     this.googleScriptLoad = true;
     const parent = document.getElementById('google_btn_signup')!;
-    google.accounts.id.renderButton(parent, {
+    globalThis.google.accounts.id.renderButton(parent, {
       theme: 'outline',
       width: 300,
       text: 'signup_with',
     });
-    google.accounts.id.prompt();
+    globalThis.google.accounts.id.prompt();
   }
 
   onClose() {

@@ -30,9 +30,9 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: ./dist
+          source: ./dist/ng-file-explorer/*
           target: /var/www/ngfe
           rm: true
 
       - name: Reload NGINX
-        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'sudo service nginx reload'
+        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'systemctl reload nginx'

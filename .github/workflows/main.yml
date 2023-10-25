@@ -16,13 +16,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x 
+          node-version: 18.x
 
       - name: Install dependencies
         run: npm install
 
       - name: Build Angular app
-        run: npm run build 
+        run: npm run build
 
       - name: Transfer files to VPS
         uses: appleboy/scp-action@v0.1.4

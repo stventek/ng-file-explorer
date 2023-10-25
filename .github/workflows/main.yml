@@ -33,6 +33,7 @@ jobs:
           source: ./dist/ng-file-explorer/*
           target: /var/www/ngfe
           rm: true
+          strip_components: 2
 
       - name: Reload NGINX
         run: |

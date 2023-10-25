@@ -35,4 +35,9 @@ jobs:
           rm: true
 
       - name: Reload NGINX
-        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'sudo systemctl reload nginx'
+        run: |
+          echo $ssh_key > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "sudo systemctl reload nginx"
+        env:
+          ssh_key: ${{ secrets.SSH_KEY }}

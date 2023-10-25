@@ -35,4 +35,4 @@ jobs:
           rm: true
 
       - name: Reload NGINX
-        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'systemctl reload nginx'
+        run: ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} 'sudo systemctl reload nginx'

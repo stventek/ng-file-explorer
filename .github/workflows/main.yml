@@ -36,6 +36,7 @@ jobs:
 
       - name: Reload NGINX
         run: |
+          mkdir ~/.ssh
           echo $ssh_key > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "sudo systemctl reload nginx"

@@ -2,11 +2,12 @@
 
 Browse and manage files just like any other cloud storage service. This app offers simulated data to allow users to experience a demo of its functionality.
 
-[demo](https://ng-file-explorer.vercel.app/)
+[demo](https://ngfe.stventek.com/)
 
 ## About
 
-Built with 
+Built with
+
 - Angular 16
 - Tailwindcss
 - daisyUI
@@ -14,11 +15,11 @@ Built with
 ## Getting Started
 
 - Clone the repo  
-`git clone git@github.com:stventek/ng-file-explorer.git`  
+  `git clone git@github.com:stventek/ng-file-explorer.git`
 - Navigate to the project folder  
-`cd ng-file-explorer`  
+  `cd ng-file-explorer`
 - Install dependencies  
-`npm install`
+  `npm install`
 
 ## Development server
 

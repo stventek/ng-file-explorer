@@ -11,7 +11,7 @@ export class AuthService {
 
   loginWithGoogleCredentials(credentials: CredentialResponse) {
     this.httpService
-      .post<void>(`${environment.apiBase}/auth/google`, {
+      .post<void>(`${environment.apiBase}/api/auth/google`, {
         token: credentials.credential,
       })
       .subscribe();
